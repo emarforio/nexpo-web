@@ -1,0 +1,19 @@
+{
+  "name": "nexpo",
+  "env": {
+    "STAGING": "TRUE",
+    "HOST_NAME": {
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "REACT_APP_SENTRY_DSN": {
+      "required": true
+    }
+  },
+  "formation": {}
+}
