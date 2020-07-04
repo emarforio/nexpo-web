@@ -12,7 +12,7 @@ type Props = {
   submitting: boolean
 };
 const ProgrammeForm = ({ handleSubmit, disabled, submitting }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       name="name"
       label="Guild Name"

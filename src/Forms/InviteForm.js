@@ -11,7 +11,7 @@ type Props = {
   handleSubmit: () => Promise<void>
 };
 const InviteForm = ({ handleSubmit }: Props) => (
-  <Form onSubmit={handleSubmit} layout="inline">
+  <Form onFinish={() => handleSubmit()} layout="inline">
     <Field
       name="email"
       label="Email:"

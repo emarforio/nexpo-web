@@ -13,7 +13,7 @@ type Props = {
 };
 
 const MailtemplateForm = ({ handleSubmit }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field name="name" label="Name:" component={TextInput} />
     <Field
       name="subject"

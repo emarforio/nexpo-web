@@ -49,7 +49,7 @@ type Props = {
 };
 
 const StudentForm = ({ handleSubmit, pristine, programmes }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field name="year" label="Graduation Year" component={TextInput} />
     <Field
       name="programme"

@@ -15,7 +15,7 @@ type Props = {
   submitting: boolean
 };
 const CurrentCompanyForm = ({ handleSubmit, onCancel, submitting }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       name="website"
       label="Website:"

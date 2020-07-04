@@ -23,7 +23,7 @@ const CompanyForm = ({
   submitting,
   formState
 }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       name="name"
       label="Name"

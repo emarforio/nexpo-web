@@ -12,7 +12,7 @@ const CompanyStudentSessionForm = ({
   submitting,
   options
 }: FormProps) => (
-  <Form onSubmit={handleSubmit} layout="inline">
+  <Form onFinish={() => handleSubmit()} layout="inline">
     <Field
       name="studentId"
       component={FieldSelect}

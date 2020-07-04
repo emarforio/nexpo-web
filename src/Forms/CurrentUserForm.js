@@ -14,7 +14,7 @@ type Props = {
   submitting: boolean
 };
 const CurrentUserForm = ({ handleSubmit, pristine, submitting }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       name="phoneNumber"
       label="Phone Number"

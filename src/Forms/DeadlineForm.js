@@ -17,7 +17,7 @@ type Props = {
   handleSubmit: () => Promise<void>
 };
 const DeadlineForm = ({ handleSubmit }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field name="name" label="Name:" component={TextInput} />
     <Field name="start" label="Start Time:" component={MyDatePicker} />
     <Field name="end" label="End Time:" component={MyDatePicker} />

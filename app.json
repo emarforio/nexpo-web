@@ -1,5 +1,5 @@
 {
-  "name": "nexpo",
+  "name": "nexpo-web",
   "env": {
     "STAGING": "TRUE",
     "HOST_NAME": {

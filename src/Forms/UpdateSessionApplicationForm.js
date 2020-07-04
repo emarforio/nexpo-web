@@ -21,7 +21,7 @@ const UpdateSessionApplicationForm = ({
   pristine,
   submitting
 }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       name="motivation"
       required

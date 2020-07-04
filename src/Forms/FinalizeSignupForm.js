@@ -23,7 +23,7 @@ type Props = {
   submitting: boolean
 };
 const FinalizeSignupForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onSubmit={handleSubmit} style={{ maxWidth: 600 }}>
+  <Form onFinish={() => handleSubmit()} style={{ maxWidth: 600 }}>
     <Field
       name="email"
       label="Email"

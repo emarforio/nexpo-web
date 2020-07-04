@@ -12,7 +12,7 @@ type Props = {
   pristine: boolean
 };
 const UserForm = ({ handleSubmit, pristine }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       name="firstName"
       label="First Name"

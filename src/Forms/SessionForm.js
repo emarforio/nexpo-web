@@ -33,7 +33,7 @@ const StudentSessionForm = ({
   submitting,
   disabled
 }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field
       label="Choose the company you would like to meet"
       required

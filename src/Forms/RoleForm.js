@@ -45,7 +45,7 @@ type Props = {
   handleSubmit: () => Promise<void>
 };
 const RoleForm = ({ handleSubmit, users }: Props) => (
-  <Form onSubmit={handleSubmit}>
+  <Form onFinish={() => handleSubmit()}>
     <Field name="type" label="Type:" component={TextInput} />
     <Field
       name="permissions"

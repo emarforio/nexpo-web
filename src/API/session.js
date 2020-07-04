@@ -15,14 +15,14 @@ export default {
    * Allows development login, only while not in production
    */
   developmentLogin: ({ email }: { email: string }) => {
-    if (process.env.NODE_ENV === 'production' || process.env.PREVIEW === 'prod') {
+    if (process.env.NODE_ENV === 'production') {
       throw new UnreachableCodeReachedError(
         'Development login reached in production'
       );
     } else {
       return fetchJson('/api/development_login', {
         data: { email },
-        method: 'POST'
+        method: 'POST',
       }).then(handleHttpResponse);
     }
   },
@@ -41,14 +41,14 @@ export default {
   replaceForgottenPassword: ({
     key,
     password,
-    passwordConfirmation
+    passwordConfirmation,
   }: {
     key: string,
     password: string,
-    passwordConfirmation: string
+    passwordConfirmation: string,
   }) =>
     fetchJson(`/api/password/new/${key}`, {
       data: { password, passwordConfirmation },
-      method: 'POST'
-    }).then(handleHttpResponse)
+      method: 'POST',
+    }).then(handleHttpResponse),
 };
