@@ -12,9 +12,6 @@ const mapDispatchToProps = {
   getAllCompanies: Actions.companies.getAllCompanies
 };
 
-const stateful = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const stateful = connect(mapStateToProps, mapDispatchToProps);
 
 export default stateful(SessionCompanies);

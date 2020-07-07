@@ -149,9 +149,9 @@ class CompanyShow extends Component<Props> {
     );
     const options = map(
       s => (
-        <Select.Option key={s.id}>{`${s.firstName} ${
-          s.lastName
-        }`}</Select.Option>
+        <Select.Option
+          key={s.id}
+        >{`${s.firstName} ${s.lastName}`}</Select.Option>
       ),
       topStudents
     );

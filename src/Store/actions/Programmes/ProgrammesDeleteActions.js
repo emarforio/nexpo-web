@@ -4,8 +4,8 @@ import { actionTypes } from '../..';
 import API from '../../../API';
 
 export const deleteProgrammeIsLoading = () => ({
-    type: actionTypes.DELETE_PROGRAMME
-  });
+  type: actionTypes.DELETE_PROGRAMME
+});
 
 export const deleteProgrammeSuccess = (id: string) => {
   message.success('Programme successfully deleted');

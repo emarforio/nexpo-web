@@ -7,7 +7,7 @@ export const deleteDeadlineIsLoading = () => {
   return {
     type: actionTypes.DELETE_DEADLINE
   };
-}
+};
 
 export const deleteDeadlineSuccess = (id: string) => {
   message.success('Deadline successfully deleted');
@@ -15,7 +15,7 @@ export const deleteDeadlineSuccess = (id: string) => {
     type: actionTypes.DELETE_DEADLINE_SUCCESS,
     id
   };
-}
+};
 
 export type DestroyDeadlineFailureAction = {
   type: string
@@ -25,7 +25,7 @@ export const deleteDeadlineFailure = (): DestroyDeadlineFailureAction => {
   return {
     type: actionTypes.DELETE_DEADLINE_FAILURE
   };
-}
+};
 
 export function deleteDeadline(id: string) {
   return (dispatch: Dispatch<{ type: string }>) => {

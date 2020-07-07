@@ -1,6 +1,6 @@
 /*
-*   This file contains methods to access the /mailtemplates resource on the server.
-*/
+ *   This file contains methods to access the /mailtemplates resource on the server.
+ */
 
 import {
   authPost,

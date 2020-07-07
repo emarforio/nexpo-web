@@ -1,7 +1,7 @@
 /*
-*   This file tests the reducers handling incoming actions.
-*   See http://redux.js.org/docs/recipes/WritingTests.html for writing action and reducer tests.
-*/
+ *   This file tests the reducers handling incoming actions.
+ *   See http://redux.js.org/docs/recipes/WritingTests.html for writing action and reducer tests.
+ */
 import { Actions } from '../..';
 import { ApiReducer } from './ApiReducer';
 import type { ApiState } from './ApiReducer';

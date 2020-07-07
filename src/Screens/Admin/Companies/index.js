@@ -15,9 +15,6 @@ const mapDispatchToProps = {
   createBulk: Actions.companies.createBulk
 };
 
-const stateful = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const stateful = connect(mapStateToProps, mapDispatchToProps);
 
 export default stateful(Companies);

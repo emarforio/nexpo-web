@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import type { FieldProps } from 'redux-form'
+import type { FieldProps } from 'redux-form';
 
 import { connect } from 'react-redux';
 import { Button, Form, Input } from 'antd';

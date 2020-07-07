@@ -7,7 +7,10 @@ const testData = {
       logoUrl: null,
       id: '1',
       description: 'We do music!',
-      entries: [{ id: '1', value: 'JA' }, { id: 2, value: '20' }]
+      entries: [
+        { id: '1', value: 'JA' },
+        { id: 2, value: '20' }
+      ]
     },
     {
       website: 'www.google.com',
@@ -16,7 +19,10 @@ const testData = {
       logoUrl: null,
       id: 2,
       description: 'We code!',
-      entries: [{ id: 3, value: 'JA' }, { id: 4, value: '40' }]
+      entries: [
+        { id: 3, value: 'JA' },
+        { id: 4, value: '40' }
+      ]
     },
     {
       website: 'www.ibm.com',
@@ -25,7 +31,10 @@ const testData = {
       logoUrl: null,
       id: 3,
       description: 'We make things!',
-      entries: [{ id: 5, value: 'NEJ' }, { id: 6, value: '60' }]
+      entries: [
+        { id: 5, value: 'NEJ' },
+        { id: 6, value: '60' }
+      ]
     },
     {
       website: 'www.intel.com',
@@ -34,7 +43,10 @@ const testData = {
       logoUrl: null,
       id: 4,
       description: 'We do stuff!',
-      entries: [{ id: 7, value: 'NEJ' }, { id: 8, value: '80' }]
+      entries: [
+        { id: 7, value: 'NEJ' },
+        { id: 8, value: '80' }
+      ]
     },
     {
       website: 'www.jesus.com',
@@ -43,7 +55,10 @@ const testData = {
       logoUrl: null,
       id: 5,
       description: 'We do wine!',
-      entries: [{ id: 9, value: 'JA' }, { id: 10, value: '100' }]
+      entries: [
+        { id: 9, value: 'JA' },
+        { id: 10, value: '100' }
+      ]
     }
   ],
   company: {
@@ -53,7 +68,10 @@ const testData = {
     logoUrl: null,
     id: '1',
     description: 'We do music!',
-    entries: [{ id: '1', value: 'JA' }, { id: 2, value: '20' }]
+    entries: [
+      { id: '1', value: 'JA' },
+      { id: 2, value: '20' }
+    ]
   },
   users: [
     {

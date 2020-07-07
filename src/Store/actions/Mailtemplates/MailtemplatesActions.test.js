@@ -234,12 +234,14 @@ describe('getMailtemplate', () => {
     mockHttpResponse({ status: 200, body: {} });
     const store = createMockStore();
 
-    return store.dispatch(Actions.mailtemplates.getMailtemplate('1')).then(() => {
-      const calledActions = store.getActions();
-      expect(calledActions[0]).toEqual(
-        Actions.mailtemplates.getMailtemplateIsLoading()
-      );
-    });
+    return store
+      .dispatch(Actions.mailtemplates.getMailtemplate('1'))
+      .then(() => {
+        const calledActions = store.getActions();
+        expect(calledActions[0]).toEqual(
+          Actions.mailtemplates.getMailtemplateIsLoading()
+        );
+      });
   });
 
   it('should call success action on success', () => {
@@ -255,10 +257,12 @@ describe('getMailtemplate', () => {
 
     const store = createMockStore();
 
-    return store.dispatch(Actions.mailtemplates.getMailtemplate('1')).then(() => {
-      const calledActions = store.getActions();
-      expect(calledActions).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(Actions.mailtemplates.getMailtemplate('1'))
+      .then(() => {
+        const calledActions = store.getActions();
+        expect(calledActions).toEqual(expectedActions);
+      });
   });
 
   it('should call failure action on failure', () => {
@@ -271,10 +275,12 @@ describe('getMailtemplate', () => {
 
     const store = createMockStore();
 
-    return store.dispatch(Actions.mailtemplates.getMailtemplate('1')).then(() => {
-      const calledActions = store.getActions();
-      expect(calledActions).toEqual(expectedActions);
-    });
+    return store
+      .dispatch(Actions.mailtemplates.getMailtemplate('1'))
+      .then(() => {
+        const calledActions = store.getActions();
+        expect(calledActions).toEqual(expectedActions);
+      });
   });
 });
 

@@ -1,6 +1,6 @@
 /*
-*   This is the main entrypoint for the application
-*/
+ *   This is the main entrypoint for the application
+ */
 
 import React from 'react';
 import ReactDOM from 'react-dom';

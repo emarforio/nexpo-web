@@ -13,9 +13,6 @@ const mapDispatchToProps = {
   deleteUser: Actions.users.deleteUser
 };
 
-const stateful = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const stateful = connect(mapStateToProps, mapDispatchToProps);
 
 export default stateful(Users);

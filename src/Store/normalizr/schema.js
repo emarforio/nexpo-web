@@ -1,6 +1,6 @@
 /*
-*		This class contains normalisation methods for the data recived by the server
-*/
+ *		This class contains normalisation methods for the data recived by the server
+ */
 import { schema } from 'normalizr';
 
 const merge = key => (entityA, entityB) => ({

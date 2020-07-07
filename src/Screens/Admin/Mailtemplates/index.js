@@ -13,9 +13,6 @@ const mapDispatchToProps = {
   getAllMailtemplates: Actions.mailtemplates.getAllMailtemplates
 };
 
-const stateful = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const stateful = connect(mapStateToProps, mapDispatchToProps);
 
 export default stateful(Mailtemplates);

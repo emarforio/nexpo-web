@@ -6,9 +6,6 @@ const mapDispatchToProps = {
   createBulkStudentSessions: Actions.studentSessions.createBulkStudentSessions
 };
 
-const stateful = connect(
-  null,
-  mapDispatchToProps
-);
+const stateful = connect(null, mapDispatchToProps);
 
 export default stateful(StudentSessions);
