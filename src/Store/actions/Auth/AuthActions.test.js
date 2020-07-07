@@ -26,11 +26,6 @@ describe('logout', () => {
   });
 });
 
-/**
- * I get network failure. How do I use nock?
- * /Joel
- */
-
 describe('login action', () => {
   it('should call success action and get the logged in user', () => {
     const jwt = 'random-string';
