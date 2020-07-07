@@ -16,7 +16,7 @@ type Props = {
   deleteRole: string => Promise<void>
 };
 class Roles extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllRoles } = this.props;
     getAllRoles();
   }

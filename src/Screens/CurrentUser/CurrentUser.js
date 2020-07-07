@@ -42,7 +42,7 @@ class CurrentUser extends Component<Props> {
     currentStudent: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllProgrammes } = this.props;
     getAllProgrammes();
   }

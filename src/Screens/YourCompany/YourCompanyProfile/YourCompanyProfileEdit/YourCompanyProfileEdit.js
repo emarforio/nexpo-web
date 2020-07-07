@@ -19,7 +19,7 @@ type Props = {
   updateCurrentCompany: ({ company: {} }) => Promise<void>
 };
 class YourCompanyProfileEdit extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getCurrentCompany } = this.props;
     getCurrentCompany();
   }

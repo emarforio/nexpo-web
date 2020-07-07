@@ -87,7 +87,7 @@ class Categories extends Component<Props> {
     attributes: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCategories } = this.props;
     getAllCategories();
   }

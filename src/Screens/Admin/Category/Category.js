@@ -13,7 +13,7 @@ type Props = {
   getCategory: string => Promise<void>
 };
 class Category extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getCategory } = this.props;
     getCategory(id);
   }

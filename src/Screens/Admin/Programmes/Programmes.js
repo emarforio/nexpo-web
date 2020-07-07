@@ -19,7 +19,7 @@ class Programmes extends Component<Props> {
     programmes: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllProgrammes } = this.props;
     getAllProgrammes();
   }

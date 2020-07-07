@@ -85,7 +85,7 @@ type Props = {
   }
 };
 class Statistics extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllStatistics } = this.props;
     getAllStatistics();
   }

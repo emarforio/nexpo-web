@@ -42,7 +42,7 @@ class StudentSessions extends Component<Props> {
     sessions: []
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies } = this.props;
     getAllCompanies();
   }

@@ -47,7 +47,7 @@ type Props = {
 };
 
 class YourCompanyScans extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getCurrentCompany } = this.props;
     getCurrentCompany();
   }

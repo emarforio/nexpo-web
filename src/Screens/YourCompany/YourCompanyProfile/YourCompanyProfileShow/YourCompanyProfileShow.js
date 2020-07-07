@@ -24,7 +24,7 @@ type Props = {
   resetForm: string => any
 };
 class YourCompanyProfileShow extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getCurrentCompany } = this.props;
     getCurrentCompany();
   }

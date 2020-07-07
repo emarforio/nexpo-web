@@ -23,7 +23,7 @@ class Deadline extends Component<Props> {
     id: ''
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getDeadline } = this.props;
     if (id) getDeadline(id);
   }

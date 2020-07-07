@@ -23,7 +23,7 @@ class Companies extends Component<Props> {
     companies: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies } = this.props;
     getAllCompanies();
   }

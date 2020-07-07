@@ -21,7 +21,7 @@ class Users extends Component<Props> {
     users: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllUsers } = this.props;
     getAllUsers();
   }

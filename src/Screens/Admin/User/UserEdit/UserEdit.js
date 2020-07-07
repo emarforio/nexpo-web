@@ -29,7 +29,7 @@ class UserEdit extends Component<Props> {
     id: ''
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getUser } = this.props;
     if (id) getUser(id);
   }

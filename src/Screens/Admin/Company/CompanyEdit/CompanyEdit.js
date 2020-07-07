@@ -33,7 +33,7 @@ type NewCompanyValues = {
   }
 };
 class CompanyEdit extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getCompany } = this.props;
     getCompany(id);
   }

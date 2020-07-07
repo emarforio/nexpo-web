@@ -40,7 +40,7 @@ class SessionApplications extends Component<Props, State> {
     this.state = { editing: {} };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies } = this.props;
     getAllCompanies();
   }

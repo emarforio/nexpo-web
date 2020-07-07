@@ -20,7 +20,7 @@ type Props = {
   getAllCompanies: () => Promise<void>
 };
 class SessionCompanies extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies } = this.props;
     getAllCompanies();
   }

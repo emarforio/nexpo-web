@@ -77,7 +77,7 @@ class CompanyShow extends Component<Props> {
     }
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getCompany } = this.props;
     getCompany(id);
   }

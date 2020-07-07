@@ -20,7 +20,7 @@ class Mailtemplates extends Component<Props> {
     mailtemplates: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllMailtemplates } = this.props;
     getAllMailtemplates();
   }

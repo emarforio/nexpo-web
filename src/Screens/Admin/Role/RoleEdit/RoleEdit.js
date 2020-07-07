@@ -21,7 +21,7 @@ type Props = {
   history: { push: string => any }
 };
 class RoleEdit extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getRole, getAllUsers } = this.props;
     getRole(id);
     getAllUsers();

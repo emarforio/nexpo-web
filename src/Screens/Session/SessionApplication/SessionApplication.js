@@ -25,7 +25,7 @@ type Props = {
   resetForm: string => Promise<void>
 };
 class SessionApplication extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies, getAllProgrammes } = this.props;
     getAllCompanies();
     getAllProgrammes();

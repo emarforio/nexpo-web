@@ -17,7 +17,7 @@ type Props = {
   updateProgramme: (string, { programme: {} }) => Promise<void>
 };
 class Programme extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getProgramme } = this.props;
     if (id) getProgramme(id);
   }

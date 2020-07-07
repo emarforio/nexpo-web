@@ -20,7 +20,7 @@ class Deadlines extends Component<Props> {
     deadlines: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllDeadlines } = this.props;
     getAllDeadlines();
   }

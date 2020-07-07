@@ -29,7 +29,7 @@ class Mailtemplate extends Component<Props> {
     id: ''
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getMailtemplate } = this.props;
     if (id) getMailtemplate(id);
   }
