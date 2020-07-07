@@ -9,6 +9,12 @@ import {
   map,
   flow
 } from 'lodash/fp';
+
+/**
+ * IMPORTANT: Victory was updated from 30.6.1 to 35.0.2 without any manual testing.
+ * Potential FIXME: if anything breaks: consult the changelog.
+ * Changelog: https://github.com/FormidableLabs/victory/blob/4db10ba8d0d9978cf5479ebec5f64077008411ba/CHANGELOG.md
+ */
 import {
   VictoryAxis,
   VictoryChart,
