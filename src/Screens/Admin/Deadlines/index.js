@@ -13,6 +13,9 @@ const mapDispatchToProps = {
   getAllDeadlines: Actions.deadlines.getAllDeadlines
 };
 
-const stateful = connect(mapStateToProps, mapDispatchToProps);
+const stateful = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 export default stateful(Deadlines);

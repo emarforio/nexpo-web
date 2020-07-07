@@ -11,14 +11,14 @@ const TextArea = makeField(Input.TextArea);
 
 const { Option } = Select;
 
-const companyOption = (company) => (
+const companyOption = company => (
   <Option key={company.id} value={company.id}>
     {company.name}
   </Option>
 );
-const requiredCompany = (value) =>
+const requiredCompany = value =>
   value ? undefined : 'Please provide a company';
-const requiredMotivation = (value) =>
+const requiredMotivation = value =>
   value ? undefined : 'Please provide a motivation';
 
 type Props = {
@@ -33,7 +33,7 @@ const StudentSessionForm = ({
   submitting,
   disabled
 }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       label="Choose the company you would like to meet"
       required
@@ -61,7 +61,7 @@ const StudentSessionForm = ({
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   availableCompanies: Selectors.companies.getNotAppliedTo(state),
   formState: state.form.StudentSessionForm
 });

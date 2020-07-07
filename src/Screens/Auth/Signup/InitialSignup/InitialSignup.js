@@ -21,7 +21,7 @@ class InitialSignup extends Component<{}, State> {
     return API.signup
       .initialSignup(email)
       .then(() => this.setState({ finished: true }))
-      .catch((err) => {
+      .catch(err => {
         throw new SubmissionError({ ...err.errors });
       });
   };

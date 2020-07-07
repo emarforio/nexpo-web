@@ -44,12 +44,12 @@ const stateful = connect((state: State, props) => {
     ({ attribute }) => attributeIds.includes(attribute),
     state.entities.entries
   )
-    .map((entry) => ({
+    .map(entry => ({
       ...entry,
       company: state.entities.companies[entry.company],
       attribute: state.entities.attributes[entry.attribute]
     }))
-    .map((entry) => ({
+    .map(entry => ({
       ...entry,
       key: entry.id,
       companyName: entry.company.name,

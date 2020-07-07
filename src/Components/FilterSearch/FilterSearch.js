@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { Input, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Input, Button, Icon } from 'antd';
 
 export const FilterIcon = (filtered: boolean) => (
-  <SearchOutlined style={{ color: filtered ? '#108ee9' : '#aaa' }} />
+  <Icon type="search" style={{ color: filtered ? '#108ee9' : '#aaa' }} />
 );
 
 type InputEvent = SyntheticKeyboardEvent<HTMLInputElement>;
 
 type Props = {
-  clearFilters: (void) => void,
-  confirm: (void) => void,
+  clearFilters: void => void,
+  confirm: void => void,
   selectedKeys: Array<string>,
   setSelectedKeys: (Array<?string>) => void
 };

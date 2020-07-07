@@ -30,7 +30,7 @@ export function updateStudentSessionAppl(id: string, data: {}) {
     dispatch(updateStudentSessionApplIsLoading());
     return API.studentSessions
       .updateAppl(id, data)
-      .then((application) => {
+      .then(application => {
         dispatch(updateStudentSessionApplSuccess(application.data));
       })
       .catch(() => {

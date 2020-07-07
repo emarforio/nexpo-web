@@ -8,7 +8,7 @@ type PasswordObj = {|
   passwordConfirmation: string
 |};
 type Props = {
-  sendNewPasswordToBackend: (PasswordObj) => Promise<{}>,
+  sendNewPasswordToBackend: PasswordObj => Promise<{}>,
   verifyKey: () => Promise<{}>,
   keyIsValid: boolean,
   errors?: {

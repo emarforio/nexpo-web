@@ -25,7 +25,7 @@ export const login = ({ email, password }: LoginAction) => (
 ) =>
   API.session
     .login({ email, password })
-    .then((res) => {
+    .then(res => {
       const { jwt } = res.data;
       dispatch(loginSuccess(jwt));
       dispatch(Actions.users.getCurrentUser());
@@ -40,7 +40,7 @@ export const developmentLogin = ({ email }: DevLoginAction) => (
 ) =>
   API.session
     .developmentLogin({ email })
-    .then((res) => {
+    .then(res => {
       const { jwt } = res.data;
       dispatch(loginSuccess(jwt));
       dispatch(Actions.users.getCurrentUser());

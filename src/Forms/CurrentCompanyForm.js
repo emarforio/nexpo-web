@@ -11,11 +11,11 @@ const TextArea = makeField(Input.TextArea);
 
 type Props = {
   handleSubmit: () => Promise<void>,
-  onCancel?: (Event) => any,
+  onCancel?: Event => any,
   submitting: boolean
 };
 const CurrentCompanyForm = ({ handleSubmit, onCancel, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="website"
       label="Website:"

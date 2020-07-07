@@ -29,7 +29,7 @@ export function getAllDeadlines() {
     dispatch(getAllDeadlinesIsLoading());
     return API.deadlines
       .getAll()
-      .then((deadlines) => {
+      .then(deadlines => {
         dispatch(getAllDeadlinesSuccess(deadlines.data));
       })
       .catch(() => {

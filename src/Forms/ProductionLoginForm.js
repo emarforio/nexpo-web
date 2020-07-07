@@ -11,7 +11,7 @@ type Props = {
   submitting: boolean
 };
 const ProductionLoginForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="email"
       label="Email"
@@ -35,7 +35,7 @@ const ProductionLoginForm = ({ handleSubmit, submitting }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.ProductionLoginForm
 });
 

@@ -4,7 +4,7 @@
  */
 
 const Login =
-  process.env.NODE_ENV === 'production' || process.env.REACT_APP_LOGIN === 'prod'
+  process.env.NODE_ENV === 'production'
     ? require('./ProductionLogin').default
     : require('./DevelopmentLogin').default;
 

@@ -7,7 +7,7 @@ import { TimePicker } from 'antd';
  */
 type Props = {
   value: any,
-  onChange: (any) => void,
+  onChange: any => void,
   format: string
 };
 
@@ -20,7 +20,7 @@ const MyTimePicker = ({
   <TimePicker
     value={moment(value, format).isValid() ? moment.utc(value, format) : null}
     format={format}
-    onChange={(time) => (time ? onChange(time.format(format)) : onChange(null))}
+    onChange={time => (time ? onChange(time.format(format)) : onChange(null))}
     minuteStep={5}
     {...rest}
   />

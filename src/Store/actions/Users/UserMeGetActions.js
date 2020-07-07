@@ -24,7 +24,7 @@ export function getCurrentUser() {
     dispatch(getCurrentUserIsLoading());
     return API.users
       .getMe()
-      .then((user) => {
+      .then(user => {
         dispatch(getCurrentUserSuccess(user.data));
       })
       .catch(() => {

@@ -11,7 +11,7 @@ import HtmlTitle from '../../../Components/HtmlTitle';
 type Props = {
   programmes?: {},
   fetching: boolean,
-  deleteProgramme: (string) => Promise<void>,
+  deleteProgramme: string => Promise<void>,
   getAllProgrammes: () => Promise<void>
 };
 class Programmes extends Component<Props> {
@@ -69,7 +69,7 @@ class Programmes extends Component<Props> {
 
         <Table
           columns={this.programmeColumns()}
-          dataSource={Object.keys(programmes).map((i) => ({
+          dataSource={Object.keys(programmes).map(i => ({
             ...programmes[i],
             key: i
           }))}

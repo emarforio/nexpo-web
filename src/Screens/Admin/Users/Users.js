@@ -14,7 +14,7 @@ type Props = {
   users?: {},
   fetching: boolean,
   getAllUsers: () => Promise<void>,
-  deleteUser: (string) => Promise<void>
+  deleteUser: string => Promise<void>
 };
 class Users extends Component<Props> {
   static defaultProps = {
@@ -53,7 +53,7 @@ class Users extends Component<Props> {
       {
         title: 'Action',
         key: 'action',
-        render: (user) => {
+        render: user => {
           const { deleteUser } = this.props;
           return (
             <span>
@@ -85,7 +85,7 @@ class Users extends Component<Props> {
 
         <Table
           columns={userColumns}
-          dataSource={Object.keys(users).map((i) => ({
+          dataSource={Object.keys(users).map(i => ({
             ...users[i],
             key: i
           }))}

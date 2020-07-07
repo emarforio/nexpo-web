@@ -30,7 +30,7 @@ export function updateUser(id: string, data: {}) {
     dispatch(updateUserIsLoading());
     return API.users
       .update(id, data)
-      .then((user) => {
+      .then(user => {
         dispatch(updateUserSuccess(user.data));
       })
       .catch(() => {

@@ -1,6 +1,6 @@
 /*
- *   This file contains methods to access the /deadlines resource on the server.
- */
+*   This file contains methods to access the /deadlines resource on the server.
+*/
 
 import {
   authFormPost,

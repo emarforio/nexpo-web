@@ -1,20 +1,20 @@
 /*
- *		This class contains normalisation methods for the data recived by the server
- */
+*		This class contains normalisation methods for the data recived by the server
+*/
 import { schema } from 'normalizr';
 
-const merge = (key) => (entityA, entityB) => ({
+const merge = key => (entityA, entityB) => ({
   ...entityA,
   ...entityB,
   [key]: [...(entityA[key] || []), ...(entityB[key] || [])]
 });
 
-const belongsTo = (key) => (value, parent) => ({
+const belongsTo = key => (value, parent) => ({
   ...value,
   [key]: parent.id
 });
 
-const hasMany = (key) => (value, parent) => ({
+const hasMany = key => (value, parent) => ({
   ...value,
   [key]: [parent.id]
 });

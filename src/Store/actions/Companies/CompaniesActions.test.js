@@ -301,14 +301,12 @@ describe('updateCompany', () => {
     const store = createMockStore();
     const data = { company: { name: 'Test Company' } };
 
-    return store
-      .dispatch(Actions.companies.updateCompany('1', data))
-      .then(() => {
-        const calledActions = store.getActions();
-        expect(calledActions[0]).toEqual(
-          Actions.companies.updateCompanyIsLoading()
-        );
-      });
+    return store.dispatch(Actions.companies.updateCompany('1', data)).then(() => {
+      const calledActions = store.getActions();
+      expect(calledActions[0]).toEqual(
+        Actions.companies.updateCompanyIsLoading()
+      );
+    });
   });
 
   it('should call success action on success', () => {
@@ -325,12 +323,10 @@ describe('updateCompany', () => {
     const store = createMockStore();
     const data = { company };
 
-    return store
-      .dispatch(Actions.companies.updateCompany('1', data))
-      .then(() => {
-        const calledActions = store.getActions();
-        expect(calledActions).toEqual(expectedActions);
-      });
+    return store.dispatch(Actions.companies.updateCompany('1', data)).then(() => {
+      const calledActions = store.getActions();
+      expect(calledActions).toEqual(expectedActions);
+    });
   });
 
   it('should call failure action on failure', () => {
@@ -344,12 +340,10 @@ describe('updateCompany', () => {
 
     const store = createMockStore();
 
-    return store
-      .dispatch(Actions.companies.updateCompany('1', data))
-      .then(() => {
-        const calledActions = store.getActions();
-        expect(calledActions).toEqual(expectedActions);
-      });
+    return store.dispatch(Actions.companies.updateCompany('1', data)).then(() => {
+      const calledActions = store.getActions();
+      expect(calledActions).toEqual(expectedActions);
+    });
   });
 });
 

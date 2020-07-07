@@ -6,8 +6,8 @@ import InvisibleLink from '../../../Components/InvisibleLink';
 import LoadingSpinner from '../../../Components/LoadingSpinner';
 import HtmlTitle from '../../../Components/HtmlTitle';
 
-const setKeys = (entries) =>
-  Object.keys(entries).map((i) => ({
+const setKeys = entries =>
+  Object.keys(entries).map(i => ({
     ...entries[i],
     key: i
   }));
@@ -24,7 +24,7 @@ const categoryColumns = [
   {
     title: 'Action',
     key: 'action',
-    render: (category) => (
+    render: category => (
       <span>
         <InvisibleLink to={`/admin/categories/${category.id}`}>
           Show
@@ -55,7 +55,7 @@ const attributeColumns = [
   }
 ];
 
-const expandedRowRender = (attributes) => (category) => (
+const expandedRowRender = attributes => category => (
   <Table
     columns={attributeColumns}
     dataSource={setKeys(
@@ -103,7 +103,7 @@ class Categories extends Component<Props> {
 
         <Table
           columns={categoryColumns}
-          dataSource={setKeys(categories || {})}
+          dataSource={setKeys(categories||{})}
           expandedRowRender={expandedRowRender(attributes)}
           expandRowByClick
         />

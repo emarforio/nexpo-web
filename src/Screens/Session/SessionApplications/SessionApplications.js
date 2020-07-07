@@ -19,7 +19,7 @@ type Props = {
   applications?: ?Array<Application>,
   companies?: {},
   getAllCompanies: () => Promise<void>,
-  deleteStudentSessionAppl: (string) => Promise<void>,
+  deleteStudentSessionAppl: string => Promise<void>,
   fetching: boolean,
   updateStudentSessionAppl: (
     string,
@@ -71,7 +71,7 @@ class SessionApplications extends Component<Props, State> {
             {editing[application.id] ? 'Cancel' : 'Edit'}
           </Button>,
           <Popconfirm
-            placement="topLeft"
+	    placement="topLeft"
             title="Are you sure you want to delete the application?"
             onConfirm={() => deleteStudentSessionAppl(application.id)}
           >
@@ -105,7 +105,7 @@ class SessionApplications extends Component<Props, State> {
         <UpdateSessionApplicationForm
           initialValues={{ motivation }}
           id={id}
-          onSubmit={(values) => this.updateStudentSessionAppl(id, values)}
+          onSubmit={values => this.updateStudentSessionAppl(id, values)}
         />
       );
     return `Motivation: ${motivation}`;

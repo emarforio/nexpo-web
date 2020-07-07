@@ -223,7 +223,7 @@ describe('getRole', () => {
 
   it('should call success action on success', () => {
     const role = {
-      id: 1,
+    id: 1,
       name: 'Role1'
     };
     mockHttpResponse({ status: 200, body: { data: role } });

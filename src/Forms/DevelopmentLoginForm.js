@@ -11,7 +11,7 @@ type Props = {
   submitting: boolean
 };
 const DevelopmentLoginForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="email"
       label="Email"
@@ -25,7 +25,7 @@ const DevelopmentLoginForm = ({ handleSubmit, submitting }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.DevelopmentLoginForm
 });
 

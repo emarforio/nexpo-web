@@ -34,7 +34,7 @@ type Props = {
   getAllProgrammes: () => Promise<void>,
   deleteCurrentUser: () => Promise<void>,
   logout: () => Promise<void>,
-  resetForm: (string) => Promise<void>
+  resetForm: string => Promise<void>
 };
 class CurrentUser extends Component<Props> {
   static defaultProps = {

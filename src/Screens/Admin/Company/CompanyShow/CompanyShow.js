@@ -30,7 +30,7 @@ import CompanyStudentSessionForm from '../../../../Forms/CompanyStudentSessionFo
 type Props = {
   id: string,
   createStudentSession: ({}) => Promise<void>,
-  deleteStudentSession: (string) => Promise<void>,
+  deleteStudentSession: string => Promise<void>,
   company: {
     id?: string,
     name?: string,
@@ -59,7 +59,7 @@ type Props = {
     topStudents?: Array<{ id: number, firstName: string, lastName: string }>
   },
   fetching: boolean,
-  getCompany: (string) => Promise<void>,
+  getCompany: string => Promise<void>,
   match?: {
     path: string
   }
@@ -125,13 +125,13 @@ class CompanyShow extends Component<Props> {
       studentSessionApplications = []
     } = company;
 
-    const studentSessionStatus = (studentSession) => {
+    const studentSessionStatus = studentSession => {
       if (studentSession) {
         return statusLabel[studentSession.studentSessionStatus].text;
       }
       return 'Not assigned';
     };
-    const studentSessionStatusColor = (studentSession) => {
+    const studentSessionStatusColor = studentSession => {
       if (studentSession) {
         return statusLabel[studentSession.studentSessionStatus].color;
       }
@@ -148,10 +148,10 @@ class CompanyShow extends Component<Props> {
       </>
     );
     const options = map(
-      (s) => (
-        <Select.Option
-          key={s.id}
-        >{`${s.firstName} ${s.lastName}`}</Select.Option>
+      s => (
+        <Select.Option key={s.id}>{`${s.firstName} ${
+          s.lastName
+        }`}</Select.Option>
       ),
       topStudents
     );
@@ -256,7 +256,7 @@ class CompanyShow extends Component<Props> {
                     <CompanyStudentSessionForm
                       options={options}
                       id={id}
-                      onSubmit={(values) => this.handleSubmit(values, id)}
+                      onSubmit={values => this.handleSubmit(values, id)}
                       initialValues={{
                         studentId: options[0] ? options[0].key : null
                       }}

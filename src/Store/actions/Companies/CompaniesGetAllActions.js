@@ -29,7 +29,7 @@ export function getAllCompanies() {
     dispatch(getAllCompaniesIsLoading());
     return API.companies
       .getAll()
-      .then((companies) => {
+      .then(companies => {
         dispatch(getAllCompaniesSuccess(companies.data));
       })
       .catch(() => {

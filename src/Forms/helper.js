@@ -26,8 +26,7 @@ type Props = {
   accept: string,
   children: Node,
   format: string,
-  label: string,
-  name: string
+  label: string
 };
 const makeField = (Component: React.ComponentType<*>) => ({
   input,
@@ -36,7 +35,6 @@ const makeField = (Component: React.ComponentType<*>) => ({
   hasFeedback,
   label,
   required,
-  name,
   ...rest
 }: Props) => {
   const hasError = meta.touched && meta.invalid;

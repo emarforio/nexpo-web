@@ -52,16 +52,14 @@ class YourCompanyApplications extends Component<Props> {
   renderSessionApplication = (application: Application) => (
     <List.Item
       actions={[
-        <Button
-          onClick={(_) => this.scoreSessionApplication(application.id, 0)}
-        >
+        <Button onClick={_ => this.scoreSessionApplication(application.id, 0)}>
           Reset Score
         </Button>,
         <>
           Score:{' '}
           <Rate
             value={application.score}
-            onChange={(value) =>
+            onChange={value =>
               this.scoreSessionApplication(application.id, value)
             }
           />
@@ -106,7 +104,7 @@ class YourCompanyApplications extends Component<Props> {
           }`,
           `Interests: ${
             application.student.interests.length !== 0
-              ? application.student.interests.map((i) => i.name).join(', ')
+              ? application.student.interests.map(i => i.name).join(', ')
               : 'Not set'
           }`
         ].join('   |   ')}

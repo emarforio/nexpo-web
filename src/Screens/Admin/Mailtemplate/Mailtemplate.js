@@ -18,7 +18,7 @@ type Props = {
   mailtemplate: { mailtemplate: MailTemplateObj } | {},
   createMailtemplate: ({ mailtemplate: MailTemplateObj }) => Promise<void>,
   fetching: boolean,
-  getMailtemplate: (string) => Promise<void>,
+  getMailtemplate: string => Promise<void>,
   updateMailtemplate: (
     string,
     { mailtemplate: MailTemplateObj }

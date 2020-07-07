@@ -36,10 +36,16 @@ it('calls callBackend on ForgotPasswordForm onSubmit', () => {
   const email1 = 'admin@test';
   const email2 = 'student@test';
   expect(props.callBackend).toHaveBeenCalledTimes(0);
-  wrapper.find(ForgotPasswordForm).props().onSubmit({ email: email1 });
+  wrapper
+    .find(ForgotPasswordForm)
+    .props()
+    .onSubmit({ email: email1 });
   expect(props.callBackend).toHaveBeenCalledTimes(1);
   expect(props.callBackend).lastCalledWith({ email: email1 });
-  wrapper.find(ForgotPasswordForm).props().onSubmit({ email: email2 });
+  wrapper
+    .find(ForgotPasswordForm)
+    .props()
+    .onSubmit({ email: email2 });
   expect(props.callBackend).toHaveBeenCalledTimes(2);
   expect(props.callBackend).lastCalledWith({ email: email2 });
 });

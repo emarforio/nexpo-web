@@ -29,7 +29,7 @@ export function getAllUsers() {
     dispatch(getAllUsersIsLoading());
     return API.users
       .getAll()
-      .then((users) => {
+      .then(users => {
         dispatch(getAllUsersSuccess(users.data));
       })
       .catch(() => {

@@ -7,6 +7,7 @@ import * as CompanyMeDeleteActions from './CompanyMeDeleteActions';
 import * as CompanyMeGetActions from './CompanyMeGetActions';
 import * as CompanyMePutActions from './CompanyMePutActions';
 
+
 export default {
   ...CompaniesDeleteActions,
   ...CompaniesGetActions,

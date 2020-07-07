@@ -32,7 +32,7 @@ export function createCompany(data: {}) {
     dispatch(createCompanyIsLoading());
     return API.companies
       .create(data)
-      .then((company) => {
+      .then(company => {
         dispatch(createCompanySuccess(company.data));
         dispatch(reset('company'));
       })
@@ -69,8 +69,8 @@ export function createBulk(data: {}) {
     dispatch(createCompanyBulkIsLoading());
     return API.companies
       .createBulk(data)
-      .then((companies) => {
-        companies.data.forEach((company) => {
+      .then(companies => {
+        companies.data.forEach(company => {
           dispatch(createCompanyBulkSuccess(company));
         });
       })

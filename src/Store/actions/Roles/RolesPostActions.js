@@ -31,7 +31,7 @@ export function createRole(data: {}) {
     dispatch(createRoleIsLoading());
     return API.roles
       .create(data)
-      .then((role) => {
+      .then(role => {
         dispatch(createRoleSuccess(role.data));
         dispatch(reset('role'));
       })

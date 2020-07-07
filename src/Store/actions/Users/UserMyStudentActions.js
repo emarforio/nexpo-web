@@ -27,7 +27,7 @@ export function updateCurrentStudent(data: {}) {
     dispatch(updateCurrentStudentIsLoading());
     return API.users
       .updateMyStudent(data)
-      .then((student) => {
+      .then(student => {
         dispatch(updateCurrentStudentSuccess(student.data));
       })
       .catch(() => {

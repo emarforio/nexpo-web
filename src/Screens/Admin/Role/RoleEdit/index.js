@@ -20,6 +20,9 @@ const mapDispatchToProps = {
   getAllUsers: Actions.users.getAllUsers
 };
 
-const stateful = connect(mapStateToProps, mapDispatchToProps);
+const stateful = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 export default stateful(RoleEdit);

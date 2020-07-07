@@ -29,7 +29,7 @@ export function getCategory(id: string) {
     dispatch(getCategoryIsLoading());
     return API.categories
       .get(id)
-      .then((category) => {
+      .then(category => {
         dispatch(getCategorySuccess(category.data));
       })
       .catch(() => {

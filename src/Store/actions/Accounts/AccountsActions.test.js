@@ -180,7 +180,7 @@ describe('replaceForgottenPassword', () => {
 
   it('should call request and failure on http failure', () => {
     mockHttpResponse({
-      status: 400
+      status: 400,
     });
     const store = createMockStore();
     expect.assertions(1);

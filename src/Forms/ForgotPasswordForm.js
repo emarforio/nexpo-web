@@ -10,7 +10,7 @@ type Props = {
   submitting: boolean
 };
 const ForgotPasswordForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="email"
       label="Email"
@@ -26,7 +26,7 @@ const ForgotPasswordForm = ({ handleSubmit, submitting }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.ForgotPasswordForm
 });
 

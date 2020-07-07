@@ -17,9 +17,9 @@ type Props = {
   id: string,
   company: { name?: string, website?: string, description?: string },
   fetching: boolean,
-  getCompany: (string) => Promise<void>,
-  history: { push: (string) => any },
-  resetForm: (string) => any,
+  getCompany: string => Promise<void>,
+  history: { push: string => any },
+  resetForm: string => any,
   updateCompany: (string, {}) => Promise<void>
 };
 
@@ -52,7 +52,7 @@ class CompanyEdit extends Component<Props> {
     const { id, resetForm } = this.props;
     API.signup
       .initialRepresentativeSignup({ email, companyId: toInteger(id) })
-      .then((res) => {
+      .then(res => {
         if (res.ok) {
           message.success(`Invitation sent to ${email}`);
           resetForm('invite');

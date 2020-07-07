@@ -21,7 +21,7 @@ type Props = {
     lastName?: string,
     foodPreferences?: string,
     phoneNumber?: string,
-    roles?: Array<{ type: string }>,
+    roles?: Array<{type: string}>,
     student?: {
       resumeSvUrl: string,
       resumeEnUrl: string,
@@ -32,7 +32,7 @@ type Props = {
     }
   },
   fetching: boolean,
-  getUser: (string) => Promise<void>,
+  getUser: string => Promise<void>,
   match?: {
     path?: string
   }

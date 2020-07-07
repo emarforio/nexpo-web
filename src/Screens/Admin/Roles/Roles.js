@@ -13,7 +13,7 @@ type Props = {
   roles: {},
   fetching: boolean,
   getAllRoles: () => Promise<void>,
-  deleteRole: (string) => Promise<void>
+  deleteRole: string => Promise<void>
 };
 class Roles extends Component<Props> {
   componentWillMount() {
@@ -77,7 +77,7 @@ class Roles extends Component<Props> {
           columns={this.roleColumns()}
           dataSource={sortBy(
             'type',
-            Object.keys(roles).map((i) => ({
+            Object.keys(roles).map(i => ({
               ...roles[i],
               key: i
             }))

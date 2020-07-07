@@ -30,7 +30,7 @@ export function updateProgramme(id: string, data: {}) {
     dispatch(updateProgrammeIsLoading());
     return API.programmes
       .update(id, data)
-      .then((programme) => {
+      .then(programme => {
         dispatch(updateProgrammeSuccess(programme.data));
       })
       .catch(() => {

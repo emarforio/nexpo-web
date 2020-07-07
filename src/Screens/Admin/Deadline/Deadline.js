@@ -15,7 +15,7 @@ type Props = {
   deadline: {},
   createDeadline: ({ deadline: {} }) => Promise<void>,
   fetching: boolean,
-  getDeadline: (string) => Promise<void>,
+  getDeadline: string => Promise<void>,
   updateDeadline: (string, { deadline: {} }) => Promise<void>
 };
 class Deadline extends Component<Props> {

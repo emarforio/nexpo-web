@@ -27,7 +27,7 @@ export function updateCurrentUser(data: {}) {
     dispatch(updateCurrentUserIsLoading());
     return API.users
       .updateMe(data)
-      .then((user) => {
+      .then(user => {
         dispatch(updateCurrentUserSuccess(user.data));
       })
       .catch(() => {

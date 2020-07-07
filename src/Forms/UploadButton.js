@@ -1,8 +1,6 @@
 import React from 'react';
 import { isEmpty } from 'lodash/fp';
-import { message, Button, Upload } from 'antd';
-import { CloudUploadOutlined } from '@ant-design/icons';
-
+import { message, Button, Icon, Upload } from 'antd';
 import makeField from './helper';
 
 type Props = {
@@ -16,7 +14,7 @@ const UploadButton = ({ accept = '', value, onChange }: Props) => (
     key="uploadButton"
     accept={accept}
     fileList={isEmpty(value) ? [] : [value]}
-    beforeUpload={(file) => {
+    beforeUpload={file => {
       if (file.size < 1e6) onChange(file);
       else message.warning('Cannot upload files larger than 1MB');
       return false;
@@ -24,7 +22,7 @@ const UploadButton = ({ accept = '', value, onChange }: Props) => (
     onRemove={() => onChange(null)}
   >
     <Button>
-      <CloudUploadOutlined />
+      <Icon type="upload" />
       Upload
     </Button>
   </Upload>

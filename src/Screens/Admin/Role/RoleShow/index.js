@@ -23,6 +23,9 @@ const mapDispatchToProps = {
   getRole: Actions.roles.getRole
 };
 
-const stateful = connect(mapStateToProps, mapDispatchToProps);
+const stateful = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 export default stateful(RoleShow);

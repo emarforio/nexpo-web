@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import type { FieldProps } from 'redux-form';
+import type { FieldProps } from 'redux-form'
 
 import { connect } from 'react-redux';
 import { Button, Form, Input } from 'antd';
@@ -17,7 +17,7 @@ type Props = {
   handleSubmit: () => Promise<void>
 };
 const DeadlineForm = ({ handleSubmit }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field name="name" label="Name:" component={TextInput} />
     <Field name="start" label="Start Time:" component={MyDatePicker} />
     <Field name="end" label="End Time:" component={MyDatePicker} />
@@ -25,7 +25,7 @@ const DeadlineForm = ({ handleSubmit }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.DeadlineForm
 });
 

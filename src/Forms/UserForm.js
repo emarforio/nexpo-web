@@ -12,7 +12,7 @@ type Props = {
   pristine: boolean
 };
 const UserForm = ({ handleSubmit, pristine }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="firstName"
       label="First Name"
@@ -45,7 +45,7 @@ const UserForm = ({ handleSubmit, pristine }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.UserForm
 });
 

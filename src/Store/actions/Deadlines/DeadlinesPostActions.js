@@ -30,7 +30,7 @@ export function createDeadline(data: {}) {
     dispatch(createDeadlineIsLoading());
     return API.deadlines
       .create(data)
-      .then((deadline) => {
+      .then(deadline => {
         dispatch(createDeadlineSuccess(deadline.data));
       })
       .catch(() => {

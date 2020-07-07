@@ -50,15 +50,15 @@ const columns = [
     )
   }
 ];
-const sortDates = (date) => moment(date.x).format('x');
+const sortDates = date => moment(date.x).format('x');
 
-const dateFormat = (d) => moment(d).format('YYYY-MM-DD');
-const getData = (applicationsPerDay) => {
+const dateFormat = d => moment(d).format('YYYY-MM-DD');
+const getData = applicationsPerDay => {
   let countPerDay = 0;
   return flow(
     groupBy(dateFormat),
     entries,
-    map((e) => ({ x: e[0], y: e[1].length })),
+    map(e => ({ x: e[0], y: e[1].length })),
     sortBy(sortDates),
     map(({ x, y }) => {
       countPerDay += y;
@@ -130,7 +130,7 @@ class Statistics extends Component<Props> {
             <VictoryChart
               containerComponent={
                 <VictoryVoronoiContainer
-                  labels={(d) => `y: ${d.y}, x: ${d.x}`}
+                  labels={d => `y: ${d.y}, x: ${d.x}`}
                   labelComponent={
                     <VictoryTooltip
                       cornerRadius={0}

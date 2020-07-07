@@ -13,7 +13,7 @@ type Props = {
   mailtemplates?: {},
   fetching: boolean,
   getAllMailtemplates: () => Promise<void>,
-  deleteMailtemplate: (string) => Promise<void>
+  deleteMailtemplate: string => Promise<void>
 };
 class Mailtemplates extends Component<Props> {
   static defaultProps = {
@@ -82,7 +82,7 @@ class Mailtemplates extends Component<Props> {
           columns={this.mailtemplateColumns()}
           dataSource={sortBy(
             'name',
-            Object.keys(mailtemplates).map((i) => ({
+            Object.keys(mailtemplates).map(i => ({
               ...mailtemplates[i],
               key: i
             }))

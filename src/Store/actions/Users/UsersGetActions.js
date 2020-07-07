@@ -29,7 +29,7 @@ export function getUser(id: string) {
     dispatch(getUserIsLoading());
     return API.users
       .get(id)
-      .then((user) => {
+      .then(user => {
         dispatch(getUserSuccess(user.data));
       })
       .catch(() => {
