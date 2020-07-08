@@ -136,7 +136,7 @@ class Statistics extends Component<Props> {
             <VictoryChart
               containerComponent={
                 <VictoryVoronoiContainer
-                  labels={d => `y: ${d.y}, x: ${d.x}`}
+                  labels={({ datum: { x, y } }) => `y: ${y}, x: ${x}`}
                   labelComponent={
                     <VictoryTooltip
                       cornerRadius={0}
