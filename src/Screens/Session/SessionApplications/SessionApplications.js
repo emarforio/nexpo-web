@@ -19,7 +19,7 @@ type Props = {
   applications?: ?Array<Application>,
   companies?: {},
   getAllCompanies: () => Promise<void>,
-  deleteStudentSessionAppl: (string) => Promise<void>,
+  deleteStudentSessionAppl: string => Promise<void>,
   fetching: boolean,
   updateStudentSessionAppl: (
     string,
@@ -40,7 +40,7 @@ class SessionApplications extends Component<Props, State> {
     this.state = { editing: {} };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies } = this.props;
     getAllCompanies();
   }
@@ -105,7 +105,7 @@ class SessionApplications extends Component<Props, State> {
         <UpdateSessionApplicationForm
           initialValues={{ motivation }}
           id={id}
-          onSubmit={(values) => this.updateStudentSessionAppl(id, values)}
+          onSubmit={values => this.updateStudentSessionAppl(id, values)}
         />
       );
     return `Motivation: ${motivation}`;

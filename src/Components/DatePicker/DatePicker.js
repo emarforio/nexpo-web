@@ -6,7 +6,7 @@ import { DatePicker } from 'antd';
  */
 type Props = {
   value: any,
-  onChange: (any) => void,
+  onChange: any => void,
   format: string
 };
 const MyDatePicker = ({
@@ -18,7 +18,7 @@ const MyDatePicker = ({
   <DatePicker
     value={moment(value, format).isValid() ? moment.utc(value, format) : null}
     format={format}
-    onChange={(date) => (date ? onChange(date.toISOString()) : onChange(null))}
+    onChange={date => (date ? onChange(date.toISOString()) : onChange(null))}
     {...rest}
   />
 );

@@ -11,7 +11,7 @@ type Props = {
   submitting: boolean
 };
 const ReplacePasswordForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="password"
       label="Password"
@@ -35,7 +35,7 @@ const ReplacePasswordForm = ({ handleSubmit, submitting }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.ReplacePasswordForm
 });
 

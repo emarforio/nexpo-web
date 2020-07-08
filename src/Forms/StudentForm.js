@@ -20,13 +20,13 @@ const interestsValues = [
   { id: 7, name: 'Full-time job' }
 ];
 
-const renderInterestItem = (interest) => (
+const renderInterestItem = interest => (
   <Select.Option key={interest.id} value={interest.id}>
     {interest.name}
   </Select.Option>
 );
 
-const renderProgrammeItem = (programme) => (
+const renderProgrammeItem = programme => (
   <Select.Option key={programme.id} value={programme.id}>
     {programme.name} - {programme.code}
   </Select.Option>
@@ -49,7 +49,7 @@ type Props = {
 };
 
 const StudentForm = ({ handleSubmit, pristine, programmes }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field name="year" label="Graduation Year" component={TextInput} />
     <Field
       name="programme"
@@ -109,7 +109,7 @@ const mapStateToProps = (state, props) => {
   if (!isNil(currentProgramme)) programme = currentProgramme.id;
 
   let interests = null;
-  if (!isNil(currentInterests)) interests = currentInterests.map((v) => v.id);
+  if (!isNil(currentInterests)) interests = currentInterests.map(v => v.id);
 
   let resumeSvUrl = null;
   if (!isNil(currentResumeSvUrl))

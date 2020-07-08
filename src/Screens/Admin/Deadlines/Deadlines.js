@@ -13,14 +13,14 @@ type Props = {
   deadlines?: {},
   fetching: boolean,
   getAllDeadlines: () => Promise<void>,
-  deleteDeadline: (string) => Promise<void>
+  deleteDeadline: string => Promise<void>
 };
 class Deadlines extends Component<Props> {
   static defaultProps = {
     deadlines: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllDeadlines } = this.props;
     getAllDeadlines();
   }
@@ -82,7 +82,7 @@ class Deadlines extends Component<Props> {
           columns={this.deadlineColumns()}
           dataSource={sortBy(
             'name',
-            Object.keys(deadlines).map((i) => ({
+            Object.keys(deadlines).map(i => ({
               ...deadlines[i],
               key: i
             }))

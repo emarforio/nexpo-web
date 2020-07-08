@@ -28,7 +28,7 @@ type Props = {
   getCurrentCompany: () => Promise<void>
 };
 class YourCompanyTimeSlots extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getCurrentCompany } = this.props;
     getCurrentCompany();
   }
@@ -38,13 +38,13 @@ class YourCompanyTimeSlots extends Component<Props> {
 
     if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
 
-    const studentSessionStatus = (studentSession) => {
+    const studentSessionStatus = studentSession => {
       if (studentSession) {
         return statusLabel[studentSession.studentSessionStatus].text;
       }
       return 'Not assigned';
     };
-    const studentSessionStatusColor = (studentSession) => {
+    const studentSessionStatusColor = studentSession => {
       if (studentSession) {
         return statusLabel[studentSession.studentSessionStatus].color;
       }

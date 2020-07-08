@@ -9,6 +9,12 @@ import {
   map,
   flow
 } from 'lodash/fp';
+
+/**
+ * IMPORTANT: Victory was updated from 30.6.1 to 35.0.2 without any manual testing.
+ * Potential FIXME: if anything breaks: consult the changelog.
+ * Changelog: https://github.com/FormidableLabs/victory/blob/4db10ba8d0d9978cf5479ebec5f64077008411ba/CHANGELOG.md
+ */
 import {
   VictoryAxis,
   VictoryChart,
@@ -50,15 +56,15 @@ const columns = [
     )
   }
 ];
-const sortDates = (date) => moment(date.x).format('x');
+const sortDates = date => moment(date.x).format('x');
 
-const dateFormat = (d) => moment(d).format('YYYY-MM-DD');
-const getData = (applicationsPerDay) => {
+const dateFormat = d => moment(d).format('YYYY-MM-DD');
+const getData = applicationsPerDay => {
   let countPerDay = 0;
   return flow(
     groupBy(dateFormat),
     entries,
-    map((e) => ({ x: e[0], y: e[1].length })),
+    map(e => ({ x: e[0], y: e[1].length })),
     sortBy(sortDates),
     map(({ x, y }) => {
       countPerDay += y;
@@ -85,7 +91,7 @@ type Props = {
   }
 };
 class Statistics extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllStatistics } = this.props;
     getAllStatistics();
   }
@@ -130,7 +136,7 @@ class Statistics extends Component<Props> {
             <VictoryChart
               containerComponent={
                 <VictoryVoronoiContainer
-                  labels={(d) => `y: ${d.y}, x: ${d.x}`}
+                  labels={d => `y: ${d.y}, x: ${d.x}`}
                   labelComponent={
                     <VictoryTooltip
                       cornerRadius={0}

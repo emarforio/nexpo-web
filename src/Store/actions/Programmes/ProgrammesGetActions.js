@@ -29,7 +29,7 @@ export function getProgramme(id: string) {
     dispatch(getProgrammeIsLoading());
     return API.programmes
       .get(id)
-      .then((programme) => {
+      .then(programme => {
         dispatch(getProgrammeSuccess(programme.data));
       })
       .catch(() => {

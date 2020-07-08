@@ -5,7 +5,7 @@ type Props = {
   logout: () => Promise<void>
 };
 class Logout extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { logout } = this.props;
     logout();
   }

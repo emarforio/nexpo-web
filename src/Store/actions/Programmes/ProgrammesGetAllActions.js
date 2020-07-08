@@ -29,7 +29,7 @@ export function getAllProgrammes() {
     dispatch(getAllProgrammesIsLoading());
     return API.programmes
       .getAll()
-      .then((programmes) => {
+      .then(programmes => {
         dispatch(getAllProgrammesSuccess(programmes.data));
       })
       .catch(() => {

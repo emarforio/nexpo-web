@@ -18,7 +18,7 @@ type Props = {
   mailtemplate: { mailtemplate: MailTemplateObj } | {},
   createMailtemplate: ({ mailtemplate: MailTemplateObj }) => Promise<void>,
   fetching: boolean,
-  getMailtemplate: (string) => Promise<void>,
+  getMailtemplate: string => Promise<void>,
   updateMailtemplate: (
     string,
     { mailtemplate: MailTemplateObj }
@@ -29,7 +29,7 @@ class Mailtemplate extends Component<Props> {
     id: ''
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getMailtemplate } = this.props;
     if (id) getMailtemplate(id);
   }

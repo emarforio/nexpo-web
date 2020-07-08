@@ -47,7 +47,7 @@ type Props = {
 };
 
 class YourCompanyScans extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getCurrentCompany } = this.props;
     getCurrentCompany();
   }
@@ -57,7 +57,7 @@ class YourCompanyScans extends Component<Props> {
     const name = `${blip.student.user.firstName} ${blip.student.user.lastName}`;
     const year = blip.student.year ? blip.student.year : '';
     const programme = blip.student.programme ? blip.student.programme.name : '';
-    const interests = blip.student.interests.map((i) => i.name).join('. ');
+    const interests = blip.student.interests.map(i => i.name).join('. ');
     const rating = blip.rating ? blip.rating : 0;
     const comment = blip.comment ? blip.comment : '';
 
@@ -112,7 +112,7 @@ class YourCompanyScans extends Component<Props> {
           `Master: ${blip.student.master ? blip.student.master : 'Not set'}`,
           `Interests: ${
             blip.student.interests.length !== 0
-              ? blip.student.interests.map((i) => i.name).join(', ')
+              ? blip.student.interests.map(i => i.name).join(', ')
               : 'Not set'
           }`
         ].join('   |   ')}

@@ -29,7 +29,7 @@ export function getAllStatistics() {
     dispatch(getAllStatisticsIsLoading());
     return API.statistics
       .getAll()
-      .then((statistics) => {
+      .then(statistics => {
         dispatch(getAllStatisticsSuccess(statistics.data));
       })
       .catch(() => {

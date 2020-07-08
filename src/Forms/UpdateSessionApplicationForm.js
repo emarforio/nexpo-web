@@ -6,7 +6,7 @@ import makeField from './helper';
 
 const TextArea = makeField(Input.TextArea);
 
-const requiredMotivation = (value) =>
+const requiredMotivation = value =>
   value ? undefined : 'Please provide a motivation';
 
 type Props = {
@@ -21,7 +21,7 @@ const UpdateSessionApplicationForm = ({
   pristine,
   submitting
 }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="motivation"
       required

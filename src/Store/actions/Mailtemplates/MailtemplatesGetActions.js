@@ -29,7 +29,7 @@ export function getMailtemplate(id: string) {
     dispatch(getMailtemplateIsLoading());
     return API.mailtemplates
       .get(id)
-      .then((mailtemplate) => {
+      .then(mailtemplate => {
         dispatch(getMailtemplateSuccess(mailtemplate.data));
       })
       .catch(() => {

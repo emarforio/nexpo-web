@@ -22,10 +22,10 @@ type Props = {
   createStudentSessionAppl: ({
     studentSessionApplication: Application
   }) => Promise<void>,
-  resetForm: (string) => Promise<void>
+  resetForm: string => Promise<void>
 };
 class SessionApplication extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies, getAllProgrammes } = this.props;
     getAllCompanies();
     getAllProgrammes();

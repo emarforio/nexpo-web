@@ -21,10 +21,10 @@ type Props = {
     logoUrl?: string
   },
   getCurrentCompany: () => Promise<void>,
-  resetForm: (string) => any
+  resetForm: string => any
 };
 class YourCompanyProfileShow extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getCurrentCompany } = this.props;
     getCurrentCompany();
   }
@@ -36,7 +36,7 @@ class YourCompanyProfileShow extends Component<Props> {
         email,
         companyId: currentCompany.id
       })
-      .then((res) => {
+      .then(res => {
         if (res.ok) {
           message.success(`Invitation sent to ${email}`);
           resetForm('invite');

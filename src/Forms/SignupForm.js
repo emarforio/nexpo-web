@@ -11,7 +11,7 @@ type Props = {
   submitting: boolean
 };
 const SignupForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="email"
       label="Email"
@@ -27,7 +27,7 @@ const SignupForm = ({ handleSubmit, submitting }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.SignupForm
 });
 

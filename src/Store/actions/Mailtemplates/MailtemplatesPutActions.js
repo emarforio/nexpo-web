@@ -30,7 +30,7 @@ export function updateMailtemplate(id: string, data: {}) {
     dispatch(updateMailtemplateIsLoading());
     return API.mailtemplates
       .update(id, data)
-      .then((mailtemplate) => {
+      .then(mailtemplate => {
         dispatch(updateMailtemplateSuccess(mailtemplate.data));
       })
       .catch(() => {

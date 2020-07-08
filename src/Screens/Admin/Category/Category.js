@@ -10,10 +10,10 @@ import HtmlTitle from '../../../Components/HtmlTitle';
 type Props = {
   id: string,
   category: { attributes?: Array<any>, title?: string },
-  getCategory: (string) => Promise<void>
+  getCategory: string => Promise<void>
 };
 class Category extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getCategory } = this.props;
     getCategory(id);
   }

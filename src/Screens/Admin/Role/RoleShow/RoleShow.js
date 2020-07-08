@@ -17,10 +17,10 @@ type Props = {
     permissions?: Array<string>,
     users?: Array<number>
   },
-  getRole: (string) => Promise<void>
+  getRole: string => Promise<void>
 };
 class RoleShow extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getRole } = this.props;
     getRole(id);
   }

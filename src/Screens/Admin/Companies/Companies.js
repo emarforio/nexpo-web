@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Upload, Table, Button, Popconfirm, Divider } from 'antd';
-import { CloudUploadOutlined } from '@ant-design/icons';
+import { Icon, Upload, Table, Button, Popconfirm, Divider } from 'antd';
 import { size, sortBy, toLower } from 'lodash/fp';
 
 import { toExternal } from '../../../Util/URLHelper';
@@ -16,7 +15,7 @@ type Props = {
   companies?: {},
   fetching: boolean,
   getAllCompanies: () => Promise<void>,
-  deleteCompany: (string) => Promise<void>,
+  deleteCompany: string => Promise<void>,
   createBulk: (data: {}) => Promise<void>
 };
 class Companies extends Component<Props> {
@@ -24,7 +23,7 @@ class Companies extends Component<Props> {
     companies: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllCompanies } = this.props;
     getAllCompanies();
   }
@@ -99,10 +98,10 @@ class Companies extends Component<Props> {
       const representative = {};
       const currentLine = lines[i].split(',');
 
-      [0, 2].forEach((j) => {
+      [0, 2].forEach(j => {
         representative[headers[j]] = currentLine[j];
       });
-      [0, 1, 3, 4, 5].forEach((j) => {
+      [0, 1, 3, 4, 5].forEach(j => {
         company[headers[j]] = currentLine[j];
       });
       company.description = '.';
@@ -131,7 +130,7 @@ class Companies extends Component<Props> {
           columns={this.companyColumns()}
           dataSource={sortBy(
             'name',
-            Object.keys(companies).map((i) => ({
+            Object.keys(companies).map(i => ({
               ...companies[i],
               key: i
             }))
@@ -149,9 +148,9 @@ class Companies extends Component<Props> {
             key="uploadButton"
             accept=".csv"
             showUploadList={false}
-            beforeUpload={(file) => {
+            beforeUpload={file => {
               const reader = new FileReader();
-              reader.onload = (e) => {
+              reader.onload = e => {
                 const obj = this.csvToObj(e.target.result);
                 this.createBulk(obj);
               };
@@ -160,7 +159,7 @@ class Companies extends Component<Props> {
             }}
           >
             <Button>
-              <CloudUploadOutlined />
+              <Icon type="upload" />
               Create Multiple Companies
             </Button>
           </Upload>

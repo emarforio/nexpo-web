@@ -30,7 +30,7 @@ export function updateCategory(id: string, data: {}) {
     dispatch(updateCategoryIsLoading());
     return API.categories
       .update(id, data)
-      .then((category) => {
+      .then(category => {
         dispatch(updateCategorySuccess(category.data));
       })
       .catch(() => {

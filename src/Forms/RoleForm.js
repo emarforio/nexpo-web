@@ -29,11 +29,11 @@ const permissions = [
   'write_hosts'
 ];
 
-const renderPermissionItem = (permission) => (
+const renderPermissionItem = permission => (
   <Select.Option key={permission}>{permission}</Select.Option>
 );
 
-const renderUserItem = (user) => (
+const renderUserItem = user => (
   <Select.Option key={user.id} value={user.id}>
     {user.email}
   </Select.Option>
@@ -45,7 +45,7 @@ type Props = {
   handleSubmit: () => Promise<void>
 };
 const RoleForm = ({ handleSubmit, users }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field name="type" label="Type:" component={TextInput} />
     <Field
       name="permissions"
@@ -70,7 +70,7 @@ const RoleForm = ({ handleSubmit, users }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   users: state.entities.users,
   formState: state.form.RoleForm
 });

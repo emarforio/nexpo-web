@@ -30,7 +30,7 @@ export function createMailtemplate(data: {}) {
     dispatch(createMailtemplateIsLoading());
     return API.mailtemplates
       .create(data)
-      .then((mailtemplate) => {
+      .then(mailtemplate => {
         dispatch(createMailtemplateSuccess(mailtemplate.data));
       })
       .catch(() => {

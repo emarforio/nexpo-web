@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WarningOutlined } from '@ant-design/icons';
+import { Icon } from 'antd';
 import { Redirect } from 'react-router-dom';
 import './DevelopmentLogin.css';
 import type { Location } from 'react-router-dom';
@@ -41,7 +41,7 @@ class DevelopmentLogin extends Component<Props> {
     return (
       <div className="development-login">
         <HtmlTitle title="Dev Login" />
-        <WarningOutlined theme="filled" style={styles.icon} />
+        <Icon type="warning" theme="filled" style={styles.icon} />
         <h1>Development Login</h1>
         <DevelopmentLoginForm onSubmit={this.login} />
       </div>

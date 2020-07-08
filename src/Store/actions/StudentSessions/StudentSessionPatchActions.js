@@ -33,7 +33,7 @@ export function createBulkStudentSessions() {
     dispatch(createBulkStudentSessionsIsLoading());
     return API.studentSessions
       .createBulk()
-      .then((studentSessions) => {
+      .then(studentSessions => {
         dispatch(createBulkStudentSessionsSuccess(studentSessions.data));
       })
       .catch(() => {

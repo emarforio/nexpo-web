@@ -32,7 +32,7 @@ type Props = {
     }
   },
   fetching: boolean,
-  getUser: (string) => Promise<void>,
+  getUser: string => Promise<void>,
   match?: {
     path?: string
   }
@@ -46,7 +46,7 @@ class UserShow extends Component<Props> {
     }
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getUser } = this.props;
     if (id) getUser(id);
   }

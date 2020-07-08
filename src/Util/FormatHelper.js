@@ -6,7 +6,7 @@ const convertKeys: Function = (obj, convert) => {
     return obj;
   }
   if (Array.isArray(obj)) {
-    return obj.map((v) => convertKeys(v, convert));
+    return obj.map(v => convertKeys(v, convert));
   }
 
   const convertKey = (acc, key) => ({
@@ -17,8 +17,8 @@ const convertKeys: Function = (obj, convert) => {
   return reduce(convertKey, {}, Object.keys(obj));
 };
 
-export const camelCaseKeys: Function = (obj) => convertKeys(obj, camelCase);
-export const snakeCaseKeys: Function = (obj) => convertKeys(obj, snakeCase);
+export const camelCaseKeys: Function = obj => convertKeys(obj, camelCase);
+export const snakeCaseKeys: Function = obj => convertKeys(obj, snakeCase);
 
 const dateFormats = ['YYYY-MM-DD', 'YYYY-MM-DD HH:mm'];
 
@@ -26,7 +26,7 @@ export const toFormData = (obj: {}, form: ?FormData, namespace: ?string) => {
   const fd = form || new FormData();
   let formKey;
 
-  Object.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach(key => {
     const snakeKey = snakeCase(key);
     const value = obj[key];
     if (namespace) {

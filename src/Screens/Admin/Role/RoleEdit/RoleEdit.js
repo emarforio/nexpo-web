@@ -13,15 +13,15 @@ import '../Role.css';
 type Props = {
   id: string,
   role: { type?: string },
-  getRole: (string) => Promise<void>,
+  getRole: string => Promise<void>,
   getAllUsers: () => Promise<void>,
   fetchingRoles: boolean,
   fetchingUsers: boolean,
   updateRole: (string, { role: {} }) => Promise<void>,
-  history: { push: (string) => any }
+  history: { push: string => any }
 };
 class RoleEdit extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getRole, getAllUsers } = this.props;
     getRole(id);
     getAllUsers();

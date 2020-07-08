@@ -30,7 +30,7 @@ export function updateCompany(id: string, data: {}) {
     dispatch(updateCompanyIsLoading());
     return API.companies
       .update(id, data)
-      .then((company) => {
+      .then(company => {
         dispatch(updateCompanySuccess(company.data));
       })
       .catch(() => {

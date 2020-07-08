@@ -30,7 +30,7 @@ export function createProgramme(data: {}) {
     dispatch(createProgrammeIsLoading());
     return API.programmes
       .create(data)
-      .then((programme) => {
+      .then(programme => {
         dispatch(createProgrammeSuccess(programme.data));
       })
       .catch(() => {

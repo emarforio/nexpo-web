@@ -30,7 +30,7 @@ export function createUser(data: {}) {
     dispatch(createUserIsLoading());
     return API.users
       .create(data)
-      .then((user) => {
+      .then(user => {
         dispatch(createUserSuccess(user.data));
       })
       .catch(() => {

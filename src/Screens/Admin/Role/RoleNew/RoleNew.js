@@ -16,7 +16,7 @@ type Props = {
   getAllUsers: () => Promise<void>
 };
 class RoleNew extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllUsers } = this.props;
     getAllUsers();
   }

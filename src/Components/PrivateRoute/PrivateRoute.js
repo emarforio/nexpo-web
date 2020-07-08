@@ -30,7 +30,7 @@ const PrivateRoute = ({
 }: Props) => (
   <Route
     {...rest}
-    render={(props) => {
+    render={props => {
       if (fetching) return <LoadingSpinner />;
       if (isLoggedIn && hasPermission(currentUser, props.location.pathname))
         return <Component {...props} />;

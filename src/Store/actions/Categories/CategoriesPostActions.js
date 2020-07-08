@@ -30,7 +30,7 @@ export function createCategory(data: {}) {
     dispatch(createCategoryIsLoading());
     return API.categories
       .create(data)
-      .then((category) => {
+      .then(category => {
         dispatch(createCategorySuccess(category.data));
       })
       .catch(() => {

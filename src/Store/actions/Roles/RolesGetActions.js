@@ -29,7 +29,7 @@ export function getRole(id: string) {
     dispatch(getRoleIsLoading());
     return API.roles
       .get(id)
-      .then((role) => {
+      .then(role => {
         dispatch(getRoleSuccess(role.data));
       })
       .catch(() => {

@@ -12,12 +12,12 @@ type Props = {
     student?: number
   },
   fetching: boolean,
-  getProgramme: (string) => Promise<void>,
+  getProgramme: string => Promise<void>,
   createProgramme: ({ programme: {} }) => Promise<void>,
   updateProgramme: (string, { programme: {} }) => Promise<void>
 };
 class Programme extends Component<Props> {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getProgramme } = this.props;
     if (id) getProgramme(id);
   }

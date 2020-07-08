@@ -14,7 +14,7 @@ const TextArea = makeField(Input.TextArea);
 
 type Props = {
   ...FormProps,
-  onCancel?: (Event) => any
+  onCancel?: Event => any
 };
 
 const CompanyForm = ({
@@ -23,7 +23,7 @@ const CompanyForm = ({
   submitting,
   formState
 }: Props) => (
-  <Form onFinish={() => handleSubmit()}>
+  <Form onSubmit={handleSubmit}>
     <Field
       name="name"
       label="Name"

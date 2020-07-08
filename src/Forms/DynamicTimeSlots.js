@@ -49,7 +49,7 @@ const columns = [
     title: 'Start Time',
     key: 'start',
     dataIndex: 'field',
-    render: (timeSlot) => (
+    render: timeSlot => (
       <Field
         name={`${timeSlot}.start`}
         type="text"
@@ -65,7 +65,7 @@ const columns = [
     title: 'End Time',
     key: 'end',
     dataIndex: 'field',
-    render: (timeSlot) => (
+    render: timeSlot => (
       <Field
         name={`${timeSlot}.end`}
         type="text"
@@ -81,7 +81,7 @@ const columns = [
     title: 'Location',
     key: 'location',
     dataIndex: 'field',
-    render: (timeSlot) => (
+    render: timeSlot => (
       <Field
         name={`${timeSlot}.location`}
         type="text"
@@ -157,7 +157,7 @@ const DynamicTimeSlots = ({ fields, fieldValues }: Props) => (
             ...obj,
             fields
           }),
-          fields.map((i) => i)
+          fields.map(i => i)
         ),
         sortBy('start')
       )(fields.getAll())}

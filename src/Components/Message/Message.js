@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  ExclamationCircleOutlined,
-  CheckCircleOutlined
-} from '@ant-design/icons';
+import { Icon } from 'antd';
 
 import { Link } from 'react-router-dom';
 import './Message.css';
@@ -37,10 +34,12 @@ const Message = ({ message, linkUrl, linkText, type }: Props) => {
   let icon = null;
   switch (type) {
     case 'error':
-      icon = <ExclamationCircleOutlined theme="filled" style={styles.error} />;
+      icon = (
+        <Icon type="exclamation-circle" theme="filled" style={styles.error} />
+      );
       break;
     case 'success':
-      icon = <CheckCircleOutlined theme="filled" style={styles.success} />;
+      icon = <Icon type="check-circle" theme="filled" style={styles.success} />;
       break;
     default:
       icon = '';

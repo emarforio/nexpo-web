@@ -34,7 +34,7 @@ type Props = {
   getAllProgrammes: () => Promise<void>,
   deleteCurrentUser: () => Promise<void>,
   logout: () => Promise<void>,
-  resetForm: (string) => Promise<void>
+  resetForm: string => Promise<void>
 };
 class CurrentUser extends Component<Props> {
   static defaultProps = {
@@ -42,7 +42,7 @@ class CurrentUser extends Component<Props> {
     currentStudent: {}
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getAllProgrammes } = this.props;
     getAllProgrammes();
   }

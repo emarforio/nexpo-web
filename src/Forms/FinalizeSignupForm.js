@@ -6,7 +6,7 @@ import makeField, { required, validatePassword } from './helper';
 
 const TextInput = makeField(Input);
 const CheckBoxField = makeField(Checkbox);
-const requiredGDPR = (value) =>
+const requiredGDPR = value =>
   value ? undefined : 'You must agree to be able to sign up';
 
 const gdprText =
@@ -23,7 +23,7 @@ type Props = {
   submitting: boolean
 };
 const FinalizeSignupForm = ({ handleSubmit, submitting }: Props) => (
-  <Form onFinish={() => handleSubmit()} style={{ maxWidth: 600 }}>
+  <Form onSubmit={handleSubmit} style={{ maxWidth: 600 }}>
     <Field
       name="email"
       label="Email"
@@ -78,7 +78,7 @@ const FinalizeSignupForm = ({ handleSubmit, submitting }: Props) => (
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.FinalizeSignupForm
 });
 

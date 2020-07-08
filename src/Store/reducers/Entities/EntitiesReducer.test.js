@@ -46,10 +46,10 @@ describe('Entities reducer', () => {
     expect(Object.keys(state.entries).length).toBeGreaterThan(0);
     // Check that each company's entry exists in entries
     const companyKeys = Object.keys(state.companies);
-    companyKeys.forEach((companyKey) => {
+    companyKeys.forEach(companyKey => {
       expect(
-        state.companies[companyKey].entries.forEach((entryNbr) =>
-          Object.keys(state.entries).find((entryKey) => entryNbr === entryKey)
+        state.companies[companyKey].entries.forEach(entryNbr =>
+          Object.keys(state.entries).find(entryKey => entryNbr === entryKey)
         )
       );
     });
@@ -67,10 +67,10 @@ describe('Entities reducer', () => {
     expect(Object.keys(state.entries).length).toBeGreaterThan(0);
     // Check that each company's entry exists in entries
     const companyKeys = Object.keys(state.companies);
-    companyKeys.forEach((companyKey) => {
+    companyKeys.forEach(companyKey => {
       expect(
-        state.companies[companyKey].entries.forEach((entryNbr) =>
-          Object.keys(state.entries).find((entryKey) => entryNbr === entryKey)
+        state.companies[companyKey].entries.forEach(entryNbr =>
+          Object.keys(state.entries).find(entryKey => entryNbr === entryKey)
         )
       );
     });
@@ -98,10 +98,10 @@ describe('Entities reducer', () => {
     expect(Object.keys(state.users).length).toBeGreaterThan(0);
     // Check that each role's user exists in entries
     const roleKeys = Object.keys(state.roles);
-    roleKeys.forEach((roleKey) => {
+    roleKeys.forEach(roleKey => {
       expect(
-        state.roles[roleKey].users.forEach((userNbr) =>
-          Object.keys(state.users).find((userKey) => userNbr === userKey)
+        state.roles[roleKey].users.forEach(userNbr =>
+          Object.keys(state.users).find(userKey => userNbr === userKey)
         )
       );
     });
@@ -129,10 +129,10 @@ describe('Entities reducer', () => {
     expect(Object.keys(state.roles).length).toBeGreaterThan(0);
     // Check that each role's user exists in entries
     const userKeys = Object.keys(state.users);
-    userKeys.forEach((userKey) => {
+    userKeys.forEach(userKey => {
       expect(
-        state.users[userKey].roles.forEach((roleNbr) =>
-          Object.keys(state.roles).find((roleKey) => roleNbr === roleKey)
+        state.users[userKey].roles.forEach(roleNbr =>
+          Object.keys(state.roles).find(roleKey => roleNbr === roleKey)
         )
       );
     });
@@ -152,10 +152,10 @@ describe('Entities reducer', () => {
     expect(Object.keys(state.attributes).length).toBeGreaterThan(0);
     // Check that each category's attribute exists in attributes
     const categoryKeys = Object.keys(state.categories);
-    categoryKeys.forEach((categoryKey) => {
+    categoryKeys.forEach(categoryKey => {
       expect(
-        state.categories[categoryKey].attributes.forEach((attrNbr) =>
-          Object.keys(state.attributes).find((attrKey) => attrNbr === attrKey)
+        state.categories[categoryKey].attributes.forEach(attrNbr =>
+          Object.keys(state.attributes).find(attrKey => attrNbr === attrKey)
         )
       );
     });
@@ -177,35 +177,35 @@ describe('Entities reducer', () => {
     expect(Object.keys(state.companies).length).toBeGreaterThan(0);
     // Check that each category's attributes exists in attributes
     const categoryKeys = Object.keys(state.categories);
-    categoryKeys.forEach((categoryKey) => {
+    categoryKeys.forEach(categoryKey => {
       expect(
-        state.categories[categoryKey].attributes.forEach((attrNbr) =>
-          Object.keys(state.attributes).find((attrKey) => attrNbr === attrKey)
+        state.categories[categoryKey].attributes.forEach(attrNbr =>
+          Object.keys(state.attributes).find(attrKey => attrNbr === attrKey)
         )
       );
     });
     // Check that each attribute's entries exists in entries
     const attributeKeys = Object.keys(state.attributes);
-    attributeKeys.forEach((attributeKey) => {
+    attributeKeys.forEach(attributeKey => {
       expect(
-        state.attributes[attributeKey].entries.forEach((entryNbr) =>
-          Object.keys(state.entries).find((entryKey) => entryNbr === entryKey)
+        state.attributes[attributeKey].entries.forEach(entryNbr =>
+          Object.keys(state.entries).find(entryKey => entryNbr === entryKey)
         )
       );
     });
     // Check that each entry's company exist
     const entryKeys = Object.keys(state.entries);
-    entryKeys.forEach((entryKey) => {
+    entryKeys.forEach(entryKey => {
       expect(state.companies).toHaveProperty(
         state.entries[entryKey].company.toString()
       );
     });
     // Check that each company's entry exists in entries
     const companyKeys = Object.keys(state.companies);
-    companyKeys.forEach((companyKey) => {
+    companyKeys.forEach(companyKey => {
       expect(
-        state.companies[companyKey].entries.forEach((entryNbr) =>
-          Object.keys(state.entries).find((entryKey) => entryNbr === entryKey)
+        state.companies[companyKey].entries.forEach(entryNbr =>
+          Object.keys(state.entries).find(entryKey => entryNbr === entryKey)
         )
       );
     });

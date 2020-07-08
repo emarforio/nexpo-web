@@ -26,7 +26,7 @@ const routeAccess = {
   session: 'student'
 };
 
-const getBasePath = (route) => route.split('/').filter((i) => i)[0];
+const getBasePath = route => route.split('/').filter(i => i)[0];
 
 export const hasPermission = (
   currentUser: ?{ roles?: Array<{ type: string, permissions: Array<string> }> },
@@ -40,8 +40,8 @@ export const hasPermission = (
   }
   if (permissionsNeeded) {
     const { roles = [] } = currentUser;
-    return roles.some((role) =>
-      role.permissions.some((p) => permissionsNeeded.includes(p))
+    return roles.some(role =>
+      role.permissions.some(p => permissionsNeeded.includes(p))
     );
   }
   return true;

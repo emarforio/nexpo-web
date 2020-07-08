@@ -34,7 +34,7 @@ export function createStudentSession(data: {}) {
     dispatch(createStudentSessionIsLoading());
     return API.studentSessions
       .create(data)
-      .then((company) => {
+      .then(company => {
         dispatch(createStudentSessionSuccess(company.data));
         dispatch(reset('studentSession'));
       })

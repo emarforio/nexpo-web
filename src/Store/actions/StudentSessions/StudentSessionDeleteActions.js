@@ -29,7 +29,7 @@ export function deleteStudentSession(id: string) {
     dispatch(deleteStudentSessionIsLoading());
     return API.studentSessions
       .delete(id)
-      .then((company) => {
+      .then(company => {
         dispatch(deleteStudentSessionSuccess(company.data));
       })
       .catch(() => {

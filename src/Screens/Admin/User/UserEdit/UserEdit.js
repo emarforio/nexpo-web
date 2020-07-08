@@ -20,8 +20,8 @@ type Props = {
   id?: string,
   user: { name?: string },
   fetching: boolean,
-  getUser: (string) => Promise<void>,
-  history: { push: (string) => any },
+  getUser: string => Promise<void>,
+  history: { push: string => any },
   updateUser: (string, { user: UserObj }) => Promise<void>
 };
 class UserEdit extends Component<Props> {
@@ -29,7 +29,7 @@ class UserEdit extends Component<Props> {
     id: ''
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { id, getUser } = this.props;
     if (id) getUser(id);
   }

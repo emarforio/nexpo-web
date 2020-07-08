@@ -21,7 +21,7 @@ describe('developmentLogin', () => {
 
     expect.assertions(1);
 
-    return method().then((res) => expect(res).toEqual(response));
+    return method().then(res => expect(res).toEqual(response));
   });
 
   it('should return a rejected promise on failure', () => {
@@ -33,7 +33,7 @@ describe('developmentLogin', () => {
 
     expect.assertions(1);
 
-    return method().catch((err) => expect(err).toBeInstanceOf(ApiError));
+    return method().catch(err => expect(err).toBeInstanceOf(ApiError));
   });
 });
 
@@ -49,7 +49,7 @@ describe('login', () => {
 
     expect.assertions(1);
 
-    return method().then((res) => expect(res).toEqual(response));
+    return method().then(res => expect(res).toEqual(response));
   });
 
   it('should return a rejected promise on failure', () => {
@@ -61,7 +61,7 @@ describe('login', () => {
 
     expect.assertions(1);
 
-    return method().catch((err) => expect(err).toBeInstanceOf(ApiError));
+    return method().catch(err => expect(err).toBeInstanceOf(ApiError));
   });
 });
 
@@ -76,7 +76,7 @@ describe('forgotPassword', () => {
 
     return API.session
       .forgotPassword({ email: 'test' })
-      .then((res) => expect(res).toEqual(response));
+      .then(res => expect(res).toEqual(response));
   });
 
   it('should return a rejected promise on failure', () => {
@@ -89,7 +89,7 @@ describe('forgotPassword', () => {
 
     return API.session
       .forgotPassword({ email: 'test' })
-      .catch((err) => expect(err).toBeInstanceOf(ApiError));
+      .catch(err => expect(err).toBeInstanceOf(ApiError));
   });
 });
 describe('verifyForgotPasswordKey', () => {
@@ -103,7 +103,7 @@ describe('verifyForgotPasswordKey', () => {
 
     return API.session
       .verifyForgotPasswordKey({ key: 'random-string' })
-      .then((res) => expect(res).toEqual(response));
+      .then(res => expect(res).toEqual(response));
   });
 
   it('should return a rejected promise on failure', () => {
@@ -116,7 +116,7 @@ describe('verifyForgotPasswordKey', () => {
 
     return API.session
       .verifyForgotPasswordKey({ key: 'random-string' })
-      .catch((err) => expect(err).toBeInstanceOf(ApiError));
+      .catch(err => expect(err).toBeInstanceOf(ApiError));
   });
 });
 
@@ -136,7 +136,7 @@ describe('replaceForgottenPassword', () => {
     };
     return API.session
       .replaceForgottenPassword(params)
-      .then((res) => expect(res).toEqual(response));
+      .then(res => expect(res).toEqual(response));
   });
 
   it('should return a rejected promise on failure', () => {
@@ -153,6 +153,6 @@ describe('replaceForgottenPassword', () => {
         password: '',
         passwordConfirmation: ''
       })
-      .catch((err) => expect(err).toBeInstanceOf(ApiError));
+      .catch(err => expect(err).toBeInstanceOf(ApiError));
   });
 });

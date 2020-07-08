@@ -30,7 +30,7 @@ export function updateRole(id: string, data: {}) {
     dispatch(updateRoleIsLoading());
     return API.roles
       .update(id, data)
-      .then((role) => {
+      .then(role => {
         dispatch(updateRoleSuccess(role.data));
       })
       .catch(() => {

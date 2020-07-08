@@ -143,7 +143,7 @@ const state = {
   current: { user: 1 }
 };
 
-const route = (path) => (
+const route = path => (
   <Provider store={createMockStore(state)}>
     <MemoryRouter initialEntries={[path]}>
       <Route component={ConnectedApp} />
@@ -151,7 +151,7 @@ const route = (path) => (
   </Provider>
 );
 
-const found = (wrapper) => expect(wrapper.find(NotFound)).toHaveLength(0);
+const found = wrapper => expect(wrapper.find(NotFound)).toHaveLength(0);
 
 it('renders routes without crashing', () => {
   found(mount(route('/')));

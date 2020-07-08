@@ -30,7 +30,7 @@ export function updateDeadline(id: string, data: {}) {
     dispatch(updateDeadlineIsLoading());
     return API.deadlines
       .update(id, data)
-      .then((deadline) => {
+      .then(deadline => {
         dispatch(updateDeadlineSuccess(deadline.data));
       })
       .catch(() => {

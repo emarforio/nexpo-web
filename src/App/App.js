@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 // import type { Element } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-import { Breadcrumb, Menu, Layout } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Breadcrumb, Icon, Menu, Layout } from 'antd';
 import { startCase } from 'lodash/fp';
 import Home from '../Screens/Home';
 import Info from '../Screens/Info';
@@ -117,7 +116,7 @@ type Props = {
     roles?: Array<{ type: string, permissions: Array<string> }>
   },
   logout: () => void,
-  redirect: (string) => void,
+  redirect: string => void,
   pathname: string
 };
 
@@ -139,7 +138,7 @@ class App extends Component<Props> {
 
     return [
       <Menu.Item key="/user">
-        {displayName} <UserOutlined />
+        {displayName} <Icon type="user" />
       </Menu.Item>,
       <Menu.Item key="/logout">Logout</Menu.Item>
     ];

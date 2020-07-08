@@ -1,8 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { Button, Form, Input } from 'antd';
-import { MailOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Icon } from 'antd';
 import makeField from './helper';
 
 const TextInput = makeField(Input);
@@ -11,19 +10,19 @@ type Props = {
   handleSubmit: () => Promise<void>
 };
 const InviteForm = ({ handleSubmit }: Props) => (
-  <Form onFinish={() => handleSubmit()} layout="inline">
+  <Form onSubmit={handleSubmit} layout="inline">
     <Field
       name="email"
       label="Email:"
       component={TextInput}
-      prefix={<MailOutlined />}
+      prefix={<Icon type="mail" />}
       placeholder="Email"
     />
     <Button htmlType="submit">Invite</Button>
   </Form>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   formState: state.form.InviteForm
 });
 

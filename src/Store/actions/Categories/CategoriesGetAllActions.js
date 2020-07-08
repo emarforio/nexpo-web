@@ -29,7 +29,7 @@ export function getAllCategories() {
     dispatch(getAllCategoriesIsLoading());
     return API.categories
       .getAll()
-      .then((categories) => {
+      .then(categories => {
         dispatch(getAllCategoriesSuccess(categories.data));
       })
       .catch(() => {

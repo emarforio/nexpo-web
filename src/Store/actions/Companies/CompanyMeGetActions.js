@@ -20,7 +20,7 @@ export function getCurrentCompany() {
     dispatch(getCurrentCompanyIsLoading());
     return API.companies
       .getMyCompany()
-      .then((company) => {
+      .then(company => {
         dispatch(getCurrentCompanySuccess(company.data));
       })
       .catch(() => {

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import DevelopmentLogin from './DevelopmentLogin';
 import { Actions } from '../../../../Store';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   error: state.auth.error,
   isLoggedIn: state.auth.isLoggedIn
 });
