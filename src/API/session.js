@@ -1,5 +1,4 @@
 import { fetchJson, handleHttpResponse } from './utils';
-import UnreachableCodeReachedError from '../Errors/UnreachableCodeReachedError';
 import 'whatwg-fetch'; // fetch polyfill for unsupported browsers
 
 export default {
@@ -10,22 +9,6 @@ export default {
     fetchJson('/api/login', { data: { email, password }, method: 'POST' }).then(
       handleHttpResponse
     ),
-
-  /**
-   * Allows development login, only while not in production
-   */
-  developmentLogin: ({ email }: { email: string }) => {
-    if (process.env.NODE_ENV === 'production') {
-      throw new UnreachableCodeReachedError(
-        'Development login reached in production'
-      );
-    } else {
-      return fetchJson('/api/development_login', {
-        data: { email },
-        method: 'POST'
-      }).then(handleHttpResponse);
-    }
-  },
 
   /**
    *

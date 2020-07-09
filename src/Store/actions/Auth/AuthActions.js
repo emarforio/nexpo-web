@@ -33,18 +33,3 @@ export const login = ({ email, password }: LoginAction) => (
     .catch(() => {
       dispatch(loginFailure());
     });
-
-export type DevLoginAction = { email: string };
-export const developmentLogin = ({ email }: DevLoginAction) => (
-  dispatch: Dispatch
-) =>
-  API.session
-    .developmentLogin({ email })
-    .then(res => {
-      const { jwt } = res.data;
-      dispatch(loginSuccess(jwt));
-      dispatch(Actions.users.getCurrentUser());
-    })
-    .catch(() => {
-      dispatch(loginFailure());
-    });

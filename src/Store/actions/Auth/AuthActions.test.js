@@ -62,37 +62,3 @@ describe('login action', () => {
     });
   });
 });
-
-describe('development login action', () => {
-  it('should call success action and get the logged in user', () => {
-    const jwt = 'random-string';
-    const expectedActions = [
-      Actions.auth.loginSuccess(jwt),
-      Actions.users.getCurrentUserIsLoading()
-    ];
-
-    const httpResponse = {
-      data: { jwt }
-    };
-    mockHttpResponse({ status: 200, body: httpResponse });
-
-    const store = createMockStore();
-    const params = { email: 'test-user@student.lu.se' };
-    return store.dispatch(Actions.auth.developmentLogin(params)).then(() => {
-      const calledActions = store.getActions();
-      expect(calledActions).toEqual(expectedActions);
-    });
-  });
-
-  it('calls login failure on failure', () => {
-    const expectedActions = [Actions.auth.loginFailure()];
-    mockHttpResponse({ status: 401, body: {} });
-
-    const store = createMockStore();
-    const params = { email: 'test' };
-    return store.dispatch(Actions.auth.developmentLogin(params)).then(() => {
-      const calledActions = store.getActions();
-      expect(calledActions).toEqual(expectedActions);
-    });
-  });
-});
