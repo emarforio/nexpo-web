@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import type { Location } from 'react-router-dom';
 
-import HtmlTitle from '../../../../Components/HtmlTitle';
-import ProductionLoginForm from '../../../../Forms/ProductionLoginForm';
+import HtmlTitle from '../../../Components/HtmlTitle';
+import LoginForm from '../../../Forms/LoginForm';
 /**
  * Handles login in production. Supports redirecting back to the route that redirected here
  *
@@ -16,7 +16,7 @@ type Props = {
   isLoggedIn: boolean,
   login: ({ email: string, password: string }) => Promise<void>
 };
-class ProductionLogin extends Component<Props> {
+class Login extends Component<Props> {
   login = (values: { email: string, password: string }) => {
     const { email, password } = values;
     const { login } = this.props;
@@ -38,7 +38,7 @@ class ProductionLogin extends Component<Props> {
         <HtmlTitle title="Login" />
 
         <h1>Login</h1>
-        <ProductionLoginForm onSubmit={this.login} />
+        <LoginForm onSubmit={this.login} />
 
         <br />
         <br />
@@ -55,4 +55,4 @@ class ProductionLogin extends Component<Props> {
   }
 }
 
-export default ProductionLogin;
+export default Login;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import ProductionLogin from './ProductionLogin';
+import Login from './Login';
 
 it('should render without crashing', () => {
   const props = {
@@ -11,7 +11,7 @@ it('should render without crashing', () => {
   };
   shallow(
     <MemoryRouter>
-      <ProductionLogin {...props} />
+      <Login {...props} />
     </MemoryRouter>
   );
 });
@@ -22,7 +22,7 @@ it('should call login with correct values', () => {
     login: jest.fn(),
     location: { state: {}, hash: '', pathname: '', search: '' }
   };
-  const wrapper = shallow(<ProductionLogin {...props} />);
+  const wrapper = shallow(<Login {...props} />);
   const email = 'admin@test';
   const password = 'plzDontHack123';
   expect(props.login).toHaveBeenCalledTimes(0);

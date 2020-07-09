@@ -1,12 +1,16 @@
-/**
- * Login component
- * - A separe component is rendered in development, which allows login by only specifying email
- */
+import { connect } from 'react-redux';
+import Login from './Login';
+import { Actions } from '../../../Store';
 
-const Login =
-  process.env.NODE_ENV === 'production' ||
-  process.env.REACT_APP_LOGIN === 'prod'
-    ? require('./ProductionLogin').default
-    : require('./DevelopmentLogin').default;
+const mapStateToProps = state => ({
+  error: state.auth.error,
+  isLoggedIn: state.auth.isLoggedIn
+});
 
-export default Login;
+const mapDispatchToProps = {
+  login: Actions.auth.login
+};
+
+const stateful = connect(mapStateToProps, mapDispatchToProps);
+
+export default stateful(Login);
