@@ -275,9 +275,29 @@ export const EntitiesReducer = (
     }
     case actionTypes.DELETE_STUDENT_SESSION_APPL_SUCCESS: {
       const appls = state.studentSessionApplications;
+
+      // It's not enough to filter out state.studentSessionApplications.
+      // We must also remove a reference from state.students[currentId].studentSessionApplications
+      const students = Object.keys(state.students).reduce((obj, id) => {
+        const student = state.students[id];
+        const studentAppls = student.studentSessionApplications;
+
+        return {
+          ...obj,
+
+          [id]: {
+            ...student,
+            studentSessionApplications: studentAppls.filter(
+              applId => applId !== action.id
+            )
+          }
+        };
+      }, {});
+
       return {
         ...state,
-        studentSessionApplications: omit([`${action.id}`], appls)
+        studentSessionApplications: omit([`${action.id}`], appls),
+        students
       };
     }
     case actionTypes.FETCH_CATEGORIES_SUCCESS: {
