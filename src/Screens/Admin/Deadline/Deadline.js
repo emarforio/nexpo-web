@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash/fp';
 
 import DeadlineForm from '../../../Forms/DeadlineForm';
 import NotFound from '../../NotFound';
 import LoadingSpinner from '../../../Components/LoadingSpinner';
 
-type updateValues = {
+type UpdateValues = {
   name?: string,
   start?: string,
   end?: string
@@ -18,19 +18,21 @@ type Props = {
   getDeadline: string => Promise<void>,
   updateDeadline: (string, { deadline: {} }) => Promise<void>
 };
-class Deadline extends Component<Props> {
-  static defaultProps = {
-    id: ''
-  };
 
-  UNSAFE_componentWillMount() {
-    const { id, getDeadline } = this.props;
-    if (id) getDeadline(id);
-  }
+const Deadline = ({
+  id,
+  deadline,
+  createDeadline,
+  fetching,
+  getDeadline,
+  updateDeadline
+}: Props) => {
 
-  updateDeadline = (values: updateValues) => {
-    const { id, deadline, createDeadline, updateDeadline } = this.props;
+  useEffect(() => {
+    if(id) getDeadline(id);
+  }, []);
 
+  const handleDeadline = (values: UpdateValues) => {
     if (isEmpty(deadline)) {
       createDeadline({ deadline: values });
     } else if (id) {
@@ -38,19 +40,19 @@ class Deadline extends Component<Props> {
     }
   };
 
-  render() {
-    const { id, deadline, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (id && isEmpty(deadline)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (id && isEmpty(deadline)) return <NotFound />;
+  return (
+    <div className="deadline">
+      <h1>Deadline</h1>
+      <DeadlineForm onSubmit={handleDeadline} initialValues={deadline} />
+    </div>
+  );
+}
 
-    return (
-      <div className="deadline">
-        <h1>Deadline</h1>
-        <DeadlineForm onSubmit={this.updateDeadline} initialValues={deadline} />
-      </div>
-    );
-  }
+Deadline.defaultProps = {
+  id: ''
 }
 
 export default Deadline;

@@ -25,7 +25,7 @@ export const deleteCompanyFailure = (): DestroyCompanyFailureAction => {
   };
 };
 
-export function deleteCompany(id: string) {
+export const deleteCompany = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteCompanyIsLoading());
     return API.companies

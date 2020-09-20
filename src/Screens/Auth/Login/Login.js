@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import type { Location } from 'react-router-dom';
 
@@ -16,43 +16,39 @@ type Props = {
   isLoggedIn: boolean,
   login: ({ email: string, password: string }) => Promise<void>
 };
-class Login extends Component<Props> {
-  login = (values: { email: string, password: string }) => {
-    const { email, password } = values;
-    const { login } = this.props;
-    return login({ email, password });
-  };
 
-  render() {
-    const { isLoggedIn, location } = this.props;
+const Login = ({
+  location,
+  isLoggedIn,
+  login
+}: Props) => {
 
-    // Url that redirected here
-    const { from } = location.state || { from: { pathname: '/' } };
+  // Url that redirected here
+  const { from } = location.state || { from: { pathname: '/' } };
 
-    if (isLoggedIn) {
-      return <Redirect to={from} />;
-    }
-
-    return (
-      <div className="production-login">
-        <HtmlTitle title="Login" />
-
-        <h1>Login</h1>
-        <LoginForm onSubmit={this.login} />
-
-        <br />
-        <br />
-
-        <div className="existing-account">
-          <div>Hard time logging in?</div>
-
-          <Link to="/signup">Sign up</Link>
-          <br />
-          <Link to="/forgot-password">Forgot password</Link>
-        </div>
-      </div>
-    );
+  if (isLoggedIn) {
+    return <Redirect to={from} />;
   }
+
+  return (
+    <div className="production-login">
+      <HtmlTitle title="Login" />
+
+      <h1>Login</h1>
+      <LoginForm onSubmit={login} />
+
+      <br />
+      <br />
+
+      <div className="existing-account">
+        <div>Hard time logging in?</div>
+
+        <Link to="/signup">Sign up</Link>
+        <br />
+        <Link to="/forgot-password">Forgot password</Link>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

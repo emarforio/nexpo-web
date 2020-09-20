@@ -25,7 +25,7 @@ export const updateRoleFailure = (): UpdateRoleFailureAction => {
   };
 };
 
-export function updateRole(id: string, data: {}) {
+export const updateRole = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateRoleIsLoading());
     return API.roles

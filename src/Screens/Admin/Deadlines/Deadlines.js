@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Table, Button, Popconfirm, Divider } from 'antd';
 import { sortBy } from 'lodash/fp';
 
@@ -15,17 +15,19 @@ type Props = {
   getAllDeadlines: () => Promise<void>,
   deleteDeadline: string => Promise<void>
 };
-class Deadlines extends Component<Props> {
-  static defaultProps = {
-    deadlines: {}
-  };
 
-  UNSAFE_componentWillMount() {
-    const { getAllDeadlines } = this.props;
+const Deadlines = ({
+  deadlines,
+  fetching,
+  getAllDeadlines,
+  deleteDeadline
+}: Props) => {
+
+  useEffect(() => {
     getAllDeadlines();
-  }
+  }, []);
 
-  deadlineColumns = () => [
+  const deadlineColumns = () => [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -48,7 +50,6 @@ class Deadlines extends Component<Props> {
       title: 'Action',
       key: 'action',
       render: (deadline: { id: string }) => {
-        const { deleteDeadline } = this.props;
         return (
           <span>
             <InvisibleLink to={`/admin/deadlines/${deadline.id}`}>
@@ -69,9 +70,8 @@ class Deadlines extends Component<Props> {
     }
   ];
 
-  renderDeadlines() {
-    const { deadlines = {} } = this.props;
-
+  const renderDeadlines = () => {
+    const tempDeadlines = deadlines || {};
     return (
       <div>
         <HtmlTitle title="Deadlines" />
@@ -79,11 +79,11 @@ class Deadlines extends Component<Props> {
         <h1>Deadlines</h1>
 
         <Table
-          columns={this.deadlineColumns()}
+          columns={deadlineColumns}
           dataSource={sortBy(
             'name',
-            Object.keys(deadlines).map(i => ({
-              ...deadlines[i],
+            Object.keys(tempDeadlines).map(i => ({
+              ...tempDeadlines[i],
               key: i
             }))
           )}
@@ -97,13 +97,14 @@ class Deadlines extends Component<Props> {
     );
   }
 
-  render() {
-    const { fetching } = this.props;
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    return this.renderDeadlines();
+  if (fetching) {
+    return <LoadingSpinner />;
   }
+  return renderDeadlines();
+}
+
+Deadlines.defaultProps = {
+  deadlines: {}
 }
 
 export default Deadlines;

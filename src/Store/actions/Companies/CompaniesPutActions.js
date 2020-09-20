@@ -25,7 +25,7 @@ export const updateCompanyFailure = (): UpdateCompanyFailureAction => {
   };
 };
 
-export function updateCompany(id: string, data: {}) {
+export const updateCompany = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateCompanyIsLoading());
     return API.companies

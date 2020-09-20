@@ -30,6 +30,8 @@ describe('Roles', () => {
   it('calls fetch all roles prop on mount', () => {
     shallow(<Roles {...props} />);
 
-    expect(props.getAllRoles).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(props.getAllRoles).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 });

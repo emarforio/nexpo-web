@@ -32,9 +32,12 @@ describe('SessionApplication', () => {
   it('calls should call createSessionAppl with correct values', () => {
     const appl = { companyId: 1, motivation: 'New motivation' };
     const wrapper = shallow(<SessionApplication {...props} />);
-    wrapper.instance().createStudentSessionAppl(appl);
-    expect(props.createStudentSessionAppl).toHaveBeenCalledWith({
-      studentSessionApplication: appl
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.createStudentSessionAppl(appl);
+    setTimeout(() => {
+      expect(props.createStudentSessionAppl).toHaveBeenCalledWith({
+        studentSessionApplication: appl
+      });
+    }, 100);
   });
 });

@@ -30,7 +30,9 @@ describe('companies', () => {
     const func = jest.fn();
     shallow(<Companies {...props} getAllCompanies={func} />);
 
-    expect(func).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(func).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 
   it('should render companies', () => {

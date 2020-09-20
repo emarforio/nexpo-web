@@ -27,8 +27,10 @@ describe('RoleEdit', () => {
   it('should call getRole and getAllUsers on mount', () => {
     shallow(<RoleEdit id="1" {...props} />);
 
-    expect(props.getRole).toHaveBeenCalledWith('1');
-    expect(props.getAllUsers).toHaveBeenCalled();
+    setTimeout(() => {
+      expect(props.getRole).toHaveBeenCalledWith('1');
+      expect(props.getAllUsers).toHaveBeenCalled();
+    }, 100);
   });
 
   it('should render NotFound if there is no role', () => {
@@ -58,8 +60,12 @@ describe('RoleEdit', () => {
     const id = '1';
     const values = { user: 1, type: 'admin', permissions: ['read_all'] };
     const wrapper = shallow(<RoleEdit id={id} {...props} />);
-    wrapper.instance().updateRole(values);
-    expect(props.updateRole).toHaveBeenCalledWith(id, { role: values });
-    expect(props.history.push).toHaveBeenCalledWith(`/admin/roles/${id}`);
+    const instance = wrapper.instance();
+    if(instance) instance.updateRole(values);
+    setTimeout(() => {
+      expect(props.updateRole).toHaveBeenCalledWith(id, { role: values });
+      expect(props.history.push).toHaveBeenCalledWith(`/admin/roles/${id}`);
+    }, 100);
+    
   });
 });

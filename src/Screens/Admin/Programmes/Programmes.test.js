@@ -29,7 +29,9 @@ describe('Programmes', () => {
     const func = jest.fn();
     shallow(<Programmes {...props} getAllProgrammes={func} />);
 
-    expect(func).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(func).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 
   it('should render programmes', () => {

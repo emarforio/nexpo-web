@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, map } from 'lodash/fp';
 import { Button } from 'antd';
 
@@ -37,32 +37,30 @@ type Props = {
     path?: string
   }
 };
-class UserShow extends Component<Props> {
-  static defaultProps = {
-    id: '',
-    user: {},
-    match: {
-      path: ''
-    }
-  };
 
-  UNSAFE_componentWillMount() {
-    const { id, getUser } = this.props;
+const UserShow = ({
+  id,
+  user,
+  fetching,
+  getUser,
+  match
+}: Props) => {
+
+  useEffect(() => {
     if (id) getUser(id);
-  }
+  }, []);
 
-  displayName = () => {
-    const { user: { email, firstName, lastName } = {} } = this.props;
+  const {firstName, lastName, email, phoneNumber, foodPreferences, student} = user || {};
+
+  const displayName = () => {
     return firstName ? [firstName, lastName].join(' ') : email;
   };
 
-  roles = () => {
-    const { user: { roles = [] } = {} } = this.props;
+  const roles = () => {
     return isEmpty(roles) ? 'None' : map('type', roles).join(', ');
   };
 
-  renderStudent = () => {
-    const { user: { student = {} } = {} } = this.props;
+  const renderStudent = () => {
     const {
       year,
       resumeSvUrl,
@@ -70,7 +68,7 @@ class UserShow extends Component<Props> {
       programme,
       studentSessionApplications = [],
       studentSessions = []
-    } = student;
+    } = student || {};
 
     return (
       <>
@@ -85,29 +83,35 @@ class UserShow extends Component<Props> {
     );
   };
 
-  render() {
-    const { user = {}, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (isEmpty(user)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (isEmpty(user)) return <NotFound />;
+  return (
+    <div className="user-show-view">
+      <HtmlTitle title={displayName()} />
 
-    return (
-      <div className="user-show-view">
-        <HtmlTitle title={this.displayName()} />
+      <h1 className="centering">{displayName()}</h1>
+      <p>Email: {email}</p>
+      <p>Phone number: {phoneNumber}</p>
+      <p>Roles: {roles()}</p>
+      <p>Food Preferences: {foodPreferences}</p>
+      {student && renderStudent()}
+      <InvisibleLink to={`/admin/users/${id || ''}/edit`}>
+        <Button onClick={() => null} type="primary">
+          Edit
+        </Button>
+      </InvisibleLink>
+    </div>
+  );
+}
 
-        <h1 className="centering">{this.displayName()}</h1>
-        <p>Email: {user.email}</p>
-        <p>Phone number: {user.phoneNumber}</p>
-        <p>Roles: {this.roles()}</p>
-        <p>Food Preferences: {user.foodPreferences}</p>
-        {user.student && this.renderStudent()}
-        <InvisibleLink to={`/admin/users/${user.id || ''}/edit`}>
-          <Button onClick={() => null} type="primary">
-            Edit
-          </Button>
-        </InvisibleLink>
-      </div>
-    );
+UserShow.defaultProps = {
+  id: '',
+  user: {
+    student: {}
+  },
+  match: {
+    path: ''
   }
 }
 

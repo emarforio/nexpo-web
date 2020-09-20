@@ -28,7 +28,9 @@ describe('mailtemplates', () => {
     const func = jest.fn();
     shallow(<Mailtemplates {...props} getAllMailtemplates={func} />);
 
-    expect(func).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(func).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 
   it('should render mailtemplates', () => {

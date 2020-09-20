@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash/fp';
 
 import ProgrammeForm from '../../../Forms/ProgrammeForm';
@@ -16,15 +16,21 @@ type Props = {
   createProgramme: ({ programme: {} }) => Promise<void>,
   updateProgramme: (string, { programme: {} }) => Promise<void>
 };
-class Programme extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { id, getProgramme } = this.props;
+
+const Programme = ({
+  id,
+  programme,
+  fetching,
+  getProgramme,
+  createProgramme,
+  updateProgramme
+}: Props) => {
+  
+  useEffect(() => {
     if (id) getProgramme(id);
-  }
+  }, []);
 
-  updateProgramme = (values: { code?: string, name?: string }) => {
-    const { id, programme, createProgramme, updateProgramme } = this.props;
-
+  const handleProgramme = (values: { code?: string, name?: string }) => {
     if (isEmpty(programme)) {
       createProgramme({ programme: values });
     } else {
@@ -32,22 +38,18 @@ class Programme extends Component<Props> {
     }
   };
 
-  render() {
-    const { id, programme, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (id && isEmpty(programme)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (id && isEmpty(programme)) return <NotFound />;
-
-    return (
-      <div className="programme">
-        <h1>Programme</h1>
-        <ProgrammeForm
-          onSubmit={this.updateProgramme}
-          initialValues={programme}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="programme">
+      <h1>Programme</h1>
+      <ProgrammeForm
+        onSubmit={handleProgramme}
+        initialValues={programme}
+      />
+    </div>
+  );
 }
 
 export default Programme;

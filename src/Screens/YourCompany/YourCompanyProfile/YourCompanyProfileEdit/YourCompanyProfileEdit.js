@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, isNil } from 'lodash/fp';
 import type { RouterHistory } from 'react-router-dom';
 import NotFound from '../../../NotFound';
@@ -11,35 +11,41 @@ type CurrentCompany = {
   studentSessionDays?: number
 };
 
+type CompanyForm = {
+  website: string,
+  description: string,
+  logoUrl: File
+}
+
 type Props = {
   fetching: boolean,
   history: RouterHistory,
   currentCompany: CurrentCompany,
   getCurrentCompany: () => Promise<void>,
-  updateCurrentCompany: ({ company: {} }) => Promise<void>
+  updateCurrentCompany: ({ company: CompanyForm }) => Promise<void>
 };
-class YourCompanyProfileEdit extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getCurrentCompany } = this.props;
-    getCurrentCompany();
-  }
 
-  updateCurrentCompany = (values: {
-    website: string,
-    description: string,
-    logoUrl: File
-  }) => {
-    const { updateCurrentCompany } = this.props;
+const YourCompanyProfileEdit = ({
+  fetching,
+  history,
+  currentCompany,
+  getCurrentCompany,
+  updateCurrentCompany
+}: Props) => {
+  
+  useEffect(() => {
+    getCurrentCompany();
+  }, []);
+
+  const updatingCurrentCompany = (values: CompanyForm) => {
     return updateCurrentCompany({ company: values });
   };
 
-  onSuccess = () => {
-    const { history } = this.props;
+  const onSuccess = () => {
     history.push('/company/profile');
   };
 
-  showStudentSession() {
-    const { currentCompany } = this.props;
+  const showStudentSession = () => {
     switch (currentCompany.studentSessionDays) {
       case 0:
         return 'No days';
@@ -54,28 +60,24 @@ class YourCompanyProfileEdit extends Component<Props> {
     }
   }
 
-  render() {
-    const { currentCompany, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
+  const { name } = currentCompany;
 
-    const { name } = currentCompany;
-
-    return (
-      <div>
-        <h1>{name}</h1>
-        <div style={{ marginBottom: 20 }}>
-          Student Session Days: {this.showStudentSession()}
-        </div>
-        <CurrentCompanyForm
-          onSubmit={this.updateCurrentCompany}
-          onSubmitSuccess={this.onSuccess}
-          initialValues={currentCompany}
-        />
+  return (
+    <div>
+      <h1>{name}</h1>
+      <div style={{ marginBottom: 20 }}>
+        Student Session Days: {showStudentSession()}
       </div>
-    );
-  }
+      <CurrentCompanyForm
+        onSubmit={updatingCurrentCompany}
+        onSubmitSuccess={onSuccess}
+        initialValues={currentCompany}
+      />
+    </div>
+  );
 }
 
 export default YourCompanyProfileEdit;

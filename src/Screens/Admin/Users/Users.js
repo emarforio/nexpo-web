@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { toLower } from 'lodash/fp';
 import { Table, Divider, Popconfirm } from 'antd';
 
@@ -16,18 +16,19 @@ type Props = {
   getAllUsers: () => Promise<void>,
   deleteUser: string => Promise<void>
 };
-class Users extends Component<Props> {
-  static defaultProps = {
-    users: {}
-  };
 
-  UNSAFE_componentWillMount() {
-    const { getAllUsers } = this.props;
+const Users = ({
+  users,
+  fetching,
+  getAllUsers,
+  deleteUser
+}: Props) => {
+
+  useEffect(() => {
     getAllUsers();
-  }
+  }, []);
 
-  renderUsers() {
-    const { users = {} } = this.props;
+  const renderUsers = () => {
     const userColumns = [
       {
         title: 'Email',
@@ -54,7 +55,6 @@ class Users extends Component<Props> {
         title: 'Action',
         key: 'action',
         render: user => {
-          const { deleteUser } = this.props;
           return (
             <span>
               <InvisibleLink to={`/admin/users/${user.id}`}>Show</InvisibleLink>
@@ -77,6 +77,7 @@ class Users extends Component<Props> {
       }
     ];
 
+    const tempUsers = users || {};
     return (
       <div>
         <HtmlTitle title="Users" />
@@ -85,8 +86,8 @@ class Users extends Component<Props> {
 
         <Table
           columns={userColumns}
-          dataSource={Object.keys(users).map(i => ({
-            ...users[i],
+          dataSource={Object.keys(tempUsers).map(i => ({
+            ...tempUsers[i],
             key: i
           }))}
         />
@@ -94,14 +95,14 @@ class Users extends Component<Props> {
     );
   }
 
-  render() {
-    const { fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    return this.renderUsers();
+  if (fetching) {
+    return <LoadingSpinner />;
   }
+  return renderUsers();
+}
+
+Users.defaultProps = {
+  users: {}
 }
 
 export default Users;

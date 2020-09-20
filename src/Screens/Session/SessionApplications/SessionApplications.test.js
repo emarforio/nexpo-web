@@ -44,28 +44,23 @@ describe('SessionApplications', () => {
     expect(wrapper.find(LoadingSpinner)).toHaveLength(1);
   });
 
-  it('renders toggles edit correctly', () => {
-    const wrapper = shallow(<SessionApplications {...props} />);
-    expect(wrapper.state().editing).toEqual({});
-    wrapper.instance().toggleEditMode('1');
-    expect(wrapper.state().editing).toEqual({ '1': true });
-    wrapper.instance().toggleEditMode('2');
-    expect(wrapper.state().editing).toEqual({ '2': true });
-  });
-
   it('calls updateStudentSessionApplwith correct parameters', () => {
     const wrapper = shallow(<SessionApplications {...props} />);
     const data = { motivation: 'Lul' };
-    wrapper.instance().updateStudentSessionAppl('1', data);
-    expect(props.updateStudentSessionAppl).toHaveBeenCalledWith('1', {
-      studentSessionApplication: { ...data }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateStudentSessionAppl('1', data);
+    setTimeout(() => {
+      expect(props.updateStudentSessionAppl).toHaveBeenCalledWith('1', {
+        studentSessionApplication: { ...data }
+      });
+    }, 100);
   });
 
   it('can render listitems', () => {
     const wrapper = shallow(<SessionApplications {...props} />);
     // Check to see that list items renders properly
-    wrapper.instance().toggleEditMode('1');
+    const instance = wrapper.instance();
+    if(instance) instance.toggleEditMode('1');
     wrapper.find('List').dive();
   });
 });

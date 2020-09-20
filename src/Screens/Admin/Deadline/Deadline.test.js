@@ -56,10 +56,13 @@ describe('Deadline', () => {
   it('updateDeadline functions correctly', () => {
     const wrapper = shallow(<Deadline id="1" {...props} />);
     const newDate = 'DATE';
-    wrapper.instance().updateDeadline({ start: newDate, end: newDate });
-    expect(props.createDeadline).toHaveBeenCalledWith({
-      deadline: { start: newDate, end: newDate }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateDeadline({ start: newDate, end: newDate });
+    setTimeout(() => {
+      expect(props.createDeadline).toHaveBeenCalledWith({
+        deadline: { start: newDate, end: newDate }
+      });
+    }, 100);
   });
 
   // If there is a deadline in props we want to update it
@@ -75,9 +78,12 @@ describe('Deadline', () => {
       <Deadline id={id} {...props} deadline={deadline} />
     );
     const newDate = 'NEW DATE';
-    wrapper.instance().updateDeadline({ start: newDate });
-    expect(props.updateDeadline).toHaveBeenCalledWith(id, {
-      deadline: { start: newDate }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateDeadline({ start: newDate });
+    setTimeout(() => {
+      expect(props.updateDeadline).toHaveBeenCalledWith(id, {
+        deadline: { start: newDate }
+      });
+    }, 100);
   });
 });

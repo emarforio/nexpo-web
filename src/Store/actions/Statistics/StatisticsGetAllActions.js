@@ -24,7 +24,7 @@ export const getAllStatisticsFailure = (): GetAllStatisticsFailureAction => {
   };
 };
 
-export function getAllStatistics() {
+export const getAllStatistics = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllStatisticsIsLoading());
     return API.statistics

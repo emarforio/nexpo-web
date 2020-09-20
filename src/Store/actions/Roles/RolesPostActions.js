@@ -26,7 +26,7 @@ export const createRoleFailure = (): CreateRoleFailureAction => {
   };
 };
 
-export function createRole(data: {}) {
+export const createRole = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createRoleIsLoading());
     return API.roles

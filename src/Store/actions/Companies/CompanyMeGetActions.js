@@ -15,7 +15,7 @@ export const getCurrentCompanyFailure = () => ({
   type: actionTypes.FETCH_CURRENT_COMPANY_FAILURE
 });
 
-export function getCurrentCompany() {
+export const getCurrentCompany = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getCurrentCompanyIsLoading());
     return API.companies

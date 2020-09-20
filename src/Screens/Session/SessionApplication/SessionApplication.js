@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash/fp';
 import NotFound from '../../NotFound';
 import LoadingSpinner from '../../../Components/LoadingSpinner';
@@ -24,58 +24,61 @@ type Props = {
   }) => Promise<void>,
   resetForm: string => Promise<void>
 };
-class SessionApplication extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getAllCompanies, getAllProgrammes } = this.props;
+
+const SessionApplication = ({
+  fetching,
+  currentUser,
+  getAllCompanies,
+  getAllProgrammes,
+  createStudentSessionAppl,
+  resetForm
+}: Props) => {
+  
+  useEffect(() => {
     getAllCompanies();
     getAllProgrammes();
-  }
+  }, []);
 
-  resetStudentForm = () => {
-    const { resetForm } = this.props;
+  const resetStudentForm = () => {
     resetForm('student');
   };
 
-  createStudentSessionAppl = (data: Application) => {
-    const { createStudentSessionAppl } = this.props;
+  const createStudentSessionApplication = (data: Application) => {
     createStudentSessionAppl({
       studentSessionApplication: data
     });
+    resetStudentForm();
   };
 
-  render() {
-    const { currentUser, fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    if (isEmpty(currentUser)) {
-      return <NotFound />;
-    }
-
-    return (
-      <div className="session-application">
-        <HtmlTitle title="Student Session Application" />
-        <h1>Apply for student sessions</h1>
-        <h2>
-          But first! Make sure your Student Information is uploaded and updated!
-        </h2>
-        <h4>
-          You only need to upload your CV(s) once. All the companies you apply
-          for will receive the same CV(s) but different motivations.
-          <br />
-          You can update your information
-          <InvisibleLink to="/user"> here</InvisibleLink>
-        </h4>
-        <br />
-
-        <SessionForm
-          onSubmit={this.createStudentSessionAppl}
-          disabled={!false} // STUDENT_SESSIONS_ACTIVE
-        />
-      </div>
-    );
+  if (fetching) {
+    return <LoadingSpinner />;
   }
+  if (isEmpty(currentUser)) {
+    return <NotFound />;
+  }
+
+  return (
+    <div className="session-application">
+      <HtmlTitle title="Student Session Application" />
+      <h1>Apply for student sessions</h1>
+      <h2>
+        But first! Make sure your Student Information is uploaded and updated!
+      </h2>
+      <h4>
+        You only need to upload your CV(s) once. All the companies you apply
+        for will receive the same CV(s) but different motivations.
+        <br />
+        You can update your information
+        <InvisibleLink to="/user"> here</InvisibleLink>
+      </h4>
+      <br />
+
+      <SessionForm
+        onSubmit={createStudentSessionApplication}
+        disabled={!false} // STUDENT_SESSIONS_ACTIVE
+      />
+    </div>
+  );
 }
 
 export default SessionApplication;

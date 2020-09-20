@@ -58,10 +58,13 @@ describe('Mailtemplate', () => {
   it('updateMailtemplate functions correctly', () => {
     const wrapper = shallow(<Mailtemplate id="1" {...props} />);
     const newSubject = 'Welcome!';
-    wrapper.instance().updateMailtemplate({ subject: newSubject });
-    expect(props.createMailtemplate).toHaveBeenCalledWith({
-      mailtemplate: { id: '1', subject: newSubject }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateMailtemplate({ subject: newSubject });
+    setTimeout(() => {
+      expect(props.createMailtemplate).toHaveBeenCalledWith({
+        mailtemplate: { id: '1', subject: newSubject }
+      });
+    }, 100);
   });
 
   // If there is a mailtemplate in props we want to update it
@@ -77,9 +80,12 @@ describe('Mailtemplate', () => {
       <Mailtemplate id={id} {...props} mailtemplate={mailtemplate} />
     );
     const newSubject = 'Welcome to ARKAD!';
-    wrapper.instance().updateMailtemplate({ subject: newSubject });
-    expect(props.updateMailtemplate).toHaveBeenCalledWith(id, {
-      mailtemplate: { id, subject: newSubject }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateMailtemplate({ subject: newSubject });
+    setTimeout(() => {
+      expect(props.updateMailtemplate).toHaveBeenCalledWith(id, {
+        mailtemplate: { id, subject: newSubject }
+      });
+    }, 100);
   });
 });

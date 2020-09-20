@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 type Props = {
   logout: () => Promise<void>
 };
-class Logout extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { logout } = this.props;
+const Logout = ({
+  logout
+}: Props) => {
+  
+  useEffect(() => {
     logout();
-  }
+  }, []);
 
-  render() {
-    return <Redirect to="/" />;
-  }
+  return <Redirect to="/" />;
 }
 
 export default Logout;

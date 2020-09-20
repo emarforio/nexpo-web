@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
 import RoleForm from '../../../../Forms/RoleForm';
 import '../Role.css';
@@ -15,24 +15,25 @@ type Props = {
   createRole: ({ role: RoleObj }) => Promise<void>,
   getAllUsers: () => Promise<void>
 };
-class RoleNew extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getAllUsers } = this.props;
-    getAllUsers();
-  }
 
-  createRole = (values: RoleObj) => {
-    const { createRole } = this.props;
+const RoleNew = ({
+  createRole,
+  getAllUsers
+}: Props) => {
+  
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  const createSafeRole = (values: RoleObj) => {
     createRole({ role: values });
   };
 
-  render() {
-    return (
-      <div className="role-new-view">
-        <RoleForm onSubmit={this.createRole} />
-      </div>
-    );
-  }
+  return (
+    <div className="role-new-view">
+      <RoleForm onSubmit={createSafeRole} />
+    </div>
+  );
 }
 
 export default RoleNew;

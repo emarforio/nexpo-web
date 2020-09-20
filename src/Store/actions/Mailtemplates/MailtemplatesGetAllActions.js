@@ -24,7 +24,7 @@ export const getAllMailtemplatesFailure = (): GetAllMailtemplatesFailureAction =
   };
 };
 
-export function getAllMailtemplates() {
+export const getAllMailtemplates = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllMailtemplatesIsLoading());
     return API.mailtemplates

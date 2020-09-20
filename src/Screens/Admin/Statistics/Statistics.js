@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row, Table, Button } from 'antd';
 import {
   orderBy,
@@ -90,110 +90,112 @@ type Props = {
     wordsPerAppl?: number
   }
 };
-class Statistics extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getAllStatistics } = this.props;
+
+const Statistics = ({
+  getAllStatistics,
+  statistics,
+}: Props) => {
+  
+  useEffect(() => {
     getAllStatistics();
-  }
+  }, []);
 
-  render() {
-    const { statistics } = this.props;
-    const {
-      companyStats = [],
-      nbrSearchingStudents = '',
-      nbrStudents = '',
-      applicationsPerDay = [],
-      wordsPerAppl = 0
-    } = statistics;
-    const data = getData(applicationsPerDay);
-    const nbrApplications = applicationsPerDay.length;
-    return (
-      <div>
-        <h1>Statistics</h1>
-        <Row>
-          <Col span={14} style={{ fontSize: '1.2em' }}>
-            {`Total Number of applications: ${nbrApplications}`}
-            <br />
-            {`Total Number of students: ${nbrStudents}`}
-            <br />
-            {`Number of students that has applied: ${nbrSearchingStudents}`}
-            <br />
-            {`Percentage of students that has applied: ${toPercent(
-              nbrSearchingStudents,
-              nbrStudents
-            )}`}
-            <br />
-            {`Average number of applications per student: ${divide(
-              nbrApplications || 0,
-              nbrSearchingStudents || 1
-            ).toFixed(2)}`}
-            <br />
-            {`Average number of words per application: ${wordsPerAppl.toFixed(
-              2
-            )}`}
-          </Col>
-          <Col span={10}>
-            <VictoryChart
-              containerComponent={
-                <VictoryVoronoiContainer
-                  labels={({ datum: { x, y } }) => `y: ${y}, x: ${x}`}
-                  labelComponent={
-                    <VictoryTooltip
-                      cornerRadius={0}
-                      flyoutStyle={{ fill: 'white' }}
-                    />
-                  }
-                />
-              }
-            >
-              <VictoryLabel
-                text="Number of applications over time"
-                x={225}
-                y={30}
-                textAnchor="middle"
-              />
-              {/* Add this back on the 19th Wooo
+  const {
+    companyStats = [],
+    nbrSearchingStudents = '',
+    nbrStudents = '',
+    applicationsPerDay = [],
+    wordsPerAppl = 0
+  } = statistics;
+  const data = getData(applicationsPerDay);
+  const nbrApplications = applicationsPerDay.length;
 
-              <VictoryLine
-                style={{
-                  data: { stroke: 'red', strokeWidth: 2 },
-                  labels: { angle: -90, fill: 'red', fontSize: 20 }
-                }}
-                labels={['Deadline']}
-                labelComponent={<VictoryLabel y={200} />}
-                x={() => (data.length > 0 ? '2018-10-19' : null)}
-              /> */}
-              <VictoryAxis tickCount={3} />
-              <VictoryAxis
-                style={{ axisLabel: { marginRight: 20 } }}
-                dependentAxis
+  return (
+    <div>
+      <h1>Statistics</h1>
+      <Row>
+        <Col span={14} style={{ fontSize: '1.2em' }}>
+          {`Total Number of applications: ${nbrApplications}`}
+          <br />
+          {`Total Number of students: ${nbrStudents}`}
+          <br />
+          {`Number of students that has applied: ${nbrSearchingStudents}`}
+          <br />
+          {`Percentage of students that has applied: ${toPercent(
+            nbrSearchingStudents,
+            nbrStudents
+          )}`}
+          <br />
+          {`Average number of applications per student: ${divide(
+            nbrApplications || 0,
+            nbrSearchingStudents || 1
+          ).toFixed(2)}`}
+          <br />
+          {`Average number of words per application: ${wordsPerAppl.toFixed(
+            2
+          )}`}
+        </Col>
+        <Col span={10}>
+          <VictoryChart
+            containerComponent={
+              <VictoryVoronoiContainer
+                labels={({ datum: { x, y } }) => `y: ${y}, x: ${x}`}
+                labelComponent={
+                  <VictoryTooltip
+                    cornerRadius={0}
+                    flyoutStyle={{ fill: 'white' }}
+                  />
+                }
               />
-              <VictoryLine data={data} />
-            </VictoryChart>
-          </Col>
-        </Row>
-        <br />
-        <br />
-        <br />
-        <Button icon="download" onClick={API.studentSessions.downloadReserves}>
-          Download reserves
-        </Button>
-        <br />
-        <br />
-        <Table
-          columns={columns}
-          dataSource={orderBy(
-            'nbrApplications',
-            'desc',
-            companyStats.map((stat, i) => ({
-              key: i,
-              ...stat
-            }))
-          )}
-        />
-      </div>
-    );
-  }
+            }
+          >
+            <VictoryLabel
+              text="Number of applications over time"
+              x={225}
+              y={30}
+              textAnchor="middle"
+            />
+            {/* Add this back on the 19th Wooo
+
+            <VictoryLine
+              style={{
+                data: { stroke: 'red', strokeWidth: 2 },
+                labels: { angle: -90, fill: 'red', fontSize: 20 }
+              }}
+              labels={['Deadline']}
+              labelComponent={<VictoryLabel y={200} />}
+              x={() => (data.length > 0 ? '2018-10-19' : null)}
+            /> */}
+            <VictoryAxis tickCount={3} />
+            <VictoryAxis
+              style={{ axisLabel: { marginRight: 20 } }}
+              dependentAxis
+            />
+            <VictoryLine data={data} />
+          </VictoryChart>
+        </Col>
+      </Row>
+      <br />
+      <br />
+      <br />
+      <Button icon="download" onClick={API.studentSessions.downloadReserves}>
+        Download reserves
+      </Button>
+      <br />
+      <br />
+      <Table
+        columns={columns}
+        dataSource={orderBy(
+          'nbrApplications',
+          'desc',
+          companyStats.map((stat, i) => ({
+            key: i,
+            ...stat
+          }))
+        )}
+      />
+    </div>
+  );
 }
 
 export default Statistics;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import type { Element } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { Breadcrumb, Icon, Menu, Layout } from 'antd';
@@ -47,10 +47,11 @@ import { hasAccess, hasPermission } from '../Util/PermissionsHelper';
 
 const { Header, Content, Footer } = Layout;
 
-type RouteItem = {
+// the | ... | means exact type. look up flow exact type for more information
+type RouteItem = {|
   path: string,
   component: React$ComponentType<{}>
-};
+|};
 
 const privateRoutes: Array<RouteItem> = [
   { path: '/', component: Home },
@@ -120,21 +121,35 @@ type Props = {
   pathname: string
 };
 
+type SubMenuProps = {|
+  route: string,
+  title: string,
+  menus: Array<?React$Element<any>>
+|}
+
+type MenuItemProps = {|
+  route: string,
+  title: string,
+  disabled?: boolean
+|}
+
 /**
  * The base of the application. Defines the basic layout
  */
-class App extends Component<Props> {
-  static defaultProps = {
-    currentUser: {}
-  };
+const App = ({
+  isLoggedIn,
+  currentUser,
+  logout,
+  redirect,
+  pathname
+}: Props) => {
 
-  loggedInMenuItem = () => {
-    const { currentUser = {} } = this.props;
-    const { email, firstName, lastName } = currentUser;
+  const loggedInMenuItem = () => {
+    const { email, firstName, lastName } = currentUser || {};
 
-    const displayName: ?string = firstName
-      ? [firstName, lastName].join(' ')
-      : email;
+    const displayName: string = firstName && lastName 
+    ? [firstName, lastName].join(' ')
+      : email || '';
 
     return [
       <Menu.Item key="/user">
@@ -144,23 +159,18 @@ class App extends Component<Props> {
     ];
   };
 
-  loggedOutMenuItem = () => [
+  const loggedOutMenuItem = () => [
     <Menu.Item key="/login">Login</Menu.Item>,
     <Menu.Item key="/signup">Sign Up</Menu.Item>
   ];
 
-  restrictedSubMenu = ({
+  const restrictedSubMenu = ({
     route,
     title,
     menus,
     ...rest
-  }: {
-    route: string,
-    title: string,
-    menus: Array<?React$Element<any>>
-  }) => {
-    const { currentUser: user, isLoggedIn, redirect } = this.props;
-    if (isLoggedIn && hasPermission(user, route) && hasAccess(user, route)) {
+  }: SubMenuProps) => {
+    if (isLoggedIn && hasPermission(currentUser, route) && hasAccess(currentUser, route)) {
       return (
         <Menu.SubMenu
           title={title}
@@ -175,17 +185,12 @@ class App extends Component<Props> {
     return null;
   };
 
-  restrictedMenuItem = ({
+  const restrictedMenuItem = ({
     route,
     title,
     ...rest
-  }: {
-    route: string,
-    title: string,
-    disabled?: boolean
-  }) => {
-    const { currentUser: user, isLoggedIn } = this.props;
-    if (isLoggedIn && hasPermission(user, route) && hasAccess(user, route)) {
+  }: MenuItemProps) => {
+    if (isLoggedIn && hasPermission(currentUser, route) && hasAccess(currentUser, route)) {
       return (
         <Menu.Item key={`/${route}`} {...rest}>
           {title}
@@ -195,141 +200,138 @@ class App extends Component<Props> {
     return null;
   };
 
-  render() {
-    const { isLoggedIn, redirect, pathname } = this.props;
-    const paths: Array<string> = pathname.split('/').filter((i: string) => i);
-    const breadcrumbItems: Array<React$Element<any>> = paths.map(
-      (item: string, index: number) => {
-        const url: string = `/${paths.slice(0, index + 1).join('/')}`;
-        return (
-          <Breadcrumb.Item key={url}>
-            <Link to={url}>{startCase(item)}</Link>
-          </Breadcrumb.Item>
-        );
-      }
-    );
+  const paths: Array<string> = pathname.split('/').filter((i: string) => i);
+  const breadcrumbItems: Array<React$Element<any>> = paths.map(
+    (item: string, index: number) => {
+      const url: string = `/${paths.slice(0, index + 1).join('/')}`;
+      return (
+        <Breadcrumb.Item key={url}>
+          <Link to={url}>{startCase(item)}</Link>
+        </Breadcrumb.Item>
+      );
+    }
+  );
 
-    return (
-      <div>
-        {/* Always fall back to default htmltitle if screen does not specify its own */}
-        <HtmlTitle />
+  return (
+    <div>
+      {/* Always fall back to default htmltitle if screen does not specify its own */}
+      <HtmlTitle />
 
-        <Layout>
-          <Header className="app-header">
-            <Link to="/" className="logo" />
+      <Layout>
+        <Header className="app-header">
+          <Link to="/" className="logo" />
 
-            <Menu
-              className="app-header-menu"
-              theme="light"
-              mode="horizontal"
-              onClick={({ key }) => redirect(key)}
-            >
-              {this.restrictedSubMenu({
-                route: 'admin',
-                title: 'Admin',
-                menus: [
-                  this.restrictedMenuItem({
-                    route: 'admin/companies',
-                    title: 'Companies'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/sessions',
-                    title: 'Student Session'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/categories',
-                    title: 'Categories'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/roles',
-                    title: 'Roles'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/users',
-                    title: 'Users'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/programmes',
-                    title: 'Programmes'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/mailtemplates',
-                    title: 'Mailtemplates'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/deadlines',
-                    title: 'Deadlines'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'admin/statistics',
-                    title: 'Statistics'
-                  })
-                ]
-              })}
-              {this.restrictedSubMenu({
-                route: 'session',
-                title: 'Student Session',
-                menus: [
-                  this.restrictedMenuItem({
-                    route: 'session/application',
-                    title: 'Apply',
-                    disabled: true // STUDENT_SESSIONS_ACTIVE
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'session/applications',
-                    title: 'View Applications'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'session/companies',
-                    title: 'View Companies'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'session/approved',
-                    title: 'View Approved Applications'
-                  })
-                ]
-              })}
-              {this.restrictedSubMenu({
-                route: 'company',
-                title: 'Your Company',
-                menus: [
-                  this.restrictedMenuItem({
-                    route: 'company/profile',
-                    title: 'Company Profile'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'company/applications',
-                    title: 'Applications'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'company/timeslots',
-                    title: 'Time Slots'
-                  }),
-                  this.restrictedMenuItem({
-                    route: 'company/scans',
-                    title: 'Student Scans'
-                  })
-                ]
-              })}
-              {isLoggedIn ? this.loggedInMenuItem() : this.loggedOutMenuItem()}
-            </Menu>
-          </Header>
-          <Content className="app-content">
-            <Breadcrumb className="app-breadcrumb">
-              <Breadcrumb.Item key="home">
-                <Link to="/">Home</Link>
-              </Breadcrumb.Item>
-              {breadcrumbItems}
-            </Breadcrumb>
-            <Layout className="app-inner">
-              <Content>{routes}</Content>
-            </Layout>
-          </Content>
-          <Footer />
-        </Layout>
-      </div>
-    );
-  }
+          <Menu
+            className="app-header-menu"
+            theme="light"
+            mode="horizontal"
+            onClick={({ key }) => redirect(key)}
+          >
+            {restrictedSubMenu({
+              route: 'admin',
+              title: 'Admin',
+              menus: [
+                restrictedMenuItem({
+                  route: 'admin/companies',
+                  title: 'Companies'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/sessions',
+                  title: 'Student Session'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/categories',
+                  title: 'Categories'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/roles',
+                  title: 'Roles'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/users',
+                  title: 'Users'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/programmes',
+                  title: 'Programmes'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/mailtemplates',
+                  title: 'Mailtemplates'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/deadlines',
+                  title: 'Deadlines'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/statistics',
+                  title: 'Statistics'
+                })
+              ]
+            })}
+            {restrictedSubMenu({
+              route: 'session',
+              title: 'Student Session',
+              menus: [
+                restrictedMenuItem({
+                  route: 'session/application',
+                  title: 'Apply',
+                  disabled: true // STUDENT_SESSIONS_ACTIVE
+                }),
+                restrictedMenuItem({
+                  route: 'session/applications',
+                  title: 'View Applications'
+                }),
+                restrictedMenuItem({
+                  route: 'session/companies',
+                  title: 'View Companies'
+                }),
+                restrictedMenuItem({
+                  route: 'session/approved',
+                  title: 'View Approved Applications'
+                })
+              ]
+            })}
+            {restrictedSubMenu({
+              route: 'company',
+              title: 'Your Company',
+              menus: [
+                restrictedMenuItem({
+                  route: 'company/profile',
+                  title: 'Company Profile'
+                }),
+                restrictedMenuItem({
+                  route: 'company/applications',
+                  title: 'Applications'
+                }),
+                restrictedMenuItem({
+                  route: 'company/timeslots',
+                  title: 'Time Slots'
+                }),
+                restrictedMenuItem({
+                  route: 'company/scans',
+                  title: 'Student Scans'
+                })
+              ]
+            })}
+            {isLoggedIn ? loggedInMenuItem() : loggedOutMenuItem()}
+          </Menu>
+        </Header>
+        <Content className="app-content">
+          <Breadcrumb className="app-breadcrumb">
+            <Breadcrumb.Item key="home">
+              <Link to="/">Home</Link>
+            </Breadcrumb.Item>
+            {breadcrumbItems}
+          </Breadcrumb>
+          <Layout className="app-inner">
+            <Content>{routes}</Content>
+          </Layout>
+        </Content>
+        <Footer />
+      </Layout>
+    </div>
+  );
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, isNil } from 'lodash/fp';
 import { Avatar, Button, message } from 'antd';
 import { toExternal } from '../../../../Util/URLHelper';
@@ -23,14 +23,19 @@ type Props = {
   getCurrentCompany: () => Promise<void>,
   resetForm: string => any
 };
-class YourCompanyProfileShow extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getCurrentCompany } = this.props;
-    getCurrentCompany();
-  }
 
-  invite = ({ email }: { email: string }) => {
-    const { currentCompany, resetForm } = this.props;
+const YourCompanyProfileShow = ({
+  fetching,
+  currentCompany,
+  getCurrentCompany,
+  resetForm
+}: Props) => {
+  
+  useEffect(() => {
+    getCurrentCompany();
+  }, []);
+
+  const invite = ({ email }: { email: string }) => {
     API.signup
       .inviteRepresentative({
         email,
@@ -46,8 +51,7 @@ class YourCompanyProfileShow extends Component<Props> {
       });
   };
 
-  showStudentSession() {
-    const { currentCompany } = this.props;
+  const showStudentSession = () => {
     switch (currentCompany.studentSessionDays) {
       case 0:
         return 'No days';
@@ -62,48 +66,44 @@ class YourCompanyProfileShow extends Component<Props> {
     }
   }
 
-  render() {
-    const { currentCompany, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
-
-    const { name, description, website, logoUrl } = currentCompany;
-    return (
-      <div className="company-show-view">
-        <HtmlTitle title={name} />
-        <div className="centering">
-          <Avatar
-            src={logoUrl}
-            size={128}
-            shape="square"
-            alt="Company Logotype"
-          />
-          <h1>{name}</h1>
-          <a href={toExternal(website)}>{website}</a>
-        </div>
-        <p>
-          {name} has student sessions: {this.showStudentSession()}
-        </p>
-        <p>{description}</p>
-        <br />
-        Press the button below to edit your company information.
-        <br />
-        <InvisibleLink to="/company/profile/edit">
-          <Button onClick={() => null} type="primary">
-            Edit
-          </Button>
-        </InvisibleLink>
-        <br />
-        <br />
-        Use the Form below to send a Nexpo invitation to a colleague. They will
-        be able to edit the company, log into the ARKAD app and see all student
-        sessions.
-        <br />
-        <InviteForm onSubmit={this.invite} />
+  const { name, description, website, logoUrl } = currentCompany;
+  return (
+    <div className="company-show-view">
+      <HtmlTitle title={name} />
+      <div className="centering">
+        <Avatar
+          src={logoUrl}
+          size={128}
+          shape="square"
+          alt="Company Logotype"
+        />
+        <h1>{name}</h1>
+        <a href={toExternal(website)}>{website}</a>
       </div>
-    );
-  }
+      <p>
+        {name} has student sessions: {showStudentSession()}
+      </p>
+      <p>{description}</p>
+      <br />
+      Press the button below to edit your company information.
+      <br />
+      <InvisibleLink to="/company/profile/edit">
+        <Button onClick={() => null} type="primary">
+          Edit
+        </Button>
+      </InvisibleLink>
+      <br />
+      <br />
+      Use the Form below to send a Nexpo invitation to a colleague. They will
+      be able to edit the company, log into the ARKAD app and see all student
+      sessions.
+      <br />
+      <InviteForm onSubmit={invite} />
+    </div>
+  );
 }
 
 export default YourCompanyProfileShow;

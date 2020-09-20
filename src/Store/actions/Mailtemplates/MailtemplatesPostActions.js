@@ -25,7 +25,7 @@ export const createMailtemplateFailure = (): CreateMailtemplateFailureAction => 
   };
 };
 
-export function createMailtemplate(data: {}) {
+export const createMailtemplate = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createMailtemplateIsLoading());
     return API.mailtemplates

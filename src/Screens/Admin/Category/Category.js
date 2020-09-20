@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, isNil } from 'lodash/fp';
 import Attributes from './Attributes';
 import NotFound from '../../NotFound';
@@ -12,37 +12,38 @@ type Props = {
   category: { attributes?: Array<any>, title?: string },
   getCategory: string => Promise<void>
 };
-class Category extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { id, getCategory } = this.props;
+
+const Category = ({
+  id,
+  category,
+  getCategory
+}: Props) => {
+  
+  useEffect(() => {
     getCategory(id);
+  }, []);
+
+  if (isEmpty(category) || isNil(category)) {
+    return <NotFound />;
   }
 
-  render() {
-    const { category } = this.props;
+  const { title } = category;
+  return (
+    <div className="category-component">
+      <HtmlTitle title={title} />
 
-    if (isEmpty(category) || isNil(category)) {
-      return <NotFound />;
-    }
+      <div className="left-col">
+        <div className="paper main-info">
+          <h1>{title}</h1>
+        </div>
 
-    const { title } = category;
-    return (
-      <div className="category-component">
-        <HtmlTitle title={title} />
-
-        <div className="left-col">
-          <div className="paper main-info">
-            <h1>{title}</h1>
-          </div>
-
-          <div className="paper categories">
-            <h2>Attributes</h2>
-            <Attributes ids={category.attributes || []} />
-          </div>
+        <div className="paper categories">
+          <h2>Attributes</h2>
+          <Attributes ids={category.attributes || []} />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Category;

@@ -25,7 +25,7 @@ export const deleteRoleFailure = (): DestroyRoleFailureAction => {
   };
 };
 
-export function deleteRole(id: string) {
+export const deleteRole = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteRoleIsLoading());
     return API.roles

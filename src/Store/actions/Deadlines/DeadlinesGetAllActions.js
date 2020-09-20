@@ -24,7 +24,7 @@ export const getAllDeadlinesFailure = (): GetAllDeadlinesFailureAction => {
   };
 };
 
-export function getAllDeadlines() {
+export const getAllDeadlines = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllDeadlinesIsLoading());
     return API.deadlines

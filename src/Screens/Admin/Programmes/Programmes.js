@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Table, Button, Divider, Popconfirm } from 'antd';
 
 import InvisibleLink from '../../../Components/InvisibleLink';
@@ -14,17 +14,19 @@ type Props = {
   deleteProgramme: string => Promise<void>,
   getAllProgrammes: () => Promise<void>
 };
-class Programmes extends Component<Props> {
-  static defaultProps = {
-    programmes: {}
-  };
 
-  UNSAFE_componentWillMount() {
-    const { getAllProgrammes } = this.props;
+const Programmes = ({
+  programmes,
+  fetching,
+  deleteProgramme,
+  getAllProgrammes
+}: Props) => {
+
+  useEffect(() => {
     getAllProgrammes();
-  }
+  }, []);
 
-  programmeColumns = () => [
+  const programmeColumns = () => [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -37,7 +39,6 @@ class Programmes extends Component<Props> {
       title: 'Action',
       key: 'action',
       render: (programme: { id: string }) => {
-        const { deleteProgramme } = this.props;
         return (
           <span>
             <InvisibleLink to={`/admin/programmes/${programme.id}`}>
@@ -58,9 +59,8 @@ class Programmes extends Component<Props> {
     }
   ];
 
-  renderProgrammes() {
-    const { programmes = {} } = this.props;
-
+  const renderProgrammes = () => {
+    const tempProgrammes = programmes || {};
     return (
       <div>
         <HtmlTitle title="Programmes" />
@@ -68,9 +68,9 @@ class Programmes extends Component<Props> {
         <h1>Programmes</h1>
 
         <Table
-          columns={this.programmeColumns()}
-          dataSource={Object.keys(programmes).map(i => ({
-            ...programmes[i],
+          columns={programmeColumns()}
+          dataSource={Object.keys(tempProgrammes).map(i => ({
+            ...tempProgrammes[i],
             key: i
           }))}
         />
@@ -84,13 +84,14 @@ class Programmes extends Component<Props> {
     );
   }
 
-  render() {
-    const { fetching } = this.props;
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    return this.renderProgrammes();
+  if (fetching) {
+    return <LoadingSpinner />;
   }
+  return renderProgrammes();
+}
+
+Programmes.defaultProps = {
+  programmes: {}
 }
 
 export default Programmes;

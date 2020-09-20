@@ -29,7 +29,7 @@ export const createStudentSessionApplFailure = (): CreateStudentSessionApplFailu
   };
 };
 
-export function createStudentSessionAppl(data: {}) {
+export const createStudentSessionAppl = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createStudentSessionApplIsLoading());
     return API.studentSessions

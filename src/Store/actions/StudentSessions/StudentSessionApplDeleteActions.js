@@ -25,7 +25,7 @@ export const deleteStudentSessionApplFailure = (): deleteStudentSessionApplFailu
   };
 };
 
-export function deleteStudentSessionAppl(id: string) {
+export const deleteStudentSessionAppl = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteStudentSessionApplIsLoading());
     return API.studentSessions

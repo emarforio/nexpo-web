@@ -25,7 +25,7 @@ export const updateCategoryFailure = (): UpdateCategoryFailureAction => {
   };
 };
 
-export function updateCategory(id: string, data: {}) {
+export const updateCategory = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateCategoryIsLoading());
     return API.categories

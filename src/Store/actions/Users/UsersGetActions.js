@@ -24,7 +24,7 @@ export const getUserFailure = (): GetUserFailureAction => {
   };
 };
 
-export function getUser(id: string) {
+export const getUser = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getUserIsLoading());
     return API.users

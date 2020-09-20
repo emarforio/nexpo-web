@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { filter, sortBy } from 'lodash/fp';
 import { List, Avatar } from 'antd';
 import { toExternal } from '../../../Util/URLHelper';
@@ -19,13 +19,18 @@ type Props = {
   companies: { [string]: Company },
   getAllCompanies: () => Promise<void>
 };
-class SessionCompanies extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getAllCompanies } = this.props;
-    getAllCompanies();
-  }
 
-  renderCompany = ({ name, website, logoUrl, description }: Company) => (
+const SessionCompanies = ({
+  fetching,
+  companies,
+  getAllCompanies
+}: Props) => {
+  
+  useEffect(() => {
+    getAllCompanies();
+  }, []);
+
+  const renderCompany = ({ name, website, logoUrl, description }: Company) => (
     <List.Item
       extra={
         <Avatar
@@ -47,27 +52,23 @@ class SessionCompanies extends Component<Props> {
     </List.Item>
   );
 
-  render() {
-    const { companies, fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-
-    return (
-      <div className="session-companies">
-        <HtmlTitle title="Student Session Companies" />
-        <h1>Student Session Companies</h1>
-        <List
-          itemLayout="vertical"
-          size="large"
-          dataSource={sortBy('name', filter('studentSessionDays', companies))}
-          renderItem={this.renderCompany}
-          locale={{ emptyText: 'No Companies' }}
-        />
-      </div>
-    );
+  if (fetching) {
+    return <LoadingSpinner />;
   }
+
+  return (
+    <div className="session-companies">
+      <HtmlTitle title="Student Session Companies" />
+      <h1>Student Session Companies</h1>
+      <List
+        itemLayout="vertical"
+        size="large"
+        dataSource={sortBy('name', filter('studentSessionDays', companies))}
+        renderItem={renderCompany}
+        locale={{ emptyText: 'No Companies' }}
+      />
+    </div>
+  );
 }
 
 export default SessionCompanies;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, isNil, toInteger } from 'lodash/fp';
 import { message } from 'antd';
 
@@ -13,15 +13,6 @@ import '../Company.css';
 /**
  * Responsible for editing a company. Company id is recieved via url
  */
-type Props = {
-  id: string,
-  company: { name?: string, website?: string, description?: string },
-  fetching: boolean,
-  getCompany: string => Promise<void>,
-  history: { push: string => any },
-  resetForm: string => any,
-  updateCompany: (string, {}) => Promise<void>
-};
 
 type NewCompanyValues = {
   name?: string,
@@ -32,24 +23,35 @@ type NewCompanyValues = {
     filename: string
   }
 };
-class CompanyEdit extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { id, getCompany } = this.props;
+
+type Props = {
+  id: string,
+  company: { name?: string, website?: string, description?: string },
+  fetching: boolean,
+  getCompany: string => Promise<void>,
+  history: { push: string => any },
+  resetForm: string => any,
+  updateCompany: (string, NewCompanyValues) => Promise<void>
+};
+
+const CompanyEdit = ({
+  id,
+  company,
+  fetching,
+  getCompany,
+  history,
+  resetForm,
+  updateCompany
+}: Props) => {
+  useEffect(() => {
     getCompany(id);
-  }
+  }, []);
 
-  updateCompany = (values: NewCompanyValues) => {
-    const { id, updateCompany } = this.props;
-    updateCompany(id, { company: values });
-  };
-
-  onSuccess = () => {
-    const { id, history } = this.props;
+  const onSuccess = () => {
     history.push(`/admin/companies/${id}`);
   };
 
-  invite = ({ email }: { email: string }) => {
-    const { id, resetForm } = this.props;
+  const invite = (email: string) => {
     API.signup
       .initialRepresentativeSignup({ email, companyId: toInteger(id) })
       .then(res => {
@@ -62,30 +64,26 @@ class CompanyEdit extends Component<Props> {
       });
   };
 
-  render() {
-    const { company, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (isEmpty(company) || isNil(company)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (isEmpty(company) || isNil(company)) return <NotFound />;
-
-    return (
-      <div className="company-edit-view">
-        <HtmlTitle title={company.name} />
-        <div>
-          <h1>{company.name}</h1>
-          <CompanyForm
-            onSubmit={this.updateCompany}
-            onSubmitSuccess={this.onSuccess}
-            initialValues={company}
-          />
-          <br />
-          <br />
-          <h2>Invite Company Representatives</h2>
-          <InviteForm onSubmit={this.invite} />
-        </div>
+  return (
+    <div className="company-edit-view">
+      <HtmlTitle title={company.name} />
+      <div>
+        <h1>{company.name}</h1>
+        <CompanyForm
+          onSubmit={updateCompany}
+          onSubmitSuccess={onSuccess}
+          initialValues={company}
+        />
+        <br />
+        <br />
+        <h2>Invite Company Representatives</h2>
+        <InviteForm onSubmit={invite} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default CompanyEdit;

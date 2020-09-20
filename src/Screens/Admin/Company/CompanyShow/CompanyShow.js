@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import {
   isEmpty,
   isNil,
@@ -70,20 +70,21 @@ const statusLabel = [
   { text: 'Declined', color: 'red' }
 ];
 
-class CompanyShow extends Component<Props> {
-  static defaultProps = {
-    match: {
-      path: ''
-    }
-  };
+const CompanyShow = ({
+  id,
+  createStudentSession,
+  deleteStudentSession,
+  company,
+  fetching,
+  getCompany,
+  match
+}: Props) => {
 
-  UNSAFE_componentWillMount() {
-    const { id, getCompany } = this.props;
+  useEffect(() => {
     getCompany(id);
-  }
+  }, []);
 
-  handleSubmit = (values: { studentId: string }, id: number) => {
-    const { company, createStudentSession } = this.props;
+  const handleSubmit = (values: { studentId: string }, id: number) => {
     createStudentSession({
       studentSession: {
         companyId: company.id,
@@ -93,8 +94,7 @@ class CompanyShow extends Component<Props> {
     });
   };
 
-  showStudentSession() {
-    const { company } = this.props;
+  const showStudentSession = () => {
     switch (company.studentSessionDays) {
       case 0:
         return 'No days';
@@ -109,185 +109,190 @@ class CompanyShow extends Component<Props> {
     }
   }
 
-  render() {
-    const { company, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (isEmpty(company) || isNil(company)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (isEmpty(company) || isNil(company)) return <NotFound />;
+  const {
+    name = '',
+    website,
+    logoUrl,
+    description,
+    topStudents = [],
+    studentSessionTimeSlots = [],
+    studentSessionApplications = []
+  } = company;
 
-    const {
-      name = '',
-      website,
-      logoUrl,
-      description,
-      topStudents = [],
-      studentSessionTimeSlots = [],
-      studentSessionApplications = []
-    } = company;
+  const studentSessionStatus = studentSession => {
+    if (studentSession) {
+      return statusLabel[studentSession.studentSessionStatus].text;
+    }
+    return 'Not assigned';
+  };
 
-    const studentSessionStatus = studentSession => {
-      if (studentSession) {
-        return statusLabel[studentSession.studentSessionStatus].text;
+  const studentSessionStatusColor = studentSession => {
+    if (studentSession) {
+      return statusLabel[studentSession.studentSessionStatus].color;
+    }
+    return 'blue';
+  };
+
+  const studentInfo = ({ student: { user } }) => (
+    <>
+      Name: {[user.firstName, user.lastName].join(' ')}
+      <br />
+      Email: {user.email}
+      <br />
+      Phone Number: {user.phoneNumber}
+      <br />
+    </>
+  );
+
+  const options = map(
+    s => (
+      <Select.Option
+        key={s.id}
+      >{`${s.firstName} ${s.lastName}`}</Select.Option>
+    ),
+    topStudents
+  );
+
+  const data = flow(
+    //sortBy(['location', 'start']),
+    map(({ studentSession, ...rest }) => ({
+      ...getOr({}, 'student.user', studentSession),
+      ...rest
+    })),
+    reduce((acc, curr) => {
+      const prev = last(acc) || {};
+      const start = prev.end;
+      const end = curr.start;
+
+      const sameLocation = prev.location === curr.location;
+      const sameDay = moment(start).isSame(end, 'day');
+
+      if (start !== end && sameDay && sameLocation) {
+        const breaktime = moment(end).diff(start, 'minutes');
+        acc.push({
+          start,
+          end,
+          location: curr.location,
+          firstName: `Break (${breaktime} min)`
+        });
       }
-      return 'Not assigned';
-    };
-    const studentSessionStatusColor = studentSession => {
-      if (studentSession) {
-        return statusLabel[studentSession.studentSessionStatus].color;
-      }
-      return 'blue';
-    };
-    const studentInfo = ({ student: { user } }) => (
-      <>
-        Name: {[user.firstName, user.lastName].join(' ')}
-        <br />
-        Email: {user.email}
-        <br />
-        Phone Number: {user.phoneNumber}
-        <br />
-      </>
-    );
-    const options = map(
-      s => (
-        <Select.Option
-          key={s.id}
-        >{`${s.firstName} ${s.lastName}`}</Select.Option>
+
+      return acc.concat([curr]);
+    }),
+    groupBy(
+      ({ start, location }) => `${moment(start).format('dddd')} - ${location}`
+    ),
+    toPairs,
+    map(([key, values]) => [
+      ['', key],
+      ...flatten(
+        values.map(({ start, firstName, lastName, email, phoneNumber }) => [
+          [moment(start).format('HH:mm'), [firstName, lastName].join(' ')],
+          ['', email],
+          ['', phoneNumber && `=""${phoneNumber}""`]
+        ])
       ),
-      topStudents
-    );
+      [],
+      []
+    ]),
+    flatten
+  )(studentSessionTimeSlots);
 
-    const data = flow(
-      sortBy(['location', 'start']),
-      map(({ studentSession, ...rest }) => ({
-        ...getOr({}, 'student.user', studentSession),
-        ...rest
-      })),
-      reduce((acc, curr) => {
-        const prev = last(acc) || {};
-        const start = prev.end;
-        const end = curr.start;
-
-        const sameLocation = prev.location === curr.location;
-        const sameDay = moment(start).isSame(end, 'day');
-
-        if (start !== end && sameDay && sameLocation) {
-          const breaktime = moment(end).diff(start, 'minutes');
-          acc.push({
-            start,
-            end,
-            location: curr.location,
-            firstName: `Break (${breaktime} min)`
-          });
-        }
-
-        return acc.concat([curr]);
-      }, []),
-      groupBy(
-        ({ start, location }) => `${moment(start).format('dddd')} - ${location}`
-      ),
-      toPairs,
-      map(([key, values]) => [
-        ['', key],
-        ...flatten(
-          values.map(({ start, firstName, lastName, email, phoneNumber }) => [
-            [moment(start).format('HH:mm'), [firstName, lastName].join(' ')],
-            ['', email],
-            ['', phoneNumber && `=""${phoneNumber}""`]
-          ])
-        ),
-        [],
-        []
-      ]),
-      flatten
-    )(studentSessionTimeSlots);
-
-    return (
-      <div className="company-show-view">
-        <HtmlTitle title={name} />
-        <div className="centering">
-          <Avatar
-            src={logoUrl}
-            size={128}
-            shape="square"
-            alt="Company Logotype"
-          />
-          <h1>{name}</h1>
-          <a href={toExternal(website)}>{website}</a>
-        </div>
-        <h4>
-          {`Student Session Application Scored: ${
-            filter('score', studentSessionApplications).length
-          }`}
-        </h4>
-        <p>
-          {name} has student sessions: {this.showStudentSession()}
-        </p>
-        <p>{description}</p>
-        <h3>Student Session Time Slots</h3>
-        <CSVLink data={data} filename={`${name} - Student Sessions.csv`}>
-          <Button icon="download">Download Schema</Button>
-        </CSVLink>
-        <br />
-        <br />
-        <List
-          itemLayout="vertical"
-          dataSource={sortBy(
-            ['location', 'start'],
-            company.studentSessionTimeSlots || []
-          )}
-          bordered
-          renderItem={({ id, start, end, location, studentSession }, index) => (
-            <List.Item
-              actions={[
-                <>
-                  {studentSession ? (
-                    <Popconfirm
-                      title={`Sure to ${'remove'}?`}
-                      onConfirm={() => {
-                        const { deleteStudentSession } = this.props;
-                        deleteStudentSession(studentSession.id);
-                      }}
-                    >
-                      <Button onClick={() => null} type="danger">
-                        Remove
-                      </Button>
-                    </Popconfirm>
-                  ) : (
-                    <CompanyStudentSessionForm
-                      options={options}
-                      id={id}
-                      onSubmit={values => this.handleSubmit(values, id)}
-                      initialValues={{
-                        studentId: options[0] ? options[0].key : null
-                      }}
-                    />
-                  )}
-                </>
-              ]}
-            >
-              <List.Item.Meta
-                avatar={<Avatar size="large">{index + 1}</Avatar>}
-                title={`Location: ${location}`}
-                description={`Start Time: ${toDayFormat(
-                  start
-                )}\nEnd Time: ${toDayFormat(end)}`}
-              />
-              {studentSession && studentInfo(studentSession)}
-              Student:{' '}
-              <Tag color={studentSessionStatusColor(studentSession)}>
-                {studentSessionStatus(studentSession)}
-              </Tag>
-            </List.Item>
-          )}
+  return (
+    <div className="company-show-view">
+      <HtmlTitle title={name} />
+      <div className="centering">
+        <Avatar
+          src={logoUrl}
+          size={128}
+          shape="square"
+          alt="Company Logotype"
         />
-        <br />
-        <InvisibleLink to={`/admin/companies/${company.id || ''}/edit`}>
-          <Button onClick={() => null} type="primary">
-            Edit
-          </Button>
-        </InvisibleLink>
+        <h1>{name}</h1>
+        <a href={toExternal(website)}>{website}</a>
       </div>
-    );
+      <h4>
+        {`Student Session Application Scored: ${
+          filter('score', studentSessionApplications).length
+        }`}
+      </h4>
+      <p>
+        {name} has student sessions: {showStudentSession()}
+      </p>
+      <p>{description}</p>
+      <h3>Student Session Time Slots</h3>
+      <CSVLink data={data} filename={`${name} - Student Sessions.csv`}>
+        <Button icon="download">Download Schema</Button>
+      </CSVLink>
+      <br />
+      <br />
+      <List
+        itemLayout="vertical"
+        // $FlowFixMe
+        dataSource={sortBy(
+          ['location', 'start'],
+          company.studentSessionTimeSlots || []
+        )}
+        bordered
+        renderItem={({ id: itemId, start, end, location, studentSession }, index) => (
+          <List.Item
+            actions={[
+              <>
+                {studentSession ? (
+                  <Popconfirm
+                    title={`Sure to ${'remove'}?`}
+                    onConfirm={() => {
+                      deleteStudentSession(studentSession.id);
+                    }}
+                  >
+                    <Button onClick={() => null} type="danger">
+                      Remove
+                    </Button>
+                  </Popconfirm>
+                ) : (
+                  <CompanyStudentSessionForm
+                    options={options}
+                    id={itemId}
+                    onSubmit={values => handleSubmit(values, itemId)}
+                    initialValues={{
+                      studentId: options[0] ? options[0].key : null
+                    }}
+                  />
+                )}
+              </>
+            ]}
+          >
+            <List.Item.Meta
+              avatar={<Avatar size="large">{index + 1}</Avatar>}
+              title={`Location: ${location}`}
+              description={`Start Time: ${toDayFormat(
+                start
+              )}\nEnd Time: ${toDayFormat(end)}`}
+            />
+            {studentSession && studentInfo(studentSession)}
+            Student:{' '}
+            <Tag color={studentSessionStatusColor(studentSession)}>
+              {studentSessionStatus(studentSession)}
+            </Tag>
+          </List.Item>
+        )}
+      />
+      <br />
+      <InvisibleLink to={`/admin/companies/${company.id || ''}/edit`}>
+        <Button onClick={() => null} type="primary">
+          Edit
+        </Button>
+      </InvisibleLink>
+    </div>
+  );
+}
+
+CompanyShow.defaultProps = {
+  match: {
+    path: ''
   }
 }
 

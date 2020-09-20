@@ -24,7 +24,7 @@ export const getDeadlineFailure = (): GetDeadlineFailureAction => {
   };
 };
 
-export function getDeadline(id: string) {
+export const getDeadline = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getDeadlineIsLoading());
     return API.deadlines

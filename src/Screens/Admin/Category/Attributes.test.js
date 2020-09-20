@@ -11,7 +11,6 @@ it('should render without crashing', () => {
 
 it('should render LoadingSpinner if fetching true', () => {
   const wrapper = shallow(<Attributes fetching />);
-
   expect(wrapper.find(LoadingSpinner)).toHaveLength(1);
 });
 

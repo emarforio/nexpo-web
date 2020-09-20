@@ -27,7 +27,7 @@ export const deleteDeadlineFailure = (): DestroyDeadlineFailureAction => {
   };
 };
 
-export function deleteDeadline(id: string) {
+export const deleteDeadline = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteDeadlineIsLoading());
     return API.deadlines

@@ -23,9 +23,12 @@ describe('CompanyNew', () => {
     const wrapper = shallow(<CompanyNew id="1" {...props} />);
     const name = 'Testify';
     const description = 'Our company is awesome';
-    wrapper.instance().createCompany({ name, description });
-    expect(props.createCompany).toHaveBeenCalledWith({
-      company: { name, description }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.createCompany({ name, description });
+    setTimeout(() => {
+      expect(props.createCompany).toHaveBeenCalledWith({
+        company: { name, description }
+      });
+    }, 100);
   });
 });

@@ -25,7 +25,7 @@ export const deleteMailtemplateFailure = (): DestroyMailtemplateFailureAction =>
   };
 };
 
-export function deleteMailtemplate(id: string) {
+export const deleteMailtemplate = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteMailtemplateIsLoading());
     return API.mailtemplates

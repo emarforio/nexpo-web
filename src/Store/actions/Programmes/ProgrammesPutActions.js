@@ -25,7 +25,7 @@ export const updateProgrammeFailure = (): UpdateProgrammeFailureAction => {
   };
 };
 
-export function updateProgramme(id: string, data: {}) {
+export const updateProgramme = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateProgrammeIsLoading());
     return API.programmes

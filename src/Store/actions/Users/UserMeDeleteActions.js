@@ -21,7 +21,7 @@ export const deleteCurrentUserFailure = () => {
   };
 };
 
-export function deleteCurrentUser() {
+export const deleteCurrentUser = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteCurrentUserIsLoading());
     return API.users

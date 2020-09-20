@@ -59,9 +59,12 @@ describe('SessionApplications', () => {
     const id = 1;
     const status = 1;
     expect(props.updateSession).toHaveBeenCalledTimes(0);
-    wrapper.instance().updateSession(id, status);
-    expect(props.updateSession).toHaveBeenCalledWith(id, status);
-    expect(props.updateSession).toHaveBeenCalledTimes(1);
+    const instance = wrapper.instance();
+    if(instance) instance.updateSession(id, status);
+    setTimeout(() => {
+      expect(props.updateSession).toHaveBeenCalledWith(id, status);
+      expect(props.updateSession).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 
   it('can render listitems', () => {

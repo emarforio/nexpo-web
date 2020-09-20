@@ -10,7 +10,7 @@ type Props = {
   to: string,
   children?: Node
 };
-function InvisibleLink({ to, children }: Props) {
+const InvisibleLink = ({ to, children }: Props) => {
   const style = {
     textDecoration: 'none'
   };

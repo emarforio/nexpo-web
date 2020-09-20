@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash/fp';
 
 import MailtemplateForm from '../../../Forms/MailtemplateForm';
@@ -24,28 +24,21 @@ type Props = {
     { mailtemplate: MailTemplateObj }
   ) => Promise<void>
 };
-class Mailtemplate extends Component<Props> {
-  static defaultProps = {
-    id: ''
-  };
 
-  UNSAFE_componentWillMount() {
-    const { id, getMailtemplate } = this.props;
+const Mailtemplate = ({
+  id,
+  mailtemplate,
+  createMailtemplate,
+  fetching,
+  getMailtemplate,
+  updateMailtemplate
+}: Props) => {
+
+  useEffect(() => {
     if (id) getMailtemplate(id);
-  }
+  }, []);
 
-  updateMailtemplate = (values: {
-    name?: string,
-    subject?: string,
-    content?: string,
-    signature?: string
-  }) => {
-    const {
-      id,
-      mailtemplate,
-      createMailtemplate,
-      updateMailtemplate
-    } = this.props;
+  const handleMailtemplate = (values: MailTemplateObj) => {
 
     if (isEmpty(mailtemplate)) {
       createMailtemplate({ mailtemplate: { id, ...values } });
@@ -54,22 +47,22 @@ class Mailtemplate extends Component<Props> {
     }
   };
 
-  render() {
-    const { id, mailtemplate, fetching } = this.props;
+  if (fetching) return <LoadingSpinner />;
+  if (id && isEmpty(mailtemplate)) return <NotFound />;
 
-    if (fetching) return <LoadingSpinner />;
-    if (id && isEmpty(mailtemplate)) return <NotFound />;
+  return (
+    <div className="mailtemplate">
+      <h1>Mailtemplate</h1>
+      <MailtemplateForm
+        onSubmit={handleMailtemplate}
+        initialValues={mailtemplate}
+      />
+    </div>
+  );
+}
 
-    return (
-      <div className="mailtemplate">
-        <h1>Mailtemplate</h1>
-        <MailtemplateForm
-          onSubmit={this.updateMailtemplate}
-          initialValues={mailtemplate}
-        />
-      </div>
-    );
-  }
+Mailtemplate.defaultProps = {
+  id: ''
 }
 
 export default Mailtemplate;

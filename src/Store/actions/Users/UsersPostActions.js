@@ -25,7 +25,7 @@ export const createUserFailure = (): CreateUserFailureAction => {
   };
 };
 
-export function createUser(data: {}) {
+export const createUser = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createUserIsLoading());
     return API.users

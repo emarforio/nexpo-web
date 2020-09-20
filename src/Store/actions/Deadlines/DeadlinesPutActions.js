@@ -25,7 +25,7 @@ export const updateDeadlineFailure = (): UpdateDeadlineFailureAction => {
   };
 };
 
-export function updateDeadline(id: string, data: {}) {
+export const updateDeadline = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateDeadlineIsLoading());
     return API.deadlines

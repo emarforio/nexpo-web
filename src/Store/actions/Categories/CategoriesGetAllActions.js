@@ -24,7 +24,7 @@ export const getAllCategoriesFailure = (): GetAllCategoriesFailureAction => {
   };
 };
 
-export function getAllCategories() {
+export const getAllCategories = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllCategoriesIsLoading());
     return API.categories

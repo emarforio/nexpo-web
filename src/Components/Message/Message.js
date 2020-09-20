@@ -30,7 +30,12 @@ type Props = {
   linkText?: ?string
 };
 
-const Message = ({ message, linkUrl, linkText, type }: Props) => {
+const Message = ({ 
+  message,
+  linkUrl,
+  linkText,
+  type 
+}: Props) => {
   let icon = null;
   switch (type) {
     case 'error':
