@@ -79,7 +79,6 @@ const CompanyShow = ({
   getCompany,
   match
 }: Props) => {
-
   useEffect(() => {
     getCompany(id);
   }, []);
@@ -107,7 +106,7 @@ const CompanyShow = ({
       default:
         return 'Invalid days';
     }
-  }
+  };
 
   if (fetching) return <LoadingSpinner />;
   if (isEmpty(company) || isNil(company)) return <NotFound />;
@@ -149,9 +148,7 @@ const CompanyShow = ({
 
   const options = map(
     s => (
-      <Select.Option
-        key={s.id}
-      >{`${s.firstName} ${s.lastName}`}</Select.Option>
+      <Select.Option key={s.id}>{`${s.firstName} ${s.lastName}`}</Select.Option>
     ),
     topStudents
   );
@@ -237,7 +234,10 @@ const CompanyShow = ({
           company.studentSessionTimeSlots || []
         )}
         bordered
-        renderItem={({ id: itemId, start, end, location, studentSession }, index) => (
+        renderItem={(
+          { id: itemId, start, end, location, studentSession },
+          index
+        ) => (
           <List.Item
             actions={[
               <>
@@ -288,12 +288,12 @@ const CompanyShow = ({
       </InvisibleLink>
     </div>
   );
-}
+};
 
 CompanyShow.defaultProps = {
   match: {
     path: ''
   }
-}
+};
 
 export default CompanyShow;

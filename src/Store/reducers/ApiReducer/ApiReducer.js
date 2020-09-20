@@ -2,7 +2,6 @@
  * Defines a reducer updates the state based on the action created after a call to the server.
  */
 
-// $FlowFixMe
 import { combineReducers } from 'redux';
 import ApiReducerCategories from './ApiReducerCategories';
 import ApiReducerCompanies from './ApiReducerCompanies';

@@ -1,4 +1,3 @@
-// $FlowFixMe
 import React from 'react';
 import { shallow } from 'enzyme';
 import ReplaceForgottenPassword from './ReplaceForgottenPassword';
@@ -24,7 +23,7 @@ describe('ReplaceForgottenPassword', () => {
     shallow(<ReplaceForgottenPassword {...props} />);
     setTimeout(() => {
       expect(props.verifyKey).toHaveBeenCalledTimes(1);
-    }, 100)
+    }, 100);
   });
 
   it('should render NotFound if key is not valid', () => {
@@ -45,7 +44,7 @@ describe('ReplaceForgottenPassword', () => {
     const wrapper = shallow(<ReplaceForgottenPassword {...props} />);
     const values = { password: 'password', passwordConfirmation: 'password' };
     const instance = wrapper.instance();
-    if(instance) instance.sendQueryToBackend(values);
+    if (instance) instance.sendQueryToBackend(values);
     setTimeout(() => {
       expect(props.sendNewPasswordToBackend).toHaveBeenCalledWith({
         password: values.password,
