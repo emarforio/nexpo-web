@@ -1,0 +1,14 @@
+language: javascript
+cache: false
+matrix:
+  include:
+    include:
+      - node_js: 12.0.0
+        before_install:
+          - nvm install 12.0.0
+          - npm i -g npm
+          - npm i -g yarn
+        install:
+          - yarn
+        script:
+          - yarn test
