@@ -39,6 +39,7 @@ import SessionsApproved from '../Screens/Session/SessionsApproved';
 import Login from '../Screens/Auth/Login';
 import Logout from '../Screens/Auth/Logout';
 import Signup from '../Screens/Auth/Signup';
+import CoordinatorApplication from '../Screens/StudentCoordinatorApplication';
 import ForgotPassword from '../Screens/Auth/ForgotPassword';
 import NotFound from '../Screens/NotFound';
 import PrivateRoute from '../Components/PrivateRoute';
@@ -99,6 +100,7 @@ const routes = (
     <Route path="/info" component={Info} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
+    <Route path="/apply" component={CoordinatorApplication} />
     <Route path="/forgot-password" component={ForgotPassword} />
     {privateRoutes.map((props: RouteItem) => (
       <PrivateRoute key={props.path} exact {...props} />
@@ -146,7 +148,8 @@ class App extends Component<Props> {
 
   loggedOutMenuItem = () => [
     <Menu.Item key="/login">Login</Menu.Item>,
-    <Menu.Item key="/signup">Sign Up</Menu.Item>
+    <Menu.Item key="/signup">Sign Up</Menu.Item>,
+    <Menu.Item key="/apply">Apply for Student Coordinator</Menu.Item>
   ];
 
   restrictedSubMenu = ({
