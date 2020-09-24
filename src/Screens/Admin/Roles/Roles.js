@@ -16,16 +16,10 @@ type Props = {
   deleteRole: string => Promise<void>
 };
 
-const Roles = ({
-  roles,
-  fetching,
-  getAllRoles,
-  deleteRole
-}: Props) => {
-  
+const Roles = ({ roles, fetching, getAllRoles, deleteRole }: Props) => {
   useEffect(() => {
     getAllRoles();
-  }, []);
+  }, [getAllRoles]);
 
   const roleColumns = () => [
     {
@@ -89,6 +83,6 @@ const Roles = ({
       </InvisibleLink>
     </div>
   );
-}
+};
 
 export default Roles;

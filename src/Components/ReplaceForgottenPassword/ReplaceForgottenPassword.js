@@ -24,11 +24,10 @@ const ReplaceForgottenPassword = ({
   verifyKey,
   keyIsValid,
   success
-  }: Props) => {
-
+}: Props) => {
   useEffect(() => {
     verifyKey();
-  }, []);
+  }, [verifyKey]);
 
   const sendQueryToBackend = (values: PasswordObj) => {
     const { password, passwordConfirmation } = values;
@@ -57,6 +56,11 @@ const ReplaceForgottenPassword = ({
       <ReplacePasswordForm onSubmit={sendQueryToBackend} />
     </div>
   );
-}
+};
+
+ReplaceForgottenPassword.defaultProps = {
+  errors: {},
+  success: false
+};
 
 export default ReplaceForgottenPassword;

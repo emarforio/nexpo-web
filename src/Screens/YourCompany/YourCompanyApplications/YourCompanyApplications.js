@@ -46,10 +46,9 @@ const YourCompanyApplications = ({
   getCurrentCompany,
   updateStudentSessionAppl
 }: Props) => {
-  
   useEffect(() => {
     getCurrentCompany();
-  }, []);
+  }, [getCurrentCompany]);
 
   const scoreSessionApplication = (id: number, value: number) => {
     updateStudentSessionAppl(id, {
@@ -67,9 +66,7 @@ const YourCompanyApplications = ({
           Score:{' '}
           <Rate
             value={application.score}
-            onChange={value =>
-              scoreSessionApplication(application.id, value)
-            }
+            onChange={value => scoreSessionApplication(application.id, value)}
           />
         </>,
         <a
@@ -131,14 +128,14 @@ const YourCompanyApplications = ({
       <p>
         Please rate each student from 1 to 5 stars, the students with the
         highest scores will be chosen to your student sessions, so rate
-        carefully. Also note that the rating will not be shown to the
-        students, the rating is only there for you to decide which students
-        you want to have sessions with.
+        carefully. Also note that the rating will not be shown to the students,
+        the rating is only there for you to decide which students you want to
+        have sessions with.
         <br />
         <br />
         In case you are not interested in having a student session with a
-        particular student, and wish for them to not be able to get a spot.
-        Make sure to leave that student without a rating. There is the{' '}
+        particular student, and wish for them to not be able to get a spot. Make
+        sure to leave that student without a rating. There is the{' '}
         <i>Reset Score</i> button in case you need to reset the score to 0.
       </p>
       <List
@@ -156,6 +153,6 @@ const YourCompanyApplications = ({
       />
     </div>
   );
-}
+};
 
 export default YourCompanyApplications;

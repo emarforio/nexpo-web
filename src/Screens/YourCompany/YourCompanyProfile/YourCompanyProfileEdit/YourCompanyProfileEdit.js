@@ -15,7 +15,7 @@ type CompanyForm = {
   website: string,
   description: string,
   logoUrl: File
-}
+};
 
 type Props = {
   fetching: boolean,
@@ -32,10 +32,9 @@ const YourCompanyProfileEdit = ({
   getCurrentCompany,
   updateCurrentCompany
 }: Props) => {
-  
   useEffect(() => {
     getCurrentCompany();
-  }, []);
+  }, [getCurrentCompany]);
 
   const updatingCurrentCompany = (values: CompanyForm) => {
     return updateCurrentCompany({ company: values });
@@ -58,7 +57,7 @@ const YourCompanyProfileEdit = ({
       default:
         return 'Invalid days';
     }
-  }
+  };
 
   if (fetching) return <LoadingSpinner />;
   if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
@@ -78,6 +77,6 @@ const YourCompanyProfileEdit = ({
       />
     </div>
   );
-}
+};
 
 export default YourCompanyProfileEdit;

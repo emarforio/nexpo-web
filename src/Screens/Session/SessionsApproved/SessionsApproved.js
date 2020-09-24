@@ -47,10 +47,9 @@ const StudentSessions = ({
   getAllCompanies,
   fetching
 }: Props) => {
-
   useEffect(() => {
     getAllCompanies();
-  }, []);
+  }, [getAllCompanies]);
 
   const updateSessionIfId = (id: number, status: number) => {
     if (id) updateSession(id, status);
@@ -79,7 +78,7 @@ const StudentSessions = ({
         </div>
       </div>
     );
-  }
+  };
 
   const sessionConfirmed = (session: Session) => {
     return (
@@ -98,7 +97,7 @@ const StudentSessions = ({
         </div>
       </div>
     );
-  }
+  };
 
   const sessionStatusView = (session: Session) => {
     if (session.studentSessionStatus === 2) {
@@ -112,7 +111,7 @@ const StudentSessions = ({
       return sessionConfirmed(session);
     }
     return sessionUnanswered(session);
-  }
+  };
 
   const renderDescription = ({
     start = '',
@@ -146,9 +145,9 @@ const StudentSessions = ({
       <HtmlTitle title="Student Session" />
       <h1>Student Sessions</h1>
       <h4>
-        The time slots found on this page is the student sessions you have
-        been approved for. You have to confirm all the slots that you would
-        like to keep, otherwise, the slot will be given to another student.
+        The time slots found on this page is the student sessions you have been
+        approved for. You have to confirm all the slots that you would like to
+        keep, otherwise, the slot will be given to another student.
       </h4>
       <List
         size="large"
@@ -159,11 +158,11 @@ const StudentSessions = ({
       />
     </div>
   );
-}
+};
 
 StudentSessions.defaultProps = {
   companies: {},
   sessions: []
-}
+};
 
 export default StudentSessions;

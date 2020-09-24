@@ -20,15 +20,10 @@ type Props = {
   getRole: string => Promise<void>
 };
 
-const RoleShow = ({
-  id,
-  role,
-  getRole
-}: Props) => {
-  
+const RoleShow = ({ id, role, getRole }: Props) => {
   useEffect(() => {
     getRole(id);
-  }, []);
+  }, [getRole, id]);
 
   if (isEmpty(role) || isNil(role)) {
     return <NotFound />;
@@ -69,6 +64,6 @@ const RoleShow = ({
       </InvisibleLink>
     </div>
   );
-}
+};
 
 export default RoleShow;

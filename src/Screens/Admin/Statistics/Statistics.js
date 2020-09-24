@@ -91,14 +91,10 @@ type Props = {
   }
 };
 
-const Statistics = ({
-  getAllStatistics,
-  statistics,
-}: Props) => {
-  
+const Statistics = ({ getAllStatistics, statistics }: Props) => {
   useEffect(() => {
     getAllStatistics();
-  }, []);
+  }, [getAllStatistics]);
 
   const {
     companyStats = [],
@@ -196,6 +192,6 @@ const Statistics = ({
       />
     </div>
   );
-}
+};
 
 export default Statistics;

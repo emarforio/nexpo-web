@@ -87,10 +87,9 @@ const Categories = ({
   fetching,
   getAllCategories
 }: Props) => {
-
   useEffect(() => {
     getAllCategories();
-  }, []);
+  }, [getAllCategories]);
 
   const renderCategories = () => {
     return (
@@ -110,17 +109,17 @@ const Categories = ({
         </Button>
       </div>
     );
-  }
+  };
 
   if (fetching) {
     return <LoadingSpinner />;
   }
   return renderCategories();
-}
+};
 
 Categories.defaultProps = {
   categories: {},
   attributes: {}
-}
+};
 
 export default Categories;

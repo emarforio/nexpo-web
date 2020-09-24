@@ -81,7 +81,7 @@ const CompanyShow = ({
 }: Props) => {
   useEffect(() => {
     getCompany(id);
-  }, []);
+  }, [getCompany, id]);
 
   const handleSubmit = (values: { studentId: string }, id: number) => {
     createStudentSession({

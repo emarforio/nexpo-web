@@ -26,10 +26,9 @@ const Companies = ({
   deleteCompany,
   createBulk
 }: Props) => {
-
   useEffect(() => {
     getAllCompanies();
-  }, []);
+  }, [getAllCompanies]);
 
   const companyColumns = () => [
     {
@@ -167,16 +166,16 @@ const Companies = ({
         </div>
       </div>
     );
-  }
+  };
 
   if (fetching) {
     return <LoadingSpinner />;
   }
   return renderCompanies();
-}
+};
 
 Companies.defaultProps = {
   companies: {}
-}
+};
 
 export default Companies;

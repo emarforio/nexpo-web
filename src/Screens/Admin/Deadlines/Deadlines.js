@@ -22,10 +22,9 @@ const Deadlines = ({
   getAllDeadlines,
   deleteDeadline
 }: Props) => {
-
   useEffect(() => {
     getAllDeadlines();
-  }, []);
+  }, [getAllDeadlines]);
 
   const deadlineColumns = () => [
     {
@@ -79,7 +78,7 @@ const Deadlines = ({
         <h1>Deadlines</h1>
 
         <Table
-          columns={deadlineColumns}
+          columns={deadlineColumns()}
           dataSource={sortBy(
             'name',
             Object.keys(tempDeadlines).map(i => ({
@@ -95,16 +94,16 @@ const Deadlines = ({
         </InvisibleLink>
       </div>
     );
-  }
+  };
 
   if (fetching) {
     return <LoadingSpinner />;
   }
   return renderDeadlines();
-}
+};
 
 Deadlines.defaultProps = {
   deadlines: {}
-}
+};
 
 export default Deadlines;

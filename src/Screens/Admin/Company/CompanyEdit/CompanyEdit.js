@@ -45,7 +45,7 @@ const CompanyEdit = ({
 }: Props) => {
   useEffect(() => {
     getCompany(id);
-  }, []);
+  }, [getCompany, id]);
 
   const onSuccess = () => {
     history.push(`/admin/companies/${id}`);
@@ -84,6 +84,6 @@ const CompanyEdit = ({
       </div>
     </div>
   );
-}
+};
 
 export default CompanyEdit;

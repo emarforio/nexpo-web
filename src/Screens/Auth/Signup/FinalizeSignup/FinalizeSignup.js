@@ -14,23 +14,20 @@ const DefaultState = {
   email: '',
   noSuchKey: false,
   finished: false
-}
+};
 
 type SignUpValues = {
   password: string,
-    passwordConfirmation: string,
-    firstName: string,
-    lastName: string,
-    phoneNumber: string
-}
+  passwordConfirmation: string,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string
+};
 
 /**
  * A component which allows users to complete a sign up process
  */
-const FinalizeSignup = ({
-  signupKey
-}: Props) => {
-
+const FinalizeSignup = ({ signupKey }: Props) => {
   const [state, setState] = useState(DefaultState);
 
   const fetchCurrentSignup = () => {
@@ -42,7 +39,7 @@ const FinalizeSignup = ({
 
   useEffect(() => {
     fetchCurrentSignup();
-  }, []);
+  });
 
   const signup = (values: SignUpValues) => {
     const params = pick(
@@ -87,9 +84,12 @@ const FinalizeSignup = ({
   return (
     <div className="finalize-signup">
       <h1>Sign Up</h1>
-      <FinalizeSignupForm onSubmit={signup} initialValues={{ email: state.email }} />
+      <FinalizeSignupForm
+        onSubmit={signup}
+        initialValues={{ email: state.email }}
+      />
     </div>
   );
-}
+};
 
 export default FinalizeSignup;

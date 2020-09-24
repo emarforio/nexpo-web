@@ -27,10 +27,9 @@ const Deadline = ({
   getDeadline,
   updateDeadline
 }: Props) => {
-
   useEffect(() => {
-    if(id) getDeadline(id);
-  }, []);
+    if (id) getDeadline(id);
+  }, [getDeadline, id]);
 
   const handleDeadline = (values: UpdateValues) => {
     if (isEmpty(deadline)) {
@@ -49,10 +48,10 @@ const Deadline = ({
       <DeadlineForm onSubmit={handleDeadline} initialValues={deadline} />
     </div>
   );
-}
+};
 
 Deadline.defaultProps = {
   id: ''
-}
+};
 
 export default Deadline;

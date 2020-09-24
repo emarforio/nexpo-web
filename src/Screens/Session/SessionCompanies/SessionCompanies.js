@@ -20,15 +20,10 @@ type Props = {
   getAllCompanies: () => Promise<void>
 };
 
-const SessionCompanies = ({
-  fetching,
-  companies,
-  getAllCompanies
-}: Props) => {
-  
+const SessionCompanies = ({ fetching, companies, getAllCompanies }: Props) => {
   useEffect(() => {
     getAllCompanies();
-  }, []);
+  }, [getAllCompanies]);
 
   const renderCompany = ({ name, website, logoUrl, description }: Company) => (
     <List.Item
@@ -69,6 +64,6 @@ const SessionCompanies = ({
       />
     </div>
   );
-}
+};
 
 export default SessionCompanies;

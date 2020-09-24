@@ -16,14 +16,10 @@ type Props = {
   getAllUsers: () => Promise<void>
 };
 
-const RoleNew = ({
-  createRole,
-  getAllUsers
-}: Props) => {
-  
+const RoleNew = ({ createRole, getAllUsers }: Props) => {
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [getAllUsers]);
 
   const createSafeRole = (values: RoleObj) => {
     createRole({ role: values });
@@ -34,6 +30,6 @@ const RoleNew = ({
       <RoleForm onSubmit={createSafeRole} />
     </div>
   );
-}
+};
 
 export default RoleNew;

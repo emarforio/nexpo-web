@@ -38,19 +38,13 @@ type Props = {
   }
 };
 
-const UserShow = ({
-  id,
-  user,
-  fetching,
-  getUser,
-  match
-}: Props) => {
-
+const UserShow = ({ id, user, fetching, getUser, match }: Props) => {
   useEffect(() => {
     if (id) getUser(id);
-  }, []);
+  }, [getUser, id]);
 
-  const {firstName, lastName, email, phoneNumber, foodPreferences, student} = user || {};
+  const { firstName, lastName, email, phoneNumber, foodPreferences, student } =
+    user || {};
 
   const displayName = () => {
     return firstName ? [firstName, lastName].join(' ') : email;
@@ -103,7 +97,7 @@ const UserShow = ({
       </InvisibleLink>
     </div>
   );
-}
+};
 
 UserShow.defaultProps = {
   id: '',
@@ -113,6 +107,6 @@ UserShow.defaultProps = {
   match: {
     path: ''
   }
-}
+};
 
 export default UserShow;

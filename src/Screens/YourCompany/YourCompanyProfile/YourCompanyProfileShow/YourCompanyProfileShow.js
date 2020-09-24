@@ -30,10 +30,9 @@ const YourCompanyProfileShow = ({
   getCurrentCompany,
   resetForm
 }: Props) => {
-  
   useEffect(() => {
     getCurrentCompany();
-  }, []);
+  }, [getCurrentCompany]);
 
   const invite = ({ email }: { email: string }) => {
     API.signup
@@ -64,7 +63,7 @@ const YourCompanyProfileShow = ({
       default:
         return 'Invalid days';
     }
-  }
+  };
 
   if (fetching) return <LoadingSpinner />;
   if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
@@ -97,13 +96,13 @@ const YourCompanyProfileShow = ({
       </InvisibleLink>
       <br />
       <br />
-      Use the Form below to send a Nexpo invitation to a colleague. They will
-      be able to edit the company, log into the ARKAD app and see all student
+      Use the Form below to send a Nexpo invitation to a colleague. They will be
+      able to edit the company, log into the ARKAD app and see all student
       sessions.
       <br />
       <InviteForm onSubmit={invite} />
     </div>
   );
-}
+};
 
 export default YourCompanyProfileShow;

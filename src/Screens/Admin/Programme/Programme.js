@@ -25,10 +25,9 @@ const Programme = ({
   createProgramme,
   updateProgramme
 }: Props) => {
-  
   useEffect(() => {
     if (id) getProgramme(id);
-  }, []);
+  }, [getProgramme, id]);
 
   const handleProgramme = (values: { code?: string, name?: string }) => {
     if (isEmpty(programme)) {
@@ -44,12 +43,9 @@ const Programme = ({
   return (
     <div className="programme">
       <h1>Programme</h1>
-      <ProgrammeForm
-        onSubmit={handleProgramme}
-        initialValues={programme}
-      />
+      <ProgrammeForm onSubmit={handleProgramme} initialValues={programme} />
     </div>
   );
-}
+};
 
 export default Programme;

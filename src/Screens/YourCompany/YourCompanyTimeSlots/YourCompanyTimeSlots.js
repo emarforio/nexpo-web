@@ -28,14 +28,10 @@ type Props = {
   getCurrentCompany: () => Promise<void>
 };
 
-const YourCompanyTimeSlots = ({
-  currentCompany,
-  getCurrentCompany
-}: Props) => {
-  
+const YourCompanyTimeSlots = ({ currentCompany, getCurrentCompany }: Props) => {
   useEffect(() => {
     getCurrentCompany();
-  }, []);
+  }, [getCurrentCompany]);
 
   if (isEmpty(currentCompany) || isNil(currentCompany)) return <NotFound />;
 
@@ -92,6 +88,6 @@ const YourCompanyTimeSlots = ({
       />
     </div>
   );
-}
+};
 
 export default YourCompanyTimeSlots;

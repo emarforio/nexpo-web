@@ -14,7 +14,7 @@ type Role = {
   type: string,
   permissions: Array<string>,
   user: number
-}
+};
 
 type Props = {
   id: string,
@@ -37,11 +37,10 @@ const RoleEdit = ({
   updateRole,
   history
 }: Props) => {
-  
   useEffect(() => {
     getRole(id);
     getAllUsers();
-  }, []);
+  }, [getRole, getAllUsers, id]);
 
   const handleRole = (values: Role) => {
     updateRole(id, { role: values });
@@ -60,6 +59,6 @@ const RoleEdit = ({
       </div>
     </div>
   );
-}
+};
 
 export default RoleEdit;

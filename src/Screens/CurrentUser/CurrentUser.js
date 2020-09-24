@@ -48,10 +48,9 @@ const CurrentUser = ({
   logout,
   resetForm
 }: Props) => {
-
   useEffect(() => {
     getAllProgrammes();
-  }, []);
+  }, [getAllProgrammes]);
 
   const deleteAndLogoutCurrentUser = () => {
     deleteCurrentUser();
@@ -91,11 +90,7 @@ const CurrentUser = ({
 
   return (
     <div>
-      <Button
-        onClick={showConfirm}
-        style={{ float: 'right' }}
-        type="danger"
-      >
+      <Button onClick={showConfirm} style={{ float: 'right' }} type="danger">
         Delete Account
       </Button>
 
@@ -112,10 +107,7 @@ const CurrentUser = ({
       <h2>User Information</h2>
 
       <h4>Email: {email}</h4>
-      <CurrentUserForm
-        onSubmit={updateUser}
-        initialValues={currentUser}
-      />
+      <CurrentUserForm onSubmit={updateUser} initialValues={currentUser} />
 
       {!isEmpty(currentStudent) && (
         <>
@@ -130,11 +122,11 @@ const CurrentUser = ({
       )}
     </div>
   );
-}
+};
 
 CurrentUser.defaultProps = {
   currentUser: {},
   currentStudent: {}
-}
+};
 
 export default CurrentUser;

@@ -13,15 +13,10 @@ type Props = {
   getCategory: string => Promise<void>
 };
 
-const Category = ({
-  id,
-  category,
-  getCategory
-}: Props) => {
-  
+const Category = ({ id, category, getCategory }: Props) => {
   useEffect(() => {
     getCategory(id);
-  }, []);
+  }, [getCategory, id]);
 
   if (isEmpty(category) || isNil(category)) {
     return <NotFound />;
@@ -44,6 +39,6 @@ const Category = ({
       </div>
     </div>
   );
-}
+};
 
 export default Category;

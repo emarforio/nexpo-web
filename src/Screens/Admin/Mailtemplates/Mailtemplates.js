@@ -22,10 +22,9 @@ const Mailtemplates = ({
   getAllMailtemplates,
   deleteMailtemplate
 }: Props) => {
-
   useEffect(() => {
     getAllMailtemplates();
-  }, []);
+  }, [getAllMailtemplates]);
 
   const mailtemplateColumns = () => [
     {
@@ -95,17 +94,16 @@ const Mailtemplates = ({
         </InvisibleLink>
       </div>
     );
-  }
-
+  };
 
   if (fetching) {
     return <LoadingSpinner />;
   }
   return renderMailtemplates();
-}
+};
 
 Mailtemplates.defaultProps = {
   mailtemplates: {}
-}
+};
 
 export default Mailtemplates;

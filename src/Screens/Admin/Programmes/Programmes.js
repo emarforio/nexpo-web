@@ -21,10 +21,9 @@ const Programmes = ({
   deleteProgramme,
   getAllProgrammes
 }: Props) => {
-
   useEffect(() => {
     getAllProgrammes();
-  }, []);
+  }, [getAllProgrammes]);
 
   const programmeColumns = () => [
     {
@@ -82,16 +81,16 @@ const Programmes = ({
         </InvisibleLink>
       </div>
     );
-  }
+  };
 
   if (fetching) {
     return <LoadingSpinner />;
   }
   return renderProgrammes();
-}
+};
 
 Programmes.defaultProps = {
   programmes: {}
-}
+};
 
 export default Programmes;

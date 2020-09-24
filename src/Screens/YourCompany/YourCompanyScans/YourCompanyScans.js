@@ -51,10 +51,9 @@ const YourCompanyScans = ({
   fetching,
   getCurrentCompany
 }: Props) => {
-  
   useEffect(() => {
     getCurrentCompany();
-  }, []);
+  }, [getCurrentCompany]);
 
   const blipToCsv = (blip: Blip) => {
     const { email } = blip.student.user;
@@ -135,11 +134,7 @@ const YourCompanyScans = ({
         >
           <h2>Student Scans</h2>
         </div>
-        <Button
-          icon="download"
-          style={{ float: 'left' }}
-          onClick={exportBlips}
-        >
+        <Button icon="download" style={{ float: 'left' }} onClick={exportBlips}>
           Export Scans
         </Button>
       </div>
@@ -162,6 +157,6 @@ const YourCompanyScans = ({
       />
     </div>
   );
-}
+};
 
 export default YourCompanyScans;

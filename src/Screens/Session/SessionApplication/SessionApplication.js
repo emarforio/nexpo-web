@@ -33,11 +33,10 @@ const SessionApplication = ({
   createStudentSessionAppl,
   resetForm
 }: Props) => {
-  
   useEffect(() => {
     getAllCompanies();
     getAllProgrammes();
-  }, []);
+  }, [getAllCompanies, getAllProgrammes]);
 
   const resetStudentForm = () => {
     resetForm('student');
@@ -65,8 +64,8 @@ const SessionApplication = ({
         But first! Make sure your Student Information is uploaded and updated!
       </h2>
       <h4>
-        You only need to upload your CV(s) once. All the companies you apply
-        for will receive the same CV(s) but different motivations.
+        You only need to upload your CV(s) once. All the companies you apply for
+        will receive the same CV(s) but different motivations.
         <br />
         You can update your information
         <InvisibleLink to="/user"> here</InvisibleLink>
@@ -79,6 +78,6 @@ const SessionApplication = ({
       />
     </div>
   );
-}
+};
 
 export default SessionApplication;

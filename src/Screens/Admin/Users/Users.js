@@ -17,16 +17,10 @@ type Props = {
   deleteUser: string => Promise<void>
 };
 
-const Users = ({
-  users,
-  fetching,
-  getAllUsers,
-  deleteUser
-}: Props) => {
-
+const Users = ({ users, fetching, getAllUsers, deleteUser }: Props) => {
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [getAllUsers]);
 
   const renderUsers = () => {
     const userColumns = [
@@ -93,16 +87,16 @@ const Users = ({
         />
       </div>
     );
-  }
+  };
 
   if (fetching) {
     return <LoadingSpinner />;
   }
   return renderUsers();
-}
+};
 
 Users.defaultProps = {
   users: {}
-}
+};
 
 export default Users;

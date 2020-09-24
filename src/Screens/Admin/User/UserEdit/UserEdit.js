@@ -33,10 +33,9 @@ const UserEdit = ({
   history,
   updateUser
 }: Props) => {
-
   useEffect(() => {
     if (id) getUser(id);
-  }, []);
+  }, [getUser, id]);
 
   const handleUser = (values: UserObj) => {
     if (id) {
@@ -57,10 +56,10 @@ const UserEdit = ({
       </div>
     </div>
   );
-}
+};
 
 UserEdit.defaultProps = {
   id: ''
-}
+};
 
 export default UserEdit;

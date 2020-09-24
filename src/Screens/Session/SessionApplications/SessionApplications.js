@@ -31,7 +31,7 @@ type Props = {
 
 const DefaultState = {
   editing: {}
-}
+};
 
 const SessionApplications = ({
   applications,
@@ -41,12 +41,11 @@ const SessionApplications = ({
   fetching,
   updateStudentSessionAppl
 }: Props) => {
-
   const [state, setState] = useState(DefaultState);
 
   useEffect(() => {
     getAllCompanies();
-  }, []);
+  }, [getAllCompanies]);
 
   const toggleEditMode = (id: string) => {
     const { editing: stateEditing } = state;
@@ -55,7 +54,10 @@ const SessionApplications = ({
     setState({ editing });
   };
 
-  const updateStudentSessionApplication = (id: string, values: { motivation: string }) => {
+  const updateStudentSessionApplication = (
+    id: string,
+    values: { motivation: string }
+  ) => {
     updateStudentSessionAppl(id, { studentSessionApplication: values });
     setState({ editing: {} });
   };
@@ -129,11 +131,11 @@ const SessionApplications = ({
       />
     </div>
   );
-}
+};
 
 SessionApplications.defaultProps = {
   companies: {},
   applications: []
-}
+};
 
 export default SessionApplications;

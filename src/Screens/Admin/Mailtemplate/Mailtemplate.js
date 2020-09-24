@@ -33,13 +33,11 @@ const Mailtemplate = ({
   getMailtemplate,
   updateMailtemplate
 }: Props) => {
-
   useEffect(() => {
     if (id) getMailtemplate(id);
-  }, []);
+  }, [getMailtemplate, id]);
 
   const handleMailtemplate = (values: MailTemplateObj) => {
-
     if (isEmpty(mailtemplate)) {
       createMailtemplate({ mailtemplate: { id, ...values } });
     } else if (id) {
@@ -59,10 +57,10 @@ const Mailtemplate = ({
       />
     </div>
   );
-}
+};
 
 Mailtemplate.defaultProps = {
   id: ''
-}
+};
 
 export default Mailtemplate;
