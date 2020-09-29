@@ -205,10 +205,7 @@ These are some commands to help you run all tests
 
 ## Documentation
 
-
-# Deployment
-
-# Setup your Editor
+## Setup your Editor
 VS Code
 
     Install Prettier
@@ -229,6 +226,9 @@ Update your settings
     Enable "Prettier Eslint Integration"
     Enable "Flow Use NPM Packaged Flow"
     Enable "Flow Run On All Files"
+
+# Deployment
+
 
 # Who do I contact?
 - Add Astons information here
