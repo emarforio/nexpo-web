@@ -30,6 +30,7 @@ This project aims to to supply [ARKAD](https://arkad.tlth.se) with an inhouse pr
   - [Dev servers](#dev-servers)
   - [Helpful scripts](#helpful-scripts)
   - [Documentation](#documentation)
+  - [Setup your Editor](#setup-your-editor)
 - [Deployment](#deployment)
 - [Who do I contact?](#who-do-i-contact)
 
