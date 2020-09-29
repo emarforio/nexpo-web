@@ -207,26 +207,23 @@ These are some commands to help you run all tests
 ## Documentation
 
 ## Setup your Editor
-VS Code
+### VS Code
+* Install [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+* Install [Eslint](https://github.com/Microsoft/vscode-eslint)
+* Install [Flow Language Support](https://marketplace.visualstudio.com/items?itemName=flowtype.flow-for-vscode)
 
-    Install Prettier
-    Install Eslint
-    Install Flow Language Support
+### Atom
+* Install [Prettier](https://atom.io/packages/prettier-atom)
+* Install [Eslint](https://atom.io/packages/linter-eslint)
+* Install [Flow](https://atom.io/packages/linter-flow)
 
-Atom
-
-    Install Prettier
-    Install Eslint
-    Install Flow
-
-Update your settings
-
-    Enable "Set Editor Format On Save"
-    Disable JavaScript format and validate
-    Disable Typescript format and validate
-    Enable "Prettier Eslint Integration"
-    Enable "Flow Use NPM Packaged Flow"
-    Enable "Flow Run On All Files"
+### Update your settings
+* Enable "Set Editor Format On Save"
+* Disable JavaScript format and validate
+* Disable Typescript format and validate
+* Enable "Prettier Eslint Integration"
+* Enable "Flow Use NPM Packaged Flow"
+* Enable "Flow Run On All Files"
 
 # Deployment
 
