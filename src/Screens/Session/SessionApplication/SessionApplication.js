@@ -74,14 +74,13 @@ const SessionApplication = ({
       </h4>
       <br />
 
-        {enabled ? (
-          <SessionForm onSubmit={createStudentSessionApplication} />
-        ) : (
-          <p>Student sessions are currently not available.</p>
-        )}
-      </div>
-    );
-  }
-}
+      {enabled ? (
+        <SessionForm onSubmit={createStudentSessionApplication} />
+      ) : (
+        <p>Student sessions are currently not available.</p>
+      )}
+    </div>
+  );
+};
 
 export default SessionApplication;
