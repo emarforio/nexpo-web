@@ -273,7 +273,8 @@ class App extends Component<Props> {
                   this.restrictedMenuItem({
                     route: 'session/application',
                     title: 'Apply',
-                    disabled: true // STUDENT_SESSIONS_ACTIVE
+                    disabled:
+                      process.env.REACT_APP_STUDENT_SESSION_ENABLED !== 'true'
                   }),
                   this.restrictedMenuItem({
                     route: 'session/applications',

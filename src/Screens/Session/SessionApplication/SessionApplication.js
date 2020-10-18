@@ -53,6 +53,8 @@ class SessionApplication extends Component<Props> {
       return <NotFound />;
     }
 
+    const enabled = process.env.REACT_APP_STUDENT_SESSION_ENABLED === 'true';
+
     return (
       <div className="session-application">
         <HtmlTitle title="Student Session Application" />
@@ -69,10 +71,11 @@ class SessionApplication extends Component<Props> {
         </h4>
         <br />
 
-        <SessionForm
-          onSubmit={this.createStudentSessionAppl}
-          disabled={!false} // STUDENT_SESSIONS_ACTIVE
-        />
+        {enabled ? (
+          <SessionForm onSubmit={this.createStudentSessionAppl} />
+        ) : (
+          <p>Student sessions are currently not available.</p>
+        )}
       </div>
     );
   }
