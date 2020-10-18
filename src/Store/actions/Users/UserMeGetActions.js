@@ -19,7 +19,7 @@ export const getCurrentUserFailure = () => {
   };
 };
 
-export function getCurrentUser() {
+export const getCurrentUser = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getCurrentUserIsLoading());
     return API.users

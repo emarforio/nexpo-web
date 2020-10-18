@@ -25,7 +25,7 @@ export const deleteProgrammeFailure = (): DestroyProgrammeFailureAction => {
   };
 };
 
-export function deleteProgramme(id: string) {
+export const deleteProgramme = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteProgrammeIsLoading());
     return API.programmes

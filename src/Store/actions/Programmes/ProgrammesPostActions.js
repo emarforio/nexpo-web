@@ -25,7 +25,7 @@ export const createProgrammeFailure = (): CreateProgrammeFailureAction => {
   };
 };
 
-export function createProgramme(data: {}) {
+export const createProgramme = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createProgrammeIsLoading());
     return API.programmes

@@ -24,7 +24,7 @@ export const getAllProgrammesFailure = (): GetAllProgrammesFailureAction => {
   };
 };
 
-export function getAllProgrammes() {
+export const getAllProgrammes = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllProgrammesIsLoading());
     return API.programmes

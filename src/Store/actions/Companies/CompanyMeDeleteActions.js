@@ -14,7 +14,7 @@ export const deleteCurrentCompanyFailure = () => ({
   type: actionTypes.DELETE_CURRENT_COMPANY_FAILURE
 });
 
-export function deleteCurrentCompany() {
+export const deleteCurrentCompany = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteCurrentCompanyIsLoading());
     return API.companies

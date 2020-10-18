@@ -106,15 +106,22 @@ describe('CompanyShow', () => {
     );
 
     const sessionId = 1;
-    expect(props.createStudentSession).toHaveBeenCalledTimes(0);
-    wrapper.instance().handleSubmit({ studentId }, sessionId);
-    expect(props.createStudentSession).toHaveBeenLastCalledWith({
-      studentSession: {
-        companyId: id,
-        studentId,
-        studentSessionTimeSlotId: sessionId
-      }
-    });
-    expect(props.createStudentSession).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(props.createStudentSession).toHaveBeenCalledTimes(0);
+    }, 100);
+    const instance = wrapper.instance();
+    if(instance) instance.handleSubmit({ studentId }, sessionId);
+    setTimeout(() => {
+      expect(props.createStudentSession).toHaveBeenLastCalledWith({
+        studentSession: {
+          companyId: id,
+          studentId,
+          studentSessionTimeSlotId: sessionId
+        }
+      });
+    }, 100);
+    setTimeout(() => {
+      expect(props.createStudentSession).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 });

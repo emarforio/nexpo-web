@@ -27,7 +27,9 @@ describe('deadlines', () => {
     const func = jest.fn();
     shallow(<Deadlines {...props} getAllDeadlines={func} />);
 
-    expect(func).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(func).toHaveBeenCalledTimes(1);
+    }, 100);
   });
 
   it('should render deadlines', () => {

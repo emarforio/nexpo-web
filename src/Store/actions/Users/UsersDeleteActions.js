@@ -25,7 +25,7 @@ export const deleteUserFailure = (): DestroyUserFailureAction => {
   };
 };
 
-export function deleteUser(id: string) {
+export const deleteUser = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteUserIsLoading());
     return API.users

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash/fp';
 import { Button, Modal, Avatar } from 'antd';
 import LoadingSpinner from '../../Components/LoadingSpinner';
@@ -36,102 +36,97 @@ type Props = {
   logout: () => Promise<void>,
   resetForm: string => Promise<void>
 };
-class CurrentUser extends Component<Props> {
-  static defaultProps = {
-    currentUser: {},
-    currentStudent: {}
+
+const CurrentUser = ({
+  currentUser,
+  currentStudent,
+  fetching,
+  updateCurrentUser,
+  updateCurrentStudent,
+  getAllProgrammes,
+  deleteCurrentUser,
+  logout,
+  resetForm
+}: Props) => {
+  useEffect(() => {
+    getAllProgrammes();
+  }, [getAllProgrammes]);
+
+  const deleteAndLogoutCurrentUser = () => {
+    deleteCurrentUser();
+    logout();
   };
 
-  UNSAFE_componentWillMount() {
-    const { getAllProgrammes } = this.props;
-    getAllProgrammes();
-  }
-
-  showConfirm = () => {
+  const showConfirm = () => {
     Modal.confirm({
       title: 'Do you want to delete your account?',
       onOk: () => {
-        this.deleteCurrentUser();
+        deleteAndLogoutCurrentUser();
       },
       onCancel() {}
     });
   };
 
-  deleteCurrentUser = () => {
-    const { deleteCurrentUser, logout } = this.props;
-    deleteCurrentUser();
-    logout();
-  };
-
-  updateStudent = (values: StudentObj) => {
-    const { updateCurrentStudent } = this.props;
+  const updateStudent = (values: StudentObj) => {
     return updateCurrentStudent({ student: values });
   };
 
-  resetStudentForm = () => {
-    const { resetForm } = this.props;
+  const resetStudentForm = () => {
     resetForm('student');
   };
 
-  updateUser = (values: UserObj) => {
-    const { updateCurrentUser } = this.props;
+  const updateUser = (values: UserObj) => {
     updateCurrentUser({ user: values });
   };
 
-  render() {
-    const { currentUser = {}, currentStudent, fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    if (isEmpty(currentUser)) {
-      return <NotFound />;
-    }
-
-    const { email, firstName, lastName, profileImage } = currentUser;
-
-    return (
-      <div>
-        <Button
-          onClick={this.showConfirm}
-          style={{ float: 'right' }}
-          type="danger"
-        >
-          Delete Account
-        </Button>
-
-        <Avatar
-          src={profileImage}
-          size={128}
-          shape="circle"
-          alt="User Profile Image"
-        />
-        <h1 style={{ fontSize: '48px' }}>
-          {firstName} {lastName}
-        </h1>
-
-        <h2>User Information</h2>
-
-        <h4>Email: {email}</h4>
-        <CurrentUserForm
-          onSubmit={this.updateUser}
-          initialValues={currentUser}
-        />
-
-        {!isEmpty(currentStudent) && (
-          <>
-            <br />
-            <h2>Student Information</h2>
-            <StudentForm
-              onSubmit={this.updateStudent}
-              onSubmitSuccess={this.resetStudentForm}
-              initialValues={currentStudent}
-            />
-          </>
-        )}
-      </div>
-    );
+  if (fetching) {
+    return <LoadingSpinner />;
   }
-}
+  if (isEmpty(currentUser)) {
+    return <NotFound />;
+  }
+
+  const { email, firstName, lastName, profileImage } = currentUser || {};
+
+  return (
+    <div>
+      <Button onClick={showConfirm} style={{ float: 'right' }} type="danger">
+        Delete Account
+      </Button>
+
+      <Avatar
+        src={profileImage}
+        size={128}
+        shape="circle"
+        alt="User Profile Image"
+      />
+      <h1 style={{ fontSize: '48px' }}>
+        {firstName} {lastName}
+      </h1>
+
+      <h2>User Information</h2>
+
+      <h4>Email: {email}</h4>
+      <CurrentUserForm onSubmit={updateUser} initialValues={currentUser} />
+
+      {!isEmpty(currentStudent) && (
+        <>
+          <br />
+          <h2>Student Information</h2>
+          <StudentForm
+            onSubmit={updateStudent}
+            onSubmitSuccess={resetStudentForm}
+            initialValues={currentStudent}
+          />
+        </>
+      )}
+    </div>
+  );
+};
+
+CurrentUser.defaultProps = {
+  currentUser: {},
+  currentStudent: {}
+};
 
 export default CurrentUser;

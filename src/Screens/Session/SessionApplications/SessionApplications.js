@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { sortBy } from 'lodash/fp';
 import { List, Avatar, Popconfirm, Button } from 'antd';
 import LoadingSpinner from '../../../Components/LoadingSpinner';
@@ -10,11 +10,13 @@ type Company = {
   name: string,
   logoUrl: string
 };
+
 type Application = {
   id: string,
   company: Company,
   motivation: string
 };
+
 type Props = {
   applications?: ?Array<Application>,
   companies?: {},
@@ -26,47 +28,61 @@ type Props = {
     { studentSessionApplication: { motivation: string } }
   ) => Promise<void>
 };
-type State = {
-  editing: { [string]: boolean }
+
+const DefaultState = {
+  editing: {}
 };
-class SessionApplications extends Component<Props, State> {
-  static defaultProps = {
-    companies: {},
-    applications: []
-  };
 
-  constructor(props: Props) {
-    super(props);
-    this.state = { editing: {} };
-  }
+const SessionApplications = ({
+  applications,
+  companies,
+  getAllCompanies,
+  deleteStudentSessionAppl,
+  fetching,
+  updateStudentSessionAppl
+}: Props) => {
+  const [state, setState] = useState(DefaultState);
 
-  UNSAFE_componentWillMount() {
-    const { getAllCompanies } = this.props;
+  useEffect(() => {
     getAllCompanies();
-  }
+  }, [getAllCompanies]);
 
-  toggleEditMode = (id: string) => {
-    const { editing: stateEditing } = this.state;
+  const toggleEditMode = (id: string) => {
+    const { editing: stateEditing } = state;
     const editing = {};
     editing[id] = !stateEditing[id];
-    this.setState({ editing });
+    setState({ editing });
   };
 
-  updateStudentSessionAppl = (id: string, values: { motivation: string }) => {
-    const { updateStudentSessionAppl } = this.props;
+  const updateStudentSessionApplication = (
+    id: string,
+    values: { motivation: string }
+  ) => {
     updateStudentSessionAppl(id, { studentSessionApplication: values });
-    this.setState({ editing: {} });
+    setState({ editing: {} });
   };
 
-  renderApplication = (application: Application) => {
-    const { editing } = this.state;
-    const { deleteStudentSessionAppl } = this.props;
+  const renderMotivationField = (motivation: string, id: string) => {
+    const { editing } = state;
+    if (editing[id])
+      return (
+        <UpdateSessionApplicationForm
+          initialValues={{ motivation }}
+          id={id}
+          onSubmit={values => updateStudentSessionApplication(id, values)}
+        />
+      );
+    return `Motivation: ${motivation}`;
+  };
+
+  const renderApplication = (application: Application) => {
+    const { editing } = state;
     return (
       <List.Item
         actions={[
           <Button
             type={editing[application.id] ? 'default' : 'primary'}
-            onClick={() => this.toggleEditMode(application.id)}
+            onClick={() => toggleEditMode(application.id)}
           >
             {editing[application.id] ? 'Cancel' : 'Edit'}
           </Button>,
@@ -81,7 +97,7 @@ class SessionApplications extends Component<Props, State> {
       >
         <List.Item.Meta
           title={application.company.name}
-          description={this.renderMotivationField(
+          description={renderMotivationField(
             application.motivation,
             application.id
           )}
@@ -98,40 +114,28 @@ class SessionApplications extends Component<Props, State> {
     );
   };
 
-  renderMotivationField = (motivation: string, id: string) => {
-    const { editing } = this.state;
-    if (editing[id])
-      return (
-        <UpdateSessionApplicationForm
-          initialValues={{ motivation }}
-          id={id}
-          onSubmit={values => this.updateStudentSessionAppl(id, values)}
-        />
-      );
-    return `Motivation: ${motivation}`;
-  };
-
-  render() {
-    const { applications, fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-
-    return (
-      <div className="session-applications">
-        <HtmlTitle title="Student Session Application" />
-        <h1>Student Session Applications</h1>
-        <List
-          size="large"
-          bordered
-          dataSource={sortBy('company.name', applications || [])}
-          renderItem={this.renderApplication}
-          locale={{ emptyText: 'No Applications' }}
-        />
-      </div>
-    );
+  if (fetching) {
+    return <LoadingSpinner />;
   }
-}
+
+  return (
+    <div className="session-applications">
+      <HtmlTitle title="Student Session Application" />
+      <h1>Student Session Applications</h1>
+      <List
+        size="large"
+        bordered
+        dataSource={sortBy('company.name', applications || [])}
+        renderItem={renderApplication}
+        locale={{ emptyText: 'No Applications' }}
+      />
+    </div>
+  );
+};
+
+SessionApplications.defaultProps = {
+  companies: {},
+  applications: []
+};
 
 export default SessionApplications;

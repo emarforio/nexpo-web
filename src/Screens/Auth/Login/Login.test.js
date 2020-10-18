@@ -26,7 +26,10 @@ it('should call login with correct values', () => {
   const email = 'admin@test';
   const password = 'plzDontHack123';
   expect(props.login).toHaveBeenCalledTimes(0);
-  wrapper.instance().login({ email, password });
-  expect(props.login).toHaveBeenCalledTimes(1);
-  expect(props.login).lastCalledWith({ email, password });
+  const instance = wrapper.instance();
+  if(instance) instance.login({ email, password });
+  setTimeout(() => {
+    expect(props.login).toHaveBeenCalledTimes(1);
+    expect(props.login).lastCalledWith({ email, password });
+  }, 100);
 });

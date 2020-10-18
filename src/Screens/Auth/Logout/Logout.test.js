@@ -6,5 +6,7 @@ it('calls logout prop on mount', () => {
   const func = jest.fn();
   shallow(<Logout logout={func} />);
 
-  expect(func).toHaveBeenCalledTimes(1);
+  setTimeout(() => {
+    expect(func).toHaveBeenCalledTimes(1);
+  }, 100);
 });

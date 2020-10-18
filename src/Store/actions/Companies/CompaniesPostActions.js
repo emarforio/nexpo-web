@@ -27,7 +27,7 @@ export const createCompanyFailure = (): CreateCompanyFailureAction => {
   };
 };
 
-export function createCompany(data: {}) {
+export const createCompany = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createCompanyIsLoading());
     return API.companies
@@ -64,7 +64,7 @@ export const createCompanyBulkFailure = (): CreateCompanyBulkFailureAction => {
   };
 };
 
-export function createBulk(data: {}) {
+export const createBulk = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createCompanyBulkIsLoading());
     return API.companies

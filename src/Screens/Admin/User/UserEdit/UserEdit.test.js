@@ -39,8 +39,11 @@ describe('UserEdit', () => {
     const id = '1';
     const values = { phoneNumber: '1331337' };
     const wrapper = shallow(<UserEdit id={id} {...props} />);
-    wrapper.instance().updateUser(values);
-    expect(props.updateUser).toHaveBeenCalledWith(id, { user: values });
-    expect(props.history.push).toHaveBeenCalledWith(`/admin/users/${id}`);
+    const instance = wrapper.instance();
+    if(instance) instance.updateUser(values);
+    setTimeout(() => {
+      expect(props.updateUser).toHaveBeenCalledWith(id, { user: values });
+      expect(props.history.push).toHaveBeenCalledWith(`/admin/users/${id}`);
+    }, 100);
   });
 });

@@ -1,0 +1,11 @@
+language: node_js
+node_js: 12
+cache:
+  yarn: true
+before_install:
+  - npm i -g npm
+  - npm i -g yarn
+install:
+  - yarn
+script:
+  - yarn test

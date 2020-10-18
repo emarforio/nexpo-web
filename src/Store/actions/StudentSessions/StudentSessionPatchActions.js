@@ -28,7 +28,7 @@ export function createBulkStudentSessionsFailure(): CreateBulkStudentSessionsFai
   };
 }
 
-export function createBulkStudentSessions() {
+export const createBulkStudentSessions = () => {
   return (dispatch: Dispatch) => {
     dispatch(createBulkStudentSessionsIsLoading());
     return API.studentSessions

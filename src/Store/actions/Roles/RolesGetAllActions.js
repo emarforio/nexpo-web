@@ -24,7 +24,7 @@ export const getAllRolesFailure = (): GetAllRolesFailureAction => {
   };
 };
 
-export function getAllRoles() {
+export const getAllRoles = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllRolesIsLoading());
     return API.roles

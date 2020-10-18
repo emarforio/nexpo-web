@@ -25,7 +25,7 @@ export const deleteCategoryFailure = (): DestroyCategoryFailureAction => {
   };
 };
 
-export function deleteCategory(id: string) {
+export const deleteCategory = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(deleteCategoryIsLoading());
     return API.categories

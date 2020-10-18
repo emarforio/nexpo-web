@@ -24,7 +24,7 @@ export const getAllCompaniesFailure = (): GetAllCompaniesFailureAction => {
   };
 };
 
-export function getAllCompanies() {
+export const getAllCompanies = () => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getAllCompaniesIsLoading());
     return API.companies

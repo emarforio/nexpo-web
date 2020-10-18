@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, isNil, capitalize } from 'lodash/fp';
 
 import NotFound from '../../../NotFound';
@@ -10,6 +10,12 @@ import '../Role.css';
 /**
  * Responsible for rendering a role. Role id is recieved via url
  */
+type Role = {
+  type: string,
+  permissions: Array<string>,
+  user: number
+};
+
 type Props = {
   id: string,
   role: { type?: string },
@@ -17,42 +23,42 @@ type Props = {
   getAllUsers: () => Promise<void>,
   fetchingRoles: boolean,
   fetchingUsers: boolean,
-  updateRole: (string, { role: {} }) => Promise<void>,
+  updateRole: (string, { role: Role }) => Promise<void>,
   history: { push: string => any }
 };
-class RoleEdit extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { id, getRole, getAllUsers } = this.props;
+
+const RoleEdit = ({
+  id,
+  role,
+  getRole,
+  getAllUsers,
+  fetchingRoles,
+  fetchingUsers,
+  updateRole,
+  history
+}: Props) => {
+  useEffect(() => {
     getRole(id);
     getAllUsers();
-  }
+  }, [getRole, getAllUsers, id]);
 
-  updateRole = (values: {
-    type: string,
-    permissions: Array<string>,
-    user: number
-  }) => {
-    const { id, updateRole, history } = this.props;
+  const handleRole = (values: Role) => {
     updateRole(id, { role: values });
     history.push(`/admin/roles/${id}`);
   };
 
-  render() {
-    const { role, fetchingRoles, fetchingUsers } = this.props;
+  if (fetchingRoles || fetchingUsers) return <LoadingSpinner />;
+  if (isEmpty(role) || isNil(role)) return <NotFound />;
 
-    if (fetchingRoles || fetchingUsers) return <LoadingSpinner />;
-    if (isEmpty(role) || isNil(role)) return <NotFound />;
-
-    return (
-      <div className="role-edit-view">
-        <HtmlTitle title={capitalize(role.type || '')} />
-        <div>
-          <h1>Role: {capitalize(role.type || '')}</h1>
-          <RoleForm onSubmit={this.updateRole} initialValues={role} />
-        </div>
+  return (
+    <div className="role-edit-view">
+      <HtmlTitle title={capitalize(role.type || '')} />
+      <div>
+        <h1>Role: {capitalize(role.type || '')}</h1>
+        <RoleForm onSubmit={handleRole} initialValues={role} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default RoleEdit;

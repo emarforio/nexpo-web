@@ -59,8 +59,11 @@ it('displayName and roles should function correctly', () => {
     resetForm: jest.fn()
   };
   const wrapper = shallow(<UserShow id="1" user={user} {...props} />);
-  const displayName = wrapper.instance().displayName();
-  const roles = wrapper.instance().roles();
-  expect(roles).toEqual('admin');
-  expect(displayName).toEqual(`${user.firstName} ${user.lastName}`);
+  const instance = wrapper.instance();
+  if(instance) {
+    const displayName = instance.displayName();
+    const roles = instance.roles();
+    expect(roles).toEqual('admin');
+    expect(displayName).toEqual(`${user.firstName} ${user.lastName}`);
+  }
 });

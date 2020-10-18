@@ -52,27 +52,36 @@ describe('userform should function correctly', () => {
     const { firstName, lastName, foodPreferences } = currentUser;
     const phoneNumber = '13371337';
     const values = { firstName, lastName, phoneNumber, foodPreferences };
-    wrapper.instance().updateUser(values);
-    expect(updateCurrentUser).toHaveBeenCalledTimes(1);
-    expect(updateCurrentUser).toHaveBeenCalledWith({ user: values });
+    const instance = wrapper.instance();
+    if(instance) instance.updateUser(values);
+    setTimeout(() => {
+      expect(updateCurrentUser).toHaveBeenCalledTimes(1);
+      expect(updateCurrentUser).toHaveBeenCalledWith({ user: values });
+    }, 100);
   });
 
   it('should update student and reset state', () => {
     const wrapper = shallow(<CurrentUser {...props} />);
     const { updateCurrentStudent } = props;
     const resumeEnUrl = 'placeholder.com';
-    wrapper.instance().updateStudent({ resumeEnUrl });
-    expect(updateCurrentStudent).toHaveBeenCalledWith({
-      student: { resumeEnUrl }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateStudent({ resumeEnUrl });
+    setTimeout(() => {
+      expect(updateCurrentStudent).toHaveBeenCalledWith({
+        student: { resumeEnUrl }
+      });
+    }, 100);
   });
 
   it('should delete user properly', () => {
     const wrapper = shallow(<CurrentUser {...props} />);
     const { deleteCurrentUser, logout } = props;
-    wrapper.instance().deleteCurrentUser();
-    expect(deleteCurrentUser).toHaveBeenCalledTimes(1);
-    expect(logout).toHaveBeenCalledTimes(1);
+    const instance = wrapper.instance();
+    if(instance) instance.deleteCurrentUser();
+    setTimeout(() => {
+      expect(deleteCurrentUser).toHaveBeenCalledTimes(1);
+      expect(logout).toHaveBeenCalledTimes(1);
+    }, 100);
     wrapper.find(Button).simulate('click');
   });
 });

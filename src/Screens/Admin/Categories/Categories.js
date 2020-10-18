@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { denormalize } from 'normalizr';
 import { Table, Button, Divider } from 'antd';
 import Schema from '../../../Store/normalizr/schema';
@@ -81,20 +81,17 @@ type Props = {
   fetching: boolean,
   getAllCategories: () => Promise<void>
 };
-class Categories extends Component<Props> {
-  static defaultProps = {
-    categories: {},
-    attributes: {}
-  };
-
-  UNSAFE_componentWillMount() {
-    const { getAllCategories } = this.props;
+const Categories = ({
+  categories,
+  attributes,
+  fetching,
+  getAllCategories
+}: Props) => {
+  useEffect(() => {
     getAllCategories();
-  }
+  }, [getAllCategories]);
 
-  renderCategories() {
-    const { categories, attributes } = this.props;
-
+  const renderCategories = () => {
     return (
       <div>
         <HtmlTitle title="Categories" />
@@ -112,16 +109,17 @@ class Categories extends Component<Props> {
         </Button>
       </div>
     );
-  }
+  };
 
-  render() {
-    const { fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    return this.renderCategories();
+  if (fetching) {
+    return <LoadingSpinner />;
   }
-}
+  return renderCategories();
+};
+
+Categories.defaultProps = {
+  categories: {},
+  attributes: {}
+};
 
 export default Categories;

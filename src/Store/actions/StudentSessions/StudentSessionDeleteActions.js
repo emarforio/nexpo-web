@@ -24,7 +24,7 @@ export function deleteStudentSessionFailure() {
   };
 }
 
-export function deleteStudentSession(id: string) {
+export const deleteStudentSession = (id: string) => {
   return (dispatch: Dispatch) => {
     dispatch(deleteStudentSessionIsLoading());
     return API.studentSessions

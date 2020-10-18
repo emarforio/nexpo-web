@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { sortBy } from 'lodash/fp';
 import { Popconfirm, Table, Button, Divider } from 'antd';
 
@@ -15,13 +15,13 @@ type Props = {
   getAllRoles: () => Promise<void>,
   deleteRole: string => Promise<void>
 };
-class Roles extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getAllRoles } = this.props;
-    getAllRoles();
-  }
 
-  roleColumns = () => [
+const Roles = ({ roles, fetching, getAllRoles, deleteRole }: Props) => {
+  useEffect(() => {
+    getAllRoles();
+  }, [getAllRoles]);
+
+  const roleColumns = () => [
     {
       title: 'Type',
       dataIndex: 'type',
@@ -51,7 +51,7 @@ class Roles extends Component<Props> {
           <Divider type="vertical" />
           <Popconfirm
             title="Are you sure you want to delete this role?"
-            onConfirm={() => this.deleteRole(role.id)}
+            onConfirm={() => deleteRole(role.id)}
           >
             <span style={{ color: '#ff4d4f', cursor: 'pointer' }}>Delete</span>
           </Popconfirm>
@@ -60,37 +60,29 @@ class Roles extends Component<Props> {
     }
   ];
 
-  deleteRole = (id: string) => {
-    const { deleteRole } = this.props;
-    deleteRole(id);
-  };
+  if (fetching) return <LoadingSpinner />;
 
-  render() {
-    const { roles, fetching } = this.props;
-    if (fetching) return <LoadingSpinner />;
-
-    return (
-      <div>
-        <HtmlTitle title="Roles" />
-        <h1>Roles</h1>
-        <Table
-          columns={this.roleColumns()}
-          dataSource={sortBy(
-            'type',
-            Object.keys(roles).map(i => ({
-              ...roles[i],
-              key: i
-            }))
-          )}
-        />
-        <InvisibleLink to="/admin/roles/new">
-          <Button onClick={() => null} type="primary">
-            New role
-          </Button>
-        </InvisibleLink>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <HtmlTitle title="Roles" />
+      <h1>Roles</h1>
+      <Table
+        columns={roleColumns()}
+        dataSource={sortBy(
+          'type',
+          Object.keys(roles).map(i => ({
+            ...roles[i],
+            key: i
+          }))
+        )}
+      />
+      <InvisibleLink to="/admin/roles/new">
+        <Button onClick={() => null} type="primary">
+          New role
+        </Button>
+      </InvisibleLink>
+    </div>
+  );
+};
 
 export default Roles;

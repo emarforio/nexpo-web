@@ -24,7 +24,7 @@ export const getRoleFailure = (): GetRoleFailureAction => {
   };
 };
 
-export function getRole(id: string) {
+export const getRole = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getRoleIsLoading());
     return API.roles

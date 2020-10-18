@@ -23,7 +23,7 @@ export const updateCurrentCompanyFailure = () => {
   };
 };
 
-export function updateCurrentCompany(data: {}) {
+export const updateCurrentCompany = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateCurrentCompanyIsLoading());
     return API.companies

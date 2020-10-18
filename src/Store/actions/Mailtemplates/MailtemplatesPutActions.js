@@ -25,7 +25,7 @@ export const updateMailtemplateFailure = (): UpdateMailtemplateFailureAction => 
   };
 };
 
-export function updateMailtemplate(id: string, data: {}) {
+export const updateMailtemplate = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateMailtemplateIsLoading());
     return API.mailtemplates

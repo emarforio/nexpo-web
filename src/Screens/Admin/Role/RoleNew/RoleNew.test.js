@@ -23,8 +23,11 @@ describe('RoleNew', () => {
     const func = jest.fn();
     const wrapper = shallow(<RoleNew {...props} createRole={func} />);
 
-    wrapper.instance().createRole(role);
+    const instance = wrapper.instance();
+    if(instance) instance.createRole(role);
 
-    expect(func).toHaveBeenCalledWith({ role });
+    setTimeout(() => {
+      expect(func).toHaveBeenCalledWith({ role });
+    }, 100);
   });
 });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { isEmpty, isNil, capitalize, join } from 'lodash/fp';
 import { List, Avatar, Button } from 'antd';
 import NotFound from '../../../NotFound';
@@ -19,55 +19,51 @@ type Props = {
   },
   getRole: string => Promise<void>
 };
-class RoleShow extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { id, getRole } = this.props;
+
+const RoleShow = ({ id, role, getRole }: Props) => {
+  useEffect(() => {
     getRole(id);
+  }, [getRole, id]);
+
+  if (isEmpty(role) || isNil(role)) {
+    return <NotFound />;
   }
 
-  render() {
-    const { role } = this.props;
+  return (
+    <div className="role-show-view">
+      <HtmlTitle title={capitalize(role.type || '')} />
 
-    if (isEmpty(role) || isNil(role)) {
-      return <NotFound />;
-    }
-
-    return (
-      <div className="role-show-view">
-        <HtmlTitle title={capitalize(role.type || '')} />
-
-        <div>
-          <h1>{capitalize(role.type || '')}</h1>
-          <p>Permissions: {join(',', role.permissions || [])}</p>
-          <h2>Users</h2>
-          <List
-            dataSource={role.users}
-            bordered
-            renderItem={({ id, firstName, lastName, email }) => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={
-                    <InvisibleLink to={`/admin/users/${id}`}>
-                      <Avatar size="large">{id}</Avatar>
-                    </InvisibleLink>
-                  }
-                  title={[firstName, lastName].join(' ')}
-                  description={`Email: ${email}`}
-                />
-              </List.Item>
-            )}
-          />
-        </div>
-        <br />
-
-        <InvisibleLink to={`/admin/roles/${role.id || ''}/edit`}>
-          <Button onClick={() => null} type="primary">
-            Edit
-          </Button>
-        </InvisibleLink>
+      <div>
+        <h1>{capitalize(role.type || '')}</h1>
+        <p>Permissions: {join(',', role.permissions || [])}</p>
+        <h2>Users</h2>
+        <List
+          dataSource={role.users}
+          bordered
+          renderItem={({ id, firstName, lastName, email }) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={
+                  <InvisibleLink to={`/admin/users/${id}`}>
+                    <Avatar size="large">{id}</Avatar>
+                  </InvisibleLink>
+                }
+                title={[firstName, lastName].join(' ')}
+                description={`Email: ${email}`}
+              />
+            </List.Item>
+          )}
+        />
       </div>
-    );
-  }
-}
+      <br />
+
+      <InvisibleLink to={`/admin/roles/${role.id || ''}/edit`}>
+        <Button onClick={() => null} type="primary">
+          Edit
+        </Button>
+      </InvisibleLink>
+    </div>
+  );
+};
 
 export default RoleShow;

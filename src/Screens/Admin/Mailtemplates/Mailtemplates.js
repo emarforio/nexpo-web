@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Table, Button, Popconfirm, Divider } from 'antd';
 import { sortBy } from 'lodash/fp';
 
@@ -15,17 +15,18 @@ type Props = {
   getAllMailtemplates: () => Promise<void>,
   deleteMailtemplate: string => Promise<void>
 };
-class Mailtemplates extends Component<Props> {
-  static defaultProps = {
-    mailtemplates: {}
-  };
 
-  UNSAFE_componentWillMount() {
-    const { getAllMailtemplates } = this.props;
+const Mailtemplates = ({
+  mailtemplates,
+  fetching,
+  getAllMailtemplates,
+  deleteMailtemplate
+}: Props) => {
+  useEffect(() => {
     getAllMailtemplates();
-  }
+  }, [getAllMailtemplates]);
 
-  mailtemplateColumns = () => [
+  const mailtemplateColumns = () => [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -48,7 +49,6 @@ class Mailtemplates extends Component<Props> {
       title: 'Action',
       key: 'action',
       render: (mailtemplate: { id: string }) => {
-        const { deleteMailtemplate } = this.props;
         return (
           <span>
             <InvisibleLink to={`/admin/mailtemplates/${mailtemplate.id}`}>
@@ -69,9 +69,8 @@ class Mailtemplates extends Component<Props> {
     }
   ];
 
-  renderMailtemplates() {
-    const { mailtemplates = {} } = this.props;
-
+  const renderMailtemplates = () => {
+    const tempMailTemplates = mailtemplates || {};
     return (
       <div>
         <HtmlTitle title="Mailtemplates" />
@@ -79,11 +78,11 @@ class Mailtemplates extends Component<Props> {
         <h1>Mailtemplates</h1>
 
         <Table
-          columns={this.mailtemplateColumns()}
+          columns={mailtemplateColumns()}
           dataSource={sortBy(
             'name',
-            Object.keys(mailtemplates).map(i => ({
-              ...mailtemplates[i],
+            Object.keys(tempMailTemplates).map(i => ({
+              ...tempMailTemplates[i],
               key: i
             }))
           )}
@@ -95,16 +94,16 @@ class Mailtemplates extends Component<Props> {
         </InvisibleLink>
       </div>
     );
-  }
+  };
 
-  render() {
-    const { fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    return this.renderMailtemplates();
+  if (fetching) {
+    return <LoadingSpinner />;
   }
-}
+  return renderMailtemplates();
+};
+
+Mailtemplates.defaultProps = {
+  mailtemplates: {}
+};
 
 export default Mailtemplates;

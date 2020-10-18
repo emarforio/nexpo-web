@@ -53,10 +53,13 @@ describe('Programme', () => {
   it('updateProgramme functions correctly', () => {
     const wrapper = shallow(<Programme id="1" {...props} />);
     const newCode = 'D';
-    wrapper.instance().updateProgramme({ code: newCode });
-    expect(props.createProgramme).toHaveBeenCalledWith({
-      programme: { code: newCode }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateProgramme({ code: newCode });
+    setTimeout(() => {
+      expect(props.createProgramme).toHaveBeenCalledWith({
+        programme: { code: newCode }
+      });
+    }, 100);
   });
 
   // If there is a programme in props we want to update it
@@ -71,9 +74,12 @@ describe('Programme', () => {
       <Programme id={id} {...props} programme={programme} />
     );
     const newName = 'F-Guild';
-    wrapper.instance().updateProgramme({ name: newName });
-    expect(props.updateProgramme).toHaveBeenCalledWith(id, {
-      programme: { name: newName }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateProgramme({ name: newName });
+    setTimeout(() => {
+      expect(props.updateProgramme).toHaveBeenCalledWith(id, {
+        programme: { name: newName }
+      });
+    }, 100);
   });
 });

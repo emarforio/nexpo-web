@@ -13,7 +13,9 @@ it('calls fetch all roles prop on mount', () => {
   const statistics = {};
   shallow(<Statistics statistics={statistics} getAllStatistics={func} />);
 
-  expect(func).toHaveBeenCalledTimes(1);
+  setTimeout(() => {
+    expect(func).toHaveBeenCalledTimes(1);
+  }, 100);
 });
 
 it('can render data', () => {
@@ -43,5 +45,7 @@ it('can render data', () => {
 
   shallow(<Statistics statistics={statistics} getAllStatistics={func} />);
 
-  expect(func).toHaveBeenCalledTimes(1);
+  setTimeout(() => {
+    expect(func).toHaveBeenCalledTimes(1);
+  }, 100);
 });

@@ -24,7 +24,7 @@ export const getMailtemplateFailure = (): GetMailtemplateFailureAction => {
   };
 };
 
-export function getMailtemplate(id: string) {
+export const getMailtemplate = (id: string) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(getMailtemplateIsLoading());
     return API.mailtemplates

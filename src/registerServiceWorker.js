@@ -20,9 +20,9 @@ export default function register() {
           .then(registration => {
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
-              installingWorker.onstatechange = () => {
+              if (installingWorker) installingWorker.onstatechange = () => {
                 if (
-                  installingWorker.state === 'installed' &&
+                  installingWorker && installingWorker.state === 'installed' &&
                   navigator.serviceWorker
                 ) {
                   if (navigator.serviceWorker.controller) {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { List, Button, Avatar, Rate } from 'antd';
 import { sortBy } from 'lodash/fp';
 import HtmlTitle from '../../../Components/HtmlTitle';
@@ -46,13 +46,16 @@ type Props = {
   getCurrentCompany: () => Promise<void>
 };
 
-class YourCompanyScans extends Component<Props> {
-  UNSAFE_componentWillMount() {
-    const { getCurrentCompany } = this.props;
+const YourCompanyScans = ({
+  currentCompany,
+  fetching,
+  getCurrentCompany
+}: Props) => {
+  useEffect(() => {
     getCurrentCompany();
-  }
+  }, [getCurrentCompany]);
 
-  blipToCsv = (blip: Blip) => {
+  const blipToCsv = (blip: Blip) => {
     const { email } = blip.student.user;
     const name = `${blip.student.user.firstName} ${blip.student.user.lastName}`;
     const year = blip.student.year ? blip.student.year : '';
@@ -64,12 +67,10 @@ class YourCompanyScans extends Component<Props> {
     return `${email},${name},${year},${programme},${interests},${rating},${comment}`;
   };
 
-  exportBlips = () => {
-    const { currentCompany } = this.props;
-
+  const exportBlips = () => {
     const data = [
       'Email,Name,Graduation year,Programme,Interests,Rating,Comment',
-      ...currentCompany.blips.map(this.blipToCsv)
+      ...currentCompany.blips.map(blipToCsv)
     ].join('\n');
 
     const blob = new Blob([data]);
@@ -80,7 +81,7 @@ class YourCompanyScans extends Component<Props> {
     element.click();
   };
 
-  renderBlip = (blip: Blip) => (
+  const renderBlip = (blip: Blip) => (
     <List.Item
       actions={[
         <Rate value={blip.rating} disabled />,
@@ -121,49 +122,41 @@ class YourCompanyScans extends Component<Props> {
     </List.Item>
   );
 
-  render() {
-    const { currentCompany, fetching } = this.props;
-
-    return (
-      <div className="company-show-view">
-        <HtmlTitle title="Scans" />
-        <div style={{ overflow: 'auto' }}>
-          <div
-            style={{
-              float: 'left',
-              marginRight: '10px'
-            }}
-          >
-            <h2>Student Scans</h2>
-          </div>
-          <Button
-            icon="download"
-            style={{ float: 'left' }}
-            onClick={this.exportBlips}
-          >
-            Export Scans
-          </Button>
+  return (
+    <div className="company-show-view">
+      <HtmlTitle title="Scans" />
+      <div style={{ overflow: 'auto' }}>
+        <div
+          style={{
+            float: 'left',
+            marginRight: '10px'
+          }}
+        >
+          <h2>Student Scans</h2>
         </div>
-        <p>
-          The exported data will be on <i>.csv</i> (Comma Seperated Values)
-          format. This can be read by programs such as Excel.
-        </p>
-        <br />
-        <p>
-          For every student their email, name, graduation year, programme and
-          interests along with your rating and comment will be exported.
-        </p>
-        <hr />
-        <List
-          itemLayout="vertical"
-          dataSource={sortBy('id', currentCompany.blips || [])}
-          loading={fetching}
-          renderItem={this.renderBlip}
-          locale={{ emptyText: 'No Scanned Students' }}
-        />
+        <Button icon="download" style={{ float: 'left' }} onClick={exportBlips}>
+          Export Scans
+        </Button>
       </div>
-    );
-  }
-}
+      <p>
+        The exported data will be on <i>.csv</i> (Comma Seperated Values)
+        format. This can be read by programs such as Excel.
+      </p>
+      <br />
+      <p>
+        For every student their email, name, graduation year, programme and
+        interests along with your rating and comment will be exported.
+      </p>
+      <hr />
+      <List
+        itemLayout="vertical"
+        dataSource={sortBy('id', currentCompany.blips || [])}
+        loading={fetching}
+        renderItem={renderBlip}
+        locale={{ emptyText: 'No Scanned Students' }}
+      />
+    </div>
+  );
+};
 
 export default YourCompanyScans;

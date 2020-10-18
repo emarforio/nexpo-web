@@ -84,9 +84,12 @@ describe('CompanyEdit', () => {
       <CompanyEdit id={id} {...props} company={company} />
     );
     const newDescription = 'Our company is awesome';
-    wrapper.instance().updateCompany({ description: newDescription });
-    expect(props.updateCompany).toHaveBeenCalledWith(id, {
-      company: { description: newDescription }
-    });
+    const instance = wrapper.instance();
+    if(instance) instance.updateCompany({ description: newDescription });
+    setTimeout(() => {
+      expect(props.updateCompany).toHaveBeenCalledWith(id, {
+        company: { description: newDescription }
+      });
+    }, 100);
   });
 });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SubmissionError } from 'redux-form';
 import { pick } from 'lodash/fp';
 import ErrorMessage from '../../../../Components/ErrorMessage';
@@ -10,42 +10,38 @@ type Props = {
   signupKey: string
 };
 
-type State = {
-  email: string,
-  noSuchKey: boolean,
-  finished: boolean
+const DefaultState = {
+  email: '',
+  noSuchKey: false,
+  finished: false
+};
+
+type SignUpValues = {
+  password: string,
+  passwordConfirmation: string,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string
 };
 
 /**
  * A component which allows users to complete a sign up process
  */
-class FinalizeSignup extends Component<Props, State> {
-  state = {
-    email: '',
-    noSuchKey: false,
-    finished: false
-  };
+const FinalizeSignup = ({ signupKey }: Props) => {
+  const [state, setState] = useState(DefaultState);
 
-  componentDidMount() {
-    this.fetchCurrentSignup();
-  }
-
-  fetchCurrentSignup = () => {
-    const { signupKey } = this.props;
+  const fetchCurrentSignup = () => {
     API.signup
       .getCurrentSignup(signupKey)
-      .then(res => this.setState({ email: res.data.email }))
-      .catch(() => this.setState({ noSuchKey: true }));
+      .then(res => setState({ ...state, email: res.data.email }))
+      .catch(() => setState({ ...state, noSuchKey: true }));
   };
 
-  signup = (values: {
-    password: string,
-    passwordConfirmation: string,
-    firstName: string,
-    lastName: string,
-    phoneNumber: string
-  }) => {
-    const { signupKey } = this.props;
+  useEffect(() => {
+    fetchCurrentSignup();
+  });
+
+  const signup = (values: SignUpValues) => {
     const params = pick(
       [
         'password',
@@ -59,42 +55,41 @@ class FinalizeSignup extends Component<Props, State> {
 
     return API.signup
       .finalizeSignup(signupKey, params)
-      .then(() => this.setState({ finished: true }))
+      .then(() => setState({ ...state, finished: true }))
       .catch(err => {
         // This error will be shown in the form
         throw new SubmissionError({ ...err.errors });
       });
   };
 
-  render() {
-    const { email, finished, noSuchKey } = this.state;
-
-    // Redirect to root url if sign up key is incorrect
-    if (noSuchKey) {
-      return (
-        <ErrorMessage
-          message="This link seems to be broken!"
-          linkUrl="/signup"
-          linkText="Click here to sign up"
-        />
-      );
-    }
-    if (finished) {
-      return (
-        <SuccessMessage
-          message="You have signed up!"
-          linkUrl="/"
-          linkText="Click here to go home"
-        />
-      );
-    }
+  // Redirect to root url if sign up key is incorrect
+  if (state.noSuchKey) {
     return (
-      <div className="finalize-signup">
-        <h1>Sign Up</h1>
-        <FinalizeSignupForm onSubmit={this.signup} initialValues={{ email }} />
-      </div>
+      <ErrorMessage
+        message="This link seems to be broken!"
+        linkUrl="/signup"
+        linkText="Click here to sign up"
+      />
     );
   }
-}
+  if (state.finished) {
+    return (
+      <SuccessMessage
+        message="You have signed up!"
+        linkUrl="/"
+        linkText="Click here to go home"
+      />
+    );
+  }
+  return (
+    <div className="finalize-signup">
+      <h1>Sign Up</h1>
+      <FinalizeSignupForm
+        onSubmit={signup}
+        initialValues={{ email: state.email }}
+      />
+    </div>
+  );
+};
 
 export default FinalizeSignup;

@@ -69,6 +69,7 @@ export const failure = (error: ?{ [key: string]: string }) => ({
   success: false
 });
 
+// $FlowFixMe
 export const ApiReducer = combineReducers({
   categories: ApiReducerCategories,
   companies: ApiReducerCompanies,

@@ -16,7 +16,6 @@ it('should render NotFound if there is no category', () => {
   const wrapper = shallow(
     <Category id="1" category={category} getCategory={func} />
   );
-
   expect(wrapper.find(NotFound)).toHaveLength(1);
 });
 

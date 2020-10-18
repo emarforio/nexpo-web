@@ -8,6 +8,5 @@ it('should render without crashing', () => {
 });
 it('should render SuccessMessage when finished', () => {
   const wrapper = shallow(<InitialSignup finished />);
-  wrapper.setState({ finished: true });
   expect(wrapper.find(SuccessMessage)).toHaveLength(1);
 });

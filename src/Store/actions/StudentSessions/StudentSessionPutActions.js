@@ -25,7 +25,7 @@ export const updateStudentSessionFailure = (): UpdateStudentSessionFailureAction
   };
 };
 
-export function updateStudentSession(id: string, status: number) {
+export const updateStudentSession = (id: string, status: number) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateStudentSessionIsLoading());
     return API.studentSessions

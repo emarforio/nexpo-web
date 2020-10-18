@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Icon, Upload, Table, Button, Popconfirm, Divider } from 'antd';
 import { size, sortBy, toLower } from 'lodash/fp';
 
@@ -18,17 +18,19 @@ type Props = {
   deleteCompany: string => Promise<void>,
   createBulk: (data: {}) => Promise<void>
 };
-class Companies extends Component<Props> {
-  static defaultProps = {
-    companies: {}
-  };
 
-  UNSAFE_componentWillMount() {
-    const { getAllCompanies } = this.props;
+const Companies = ({
+  companies,
+  fetching,
+  getAllCompanies,
+  deleteCompany,
+  createBulk
+}: Props) => {
+  useEffect(() => {
     getAllCompanies();
-  }
+  }, [getAllCompanies]);
 
-  companyColumns = () => [
+  const companyColumns = () => [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -70,7 +72,6 @@ class Companies extends Component<Props> {
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => {
-              const { deleteCompany } = this.props;
               deleteCompany(company.id);
             }}
           >
@@ -81,7 +82,7 @@ class Companies extends Component<Props> {
     }
   ];
 
-  csvToObj = (text: string) => {
+  const csvToObj = (text: string) => {
     const lines = text.split('\n');
     const result = { companies: [], representatives: [] };
     const headers = [
@@ -112,14 +113,8 @@ class Companies extends Component<Props> {
     return result;
   };
 
-  createBulk = (data: {}) => {
-    const { createBulk } = this.props;
-    createBulk(data);
-  };
-
-  renderCompanies() {
-    const { companies = {} } = this.props;
-
+  const renderCompanies = () => {
+    const tempComanies = companies || {};
     return (
       <div>
         <HtmlTitle title="Companies" />
@@ -127,11 +122,11 @@ class Companies extends Component<Props> {
         <h1>Companies</h1>
 
         <Table
-          columns={this.companyColumns()}
+          columns={companyColumns()}
           dataSource={sortBy(
             'name',
-            Object.keys(companies).map(i => ({
-              ...companies[i],
+            Object.keys(tempComanies).map(i => ({
+              ...tempComanies[i],
               key: i
             }))
           )}
@@ -151,8 +146,8 @@ class Companies extends Component<Props> {
             beforeUpload={file => {
               const reader = new FileReader();
               reader.onload = e => {
-                const obj = this.csvToObj(e.target.result);
-                this.createBulk(obj);
+                const obj = csvToObj(e.target.result);
+                createBulk(obj);
               };
               reader.readAsText(file);
               return false;
@@ -171,16 +166,16 @@ class Companies extends Component<Props> {
         </div>
       </div>
     );
-  }
+  };
 
-  render() {
-    const { fetching } = this.props;
-
-    if (fetching) {
-      return <LoadingSpinner />;
-    }
-    return this.renderCompanies();
+  if (fetching) {
+    return <LoadingSpinner />;
   }
-}
+  return renderCompanies();
+};
+
+Companies.defaultProps = {
+  companies: {}
+};
 
 export default Companies;

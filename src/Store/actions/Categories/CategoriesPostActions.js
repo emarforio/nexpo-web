@@ -25,7 +25,7 @@ export const createCategoryFailure = (): CreateCategoryFailureAction => {
   };
 };
 
-export function createCategory(data: {}) {
+export const createCategory = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createCategoryIsLoading());
     return API.categories

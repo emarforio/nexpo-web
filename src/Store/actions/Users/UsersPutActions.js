@@ -25,7 +25,7 @@ export const updateUserFailure = (): UpdateUserFailureAction => {
   };
 };
 
-export function updateUser(id: string, data: {}) {
+export const updateUser = (id: string, data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateUserIsLoading());
     return API.users

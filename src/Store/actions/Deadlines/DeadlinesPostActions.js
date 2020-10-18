@@ -25,7 +25,7 @@ export const createDeadlineFailure = (): CreateDeadlineFailureAction => {
   };
 };
 
-export function createDeadline(data: {}) {
+export const createDeadline = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(createDeadlineIsLoading());
     return API.deadlines

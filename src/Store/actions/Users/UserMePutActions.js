@@ -22,7 +22,7 @@ export const updateCurrentUserFailure = () => {
   };
 };
 
-export function updateCurrentUser(data: {}) {
+export const updateCurrentUser = (data: {}) => {
   return (dispatch: Dispatch<{ type: string }>) => {
     dispatch(updateCurrentUserIsLoading());
     return API.users
