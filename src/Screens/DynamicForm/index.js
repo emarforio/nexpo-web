@@ -41,12 +41,14 @@ export default function () {
     return <Error message="Failed to fetch form" />;
   }
 
-  function handleSubmit() {}
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
 
   return (
     <div>
       <h2>{form.template.title}</h2>
-      <Form onSubmit={() => handleSubmit()}>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         {form.template.fields.map((field) => (
           <Form.Item key={field.key} label={field.placeholder}>
             <FieldComponent field={field} />
