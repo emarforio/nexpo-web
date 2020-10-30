@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Form } from 'antd';
+import { Form, Checkbox } from 'antd';
 
 import Spinner from '../../Components/LoadingSpinner';
 import Error from '../../Components/ErrorMessage';
@@ -52,6 +52,10 @@ export default function () {
             <FieldComponent field={field} />
           </Form.Item>
         ))}
+
+        <Form.Item>
+          <Checkbox required>{form.template.agree_to}</Checkbox>
+        </Form.Item>
       </Form>
     </div>
   );
