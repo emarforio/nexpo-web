@@ -6,6 +6,8 @@ import { Form } from 'antd';
 import Spinner from '../../Components/LoadingSpinner';
 import Error from '../../Components/ErrorMessage';
 
+import FieldComponent from './components';
+
 import fetchForm from './mock.js';
 
 export default function () {
@@ -44,7 +46,13 @@ export default function () {
   return (
     <div>
       <h2>{form.template.title}</h2>
-      <Form onSubmit={() => handleSubmit()}></Form>
+      <Form onSubmit={() => handleSubmit()}>
+        {form.template.fields.map((field) => (
+          <Form.Item key={field.key} label={field.placeholder}>
+            <FieldComponent field={field} />
+          </Form.Item>
+        ))}
+      </Form>
     </div>
   );
 }

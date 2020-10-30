@@ -35,7 +35,7 @@ const data = {
             }
           ]
         },
-        placeholder: '',
+        placeholder: 'Favorite time of day',
         help_info: 'When are you like, available?',
         required: false
       },
