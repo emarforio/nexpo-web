@@ -44,6 +44,7 @@ import NotFound from '../Screens/NotFound';
 import PrivateRoute from '../Components/PrivateRoute';
 import HtmlTitle from '../Components/HtmlTitle';
 import { hasAccess, hasPermission } from '../Util/PermissionsHelper';
+import DynamicForm from '../Screens/DynamicForm';
 
 const { Header, Content, Footer } = Layout;
 
@@ -101,6 +102,7 @@ const routes = (
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route path="/forgot-password" component={ForgotPassword} />
+    <Route path="/forms/:id" component={DynamicForm} />
     {privateRoutes.map((props: RouteItem) => (
       <PrivateRoute key={props.path} exact {...props} />
     ))}
