@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Form, Checkbox } from 'antd';
+import { Form, Button, Checkbox } from 'antd';
 
 import Spinner from '../../Components/LoadingSpinner';
 import Error from '../../Components/ErrorMessage';
@@ -55,6 +55,12 @@ export default function () {
 
         <Form.Item>
           <Checkbox required>{form.template.agree_to}</Checkbox>
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            {form.template.submit_text}
+          </Button>
         </Form.Item>
       </Form>
     </div>
