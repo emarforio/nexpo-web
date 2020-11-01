@@ -45,15 +45,24 @@ const data = {
         data: {
           default_value: null,
           values: [
-            { value: 'Mercurius' },
-            { value: 'Venus' },
-            { value: 'Earth' },
-            { value: 'Mars' },
-            { value: 'Jupiter' },
-            { value: 'Saturnus' },
-            { value: 'Uranus' },
-            { value: 'Neptune' },
-            { value: 'Pluto (sike)', disabled: true }
+            { group: 'Mercurius',
+              value: 'Mercurius' },
+            { group: 'Venus',
+              value: 'Venus' },
+            { group: 'Earth',
+              value: 'Earth', },
+            { group: 'Mars',
+              value: 'Mars' },
+            { group: 'Jupiter',
+              value: 'Jupiter' },
+            { group: 'Saturnus',
+              value: 'Saturnus' },
+            { group: 'Uranus',
+              value: 'Uranus' },
+            { group: 'Neptune',
+              value: 'Neptune' },
+            { group: 'Pluto',
+              value: 'Pluto (sike)', disabled: true }
           ]
         },
         help_info: '',
