@@ -46,6 +46,13 @@ export default function() {
     e.preventDefault();
   }
 
+  function setKey(key, value) {
+    setResponse({
+      ...response,
+      [key]: value
+    });
+  }
+
   return (
     <div>
       <h2>{form.template.title}</h2>
