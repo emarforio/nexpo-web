@@ -60,9 +60,13 @@ export default function() {
           </Form.Item>
         ))}
 
-        <Form.Item>
-          <Checkbox required>{form.template.agree_to}</Checkbox>
-        </Form.Item>
+        {form.template.agree_to ? (
+          <Form.Item>
+            <Checkbox required>{form.template.agree_to}</Checkbox>
+          </Form.Item>
+        ) : (
+          ''
+        )}
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
