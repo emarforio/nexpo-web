@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Radio } from 'antd';
+import { Radio } from 'antd';
 
 export default function({ field }) {
   const radioStyle = {

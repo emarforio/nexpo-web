@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, InputNumber } from 'antd';
+import { InputNumber } from 'antd';
 
 export default function({ field }) {
-  return <InputNumber value={field.placeholder || null} />;
+  return (
+      <InputNumber placeholder={field.placeholder || null} />
+  );
 }
