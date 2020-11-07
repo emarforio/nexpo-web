@@ -8,7 +8,7 @@ import Error from '../../Components/ErrorMessage';
 
 import FieldComponent from './components';
 
-import fetchForm from './mock.js';
+import fetchForm from './mock2.js';
 
 export default function() {
   const { id } = useParams();

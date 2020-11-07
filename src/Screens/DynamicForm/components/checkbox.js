@@ -1,8 +1,12 @@
 import React from 'react';
 import { Checkbox } from 'antd';
 
-export default function({ field }) {
+export default function({ field, onChange, value }) {
   return (
-      <Checkbox placeholder={field.placeholder || null}/>
+    <Checkbox
+      value={value}
+      onChange={e => onChange(e.target.checked)}
+      placeholder={field.placeholder || null}
+    />
   );
 }
