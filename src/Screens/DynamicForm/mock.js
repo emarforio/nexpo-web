@@ -4,7 +4,7 @@ const data = {
     fields: [
       {
         type: 'TEXTFIELD',
-        key: 'name',
+        key: 'Name',
         data: null,
         placeholder: 'Your name',
         help_info: 'It should be on your ID.',
@@ -12,7 +12,7 @@ const data = {
       },
       {
         type: 'OPTION',
-        key: 'availability',
+        key: 'Availability',
         data: {
           multiple_choice: true,
           default_value: null,
@@ -45,24 +45,15 @@ const data = {
         data: {
           default_value: null,
           values: [
-            { group: 'Mercurius',
-              value: 'Mercurius' },
-            { group: 'Venus',
-              value: 'Venus' },
-            { group: 'Earth',
-              value: 'Earth', },
-            { group: 'Mars',
-              value: 'Mars' },
-            { group: 'Jupiter',
-              value: 'Jupiter' },
-            { group: 'Saturnus',
-              value: 'Saturnus' },
-            { group: 'Uranus',
-              value: 'Uranus' },
-            { group: 'Neptune',
-              value: 'Neptune' },
-            { group: 'Pluto',
-              value: 'Pluto (sike)', disabled: true }
+            { group: 'Mercurius', value: 'Mercurius' },
+            { group: 'Venus', value: 'Venus' },
+            { group: 'Earth', value: 'Earth' },
+            { group: 'Mars', value: 'Mars' },
+            { group: 'Jupiter', value: 'Jupiter' },
+            { group: 'Saturnus', value: 'Saturnus' },
+            { group: 'Uranus', value: 'Uranus' },
+            { group: 'Neptune', value: 'Neptune' },
+            { group: 'Pluto', value: 'Pluto (sike)', disabled: true }
           ]
         },
         help_info: '',

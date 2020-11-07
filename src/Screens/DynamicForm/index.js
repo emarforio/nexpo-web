@@ -10,7 +10,7 @@ import FieldComponent from './components';
 
 import fetchForm from './mock.js';
 
-export default function () {
+export default function() {
   const { id } = useParams();
 
   const [error, setError] = useState(null);
@@ -48,9 +48,14 @@ export default function () {
   return (
     <div>
       <h2>{form.template.title}</h2>
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        {form.template.fields.map((field) => (
-          <Form.Item key={field.key} label={field.placeholder}>
+      <Form onSubmit={e => handleSubmit(e)}>
+        {form.template.fields.map(field => (
+          <Form.Item
+            key={field.key}
+            label={field.key}
+            help={field.help_info || ''}
+            required={field.required}
+          >
             <FieldComponent field={field} />
           </Form.Item>
         ))}
