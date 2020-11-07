@@ -23,6 +23,7 @@ import CurrentUser from '../Screens/CurrentUser';
 import Companies from '../Screens/Admin/Companies';
 import StudentSessions from '../Screens/Admin/StudentSessions';
 import { CompanyNew, CompanyEdit, CompanyShow } from '../Screens/Admin/Company';
+import FormCreator from '../Screens/Admin/FormCreator';
 import YourCompanyHome from '../Screens/YourCompany/YourCompanyHome';
 import {
   YourCompanyProfileShow,
@@ -80,6 +81,7 @@ const privateRoutes: Array<RouteItem> = [
   { path: '/admin/roles/:id', component: RoleShow },
   { path: '/admin/roles/:id/edit', component: RoleEdit },
   { path: '/admin/statistics', component: Statistics },
+  { path: '/admin/forms/create', component: FormCreator},
   { path: '/user', component: CurrentUser },
   { path: '/logout', component: Logout },
   { path: '/session', component: SessionHome },
@@ -268,6 +270,10 @@ const App = ({
                 restrictedMenuItem({
                   route: 'admin/statistics',
                   title: 'Statistics'
+                }),
+                restrictedMenuItem({
+                  route: 'admin/create',
+                  title: 'Form Creator'
                 })
               ]
             })}
