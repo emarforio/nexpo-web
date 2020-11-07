@@ -8,24 +8,24 @@ import TimeField from './timefield';
 import Checkbox from './checkbox';
 import Radio from './radio';
 
-export default function({ field, onChange }) {
+export default function({ field, onChange, value }) {
   switch (field.type) {
     case 'OPTION':
-      return <Option field={field} onChange={onChange} />;
+      return <Option field={field} value={value} onChange={onChange} />;
     case 'TEXTFIELD':
-      return <TextField field={field} onChange={onChange} />;
+      return <TextField field={field} value={value} onChange={onChange} />;
     case 'EMAIL':
-      return <TextField field={field} onChange={onChange} />;
+      return <TextField field={field} value={value} onChange={onChange} />;
     case 'NUMBER':
-      return <NumberField field={field} onChange={onChange} />;
+      return <NumberField field={field} value={value} onChange={onChange} />;
     case 'DATE':
-      return <DateField field={field} onChange={onChange} />;
+      return <DateField field={field} value={value} onChange={onChange} />;
     case 'TIME':
-      return <TimeField field={field} onChange={onChange} />;
+      return <TimeField field={field} value={value} onChange={onChange} />;
     case 'CHECKBOX':
-      return <Checkbox field={field} onChange={onChange} />;
+      return <Checkbox field={field} value={value} onChange={onChange} />;
     case 'RADIO':
-      return <Radio field={field} onChange={onChange} />;
+      return <Radio field={field} value={value} onChange={onChange} />;
 
     default:
       return <div />;

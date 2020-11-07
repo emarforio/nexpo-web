@@ -66,6 +66,7 @@ export default function() {
           >
             <FieldComponent
               field={field}
+              value={response[field.key]}
               onChange={value => setKey(field.key, value)}
             />
           </Form.Item>
