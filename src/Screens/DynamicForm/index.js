@@ -64,7 +64,10 @@ export default function() {
             help={field.help_info || ''}
             required={field.required}
           >
-            <FieldComponent field={field} />
+            <FieldComponent
+              field={field}
+              onChange={value => setKey(field.key, value)}
+            />
           </Form.Item>
         ))}
 
