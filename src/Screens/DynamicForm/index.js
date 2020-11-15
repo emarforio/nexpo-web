@@ -12,7 +12,7 @@ export default function() {
   const { id } = useParams();
 
   const [error, setError] = useState(null);
-  const [fetching, setFetching] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(null);
   const [response, setResponse] = useState({});
 
@@ -27,14 +27,14 @@ export default function() {
       } catch (e) {
         setError('Failed to fetch form');
       } finally {
-        setFetching(false);
+        setLoading(false);
       }
     }
 
     fetchData();
   }, [id]);
 
-  if (fetching) {
+  if (loading) {
     return <Spinner />;
   }
 
