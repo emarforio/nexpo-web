@@ -15,6 +15,7 @@ export default function() {
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(null);
   const [response, setResponse] = useState({});
+  const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,8 +43,41 @@ export default function() {
     return <Error message={error} />;
   }
 
-  function handleSubmit(e) {
+  if (finished) {
+    return <h2>Your response has been submitted. Thank you.</h2>;
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    const payload = {
+      form_id: id,
+      data: Object.keys(response).map(key => ({
+        key,
+        value: response[key]
+      }))
+    };
+
+    setLoading(true);
+    try {
+      const submitResponse = await fetch('/api/form_responses', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+      });
+
+      if (!submitResponse.status !== 201) {
+        throw Error();
+      }
+
+      setFinished(true);
+    } catch (e) {
+      setError('Failed to submit form');
+    } finally {
+      setLoading(false);
+    }
   }
 
   function setKey(key, value) {
