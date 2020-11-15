@@ -8,8 +8,6 @@ import Error from '../../Components/ErrorMessage';
 
 import FieldComponent from './components';
 
-import fetchForm from './mock2.js';
-
 export default function() {
   const { id } = useParams();
 
@@ -21,11 +19,13 @@ export default function() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // TODO: Actual data fetching
-        setForm(await fetchForm());
+        const data = await fetch(`/api/forms/${id}`);
+        if (!data.template) {
+          throw Error('Failed to fetch form');
+        }
+        setForm(data);
       } catch (e) {
-        // TODO: Handle errors more gracefully
-        setError(true);
+        setError('Failed to fetch form');
       } finally {
         setFetching(false);
       }
@@ -39,7 +39,7 @@ export default function() {
   }
 
   if (error !== null) {
-    return <Error message="Failed to fetch form" />;
+    return <Error message={error} />;
   }
 
   function handleSubmit(e) {
