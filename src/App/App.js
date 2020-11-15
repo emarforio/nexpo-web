@@ -272,7 +272,7 @@ const App = ({
                   title: 'Statistics'
                 }),
                 restrictedMenuItem({
-                  route: 'admin/create',
+                  route: 'admin/forms/create',
                   title: 'Form Creator'
                 })
               ]
