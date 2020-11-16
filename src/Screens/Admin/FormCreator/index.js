@@ -1,6 +1,6 @@
 import React from 'react';
 import HtmlTitle from '../../../Components/HtmlTitle';
-import FormCreator from './FormCreator';
+import FormCreator from './formCreator';
 
 export default function() {
     return(

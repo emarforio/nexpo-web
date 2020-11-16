@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
 import { Icon, Row, Col, Input, Select, Form, Button } from 'antd';
+import InputComponent from './InputComponents/inputComponent';
 
 const { Option, OptGroup } = Select;
 
 export default function() {
   const [keys, setKeys] = useState([]);
+  const [newInput, setNewInput] = useState('');
 
   const formItems = keys.map((k, index) => (
     <Form.Item required={false} key={index}>
-      <Row type="flex" justify='start' align='middle'>
-        <Col span={6}>
-          <Input placeholder="Please input the label text of the field" style={{ width: '90%', marginRight: 8 }}  />
-        </Col>
-        <Col>
-          <Icon
-            type="minus-circle"
-            theme="outlined"
-            style={{ fontSize: '25px'}}
-          />
-        </Col>
+      <Row type="flex" justify="start" align="middle">
+        <InputComponent type={newInput} />
       </Row>
     </Form.Item>
   ));
@@ -32,7 +25,9 @@ export default function() {
       <Form>
         <Row gutter={[0, 24]}>
           <Col span={6}>
-            <Input placeholder="Please input the title of the form here." />
+            <Form.Item label="Title">
+              <Input placeholder="Please input the title of the form here." />
+            </Form.Item>
           </Col>
         </Row>
         {formItems}
@@ -42,22 +37,23 @@ export default function() {
               <Select
                 placeholder="Choose a component to add"
                 style={{ width: '100%' }}
+                onChange={setNewInput}
               >
-                <Option value="textfield">Textfield</Option>
-                <Option value="checkbox">Checkbox</Option>
-                <Option value="option ">Option</Option>
-                <Option value="radio">Radio</Option>
-                <Option value="email">Email</Option>
-                <Option value="number">Number</Option>
-                <Option value="date">Date</Option>
-                <Option value="time">Time</Option>
+                <Option value="INPUTTEXT">Textfield</Option>
+                <Option value="INPUTCHECKBOX">Checkbox</Option>
+                <Option value="INPUTOPTION ">Option</Option>
+                <Option value="INPUTRADIO">Radio</Option>
+                <Option value="INPUTEMAIL"> Email </Option>
+                <Option value="INPUTNUMBER"> Number </Option>
+                <Option value="INPUTDATE"> Date </Option>
+                <Option value="INPUTTIME"> Time </Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={3}>
             <Form.Item>
               <Button
-                type="dashed"
+                type="default"
                 style={{ width: '100%' }}
                 onClick={addComponent}
               >
