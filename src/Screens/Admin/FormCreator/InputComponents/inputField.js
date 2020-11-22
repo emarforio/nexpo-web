@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Input, Icon, Form, Checkbox } from 'antd';
 
-export default function({ hasPlaceholder, header }) {
+export default function({ hasPlaceholder, header, onDelete }) {
   return (
     <div>
       <h4> {header} </h4>
@@ -9,6 +9,7 @@ export default function({ hasPlaceholder, header }) {
             type="minus-circle"
             theme="filled"
             style={{ fontSize: '25px', color: '#f30' }}
+            onClick={onDelete}
         />
         <Row>
         <Col>

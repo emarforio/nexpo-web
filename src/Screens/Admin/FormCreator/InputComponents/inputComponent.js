@@ -4,24 +4,23 @@ import InputOption from './inputOption';
 import InputField from './inputField';
 import InputRadio from './inputRadio';
 
-export default function({ type }) {
-
+export default function({ type, onDelete }) {
 
   switch (type) {
     case 'OPTION':
       return <InputOption />;
     case 'TEXTFIELD':
-      return <InputField hasPlaceholder header='Textfield'/>;
+      return <InputField hasPlaceholder header='Textfield' onDelete={onDelete} />;
     case 'CHECKBOX':
-      return <InputField header='Checkbox'/>;
+      return <InputField header='Checkbox' onDelete={onDelete} />;
     case 'NUMBER':
-      return <InputField hasPlaceholder header='Number'/>;
+      return <InputField hasPlaceholder header='Number' onDelete={onDelete} />;
     case 'DATE':
-      return <InputField hasPlaceholder header='Date'/>;
+      return <InputField hasPlaceholder header='Date' onDelete={onDelete} />;
     case 'TIME':
-      return <InputField hasPlaceholder header='Time'/>;
+      return <InputField hasPlaceholder header='Time' onDelete={onDelete} />;
     case 'EMAIL':
-        return <InputField hasPlaceholder header='Email'/>;
+        return <InputField hasPlaceholder header='Email' onDelete={onDelete} />;
     case 'RADIO':
       return <InputRadio />;
     default:

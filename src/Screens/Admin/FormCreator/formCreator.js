@@ -11,7 +11,7 @@ export default function() {
   const formItems = keys.map((k, index) => (
     <Form.Item required={false} key={index}>
       <Row>
-        <InputComponent type={k.type} />
+        <InputComponent type={k.type} onDelete={() => deleteComponent(index)} />
       </Row>
     </Form.Item>
   ));
@@ -22,6 +22,12 @@ export default function() {
       {
         type: newInput
       }
+    ]);
+  }
+
+  function deleteComponent(index) {
+    setKeys([
+      ...keys.filter((_, i) => i !== index)
     ]);
   }
 
