@@ -10,7 +10,7 @@ export default function() {
 
   const formItems = keys.map((k, index) => (
     <Form.Item required={false} key={index}>
-      <Row type="flex" justify="start" align="middle">
+      <Row>
         <InputComponent type={k.type} />
       </Row>
     </Form.Item>
@@ -44,14 +44,14 @@ export default function() {
                 style={{ width: '100%' }}
                 onChange={setNewInput}
               >
-                <Option value="INPUTTEXT">Textfield</Option>
-                <Option value="INPUTCHECKBOX">Checkbox</Option>
-                <Option value="INPUTOPTION ">Option</Option>
-                <Option value="INPUTRADIO">Radio</Option>
-                <Option value="INPUTEMAIL"> Email </Option>
-                <Option value="INPUTNUMBER"> Number </Option>
-                <Option value="INPUTDATE"> Date </Option>
-                <Option value="INPUTTIME"> Time </Option>
+                <Option value="TEXTFIELD">Textfield</Option>
+                <Option value="CHECKBOX">Checkbox</Option>
+                <Option value="OPTION ">Option</Option>
+                <Option value="RADIO">Radio</Option>
+                <Option value="EMAIL"> Email </Option>
+                <Option value="NUMBER"> Number </Option>
+                <Option value="DATE"> Date </Option>
+                <Option value="TIME"> Time </Option>
               </Select>
             </Form.Item>
           </Col>

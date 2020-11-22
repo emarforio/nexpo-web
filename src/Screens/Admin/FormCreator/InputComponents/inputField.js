@@ -1,10 +1,10 @@
 import React from 'react';
 import { Row, Col, Input, Icon, Form, Checkbox } from 'antd';
 
-export default function() {
+export default function({ hasPlaceholder, header }) {
   return (
     <div>
-      <h1> Textfield </h1>
+      <h4> {header} </h4>
         <Icon
             type="minus-circle"
             theme="filled"
@@ -17,15 +17,15 @@ export default function() {
       </Row>
       <Row>
         <Col span={6}>
-          <Form.Item label="Key">
+          <Form.Item label="Label">
             <Input style={{ width: '100%', marginRight: 8 }} />
           </Form.Item>
         </Col>
-        <Col span={6} offset={1}>
+        { hasPlaceholder ? <Col span={6} offset={1}>
           <Form.Item label="Placeholder">
             <Input style={{ width: '100%', marginRight: 8 }} />
           </Form.Item>
-        </Col>
+        </Col> : <div/>} 
       </Row>
       <Row >
         <Col span={6}>
