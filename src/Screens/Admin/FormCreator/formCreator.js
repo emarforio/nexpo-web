@@ -60,6 +60,7 @@ export default function() {
               <Button
                 type="default"
                 style={{ width: '100%' }}
+                disabled={newInput === ''}
                 onClick={addComponent}
               >
                 <Icon type="plus" /> Add component
