@@ -11,13 +11,18 @@ export default function() {
   const formItems = keys.map((k, index) => (
     <Form.Item required={false} key={index}>
       <Row type="flex" justify="start" align="middle">
-        <InputComponent type={newInput} />
+        <InputComponent type={k.type} />
       </Row>
     </Form.Item>
   ));
 
   function addComponent() {
-    setKeys([...keys, keys.length]);
+    setKeys([
+      ...keys,
+      {
+        type: newInput
+      }
+    ]);
   }
 
   return (
