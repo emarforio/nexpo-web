@@ -14,7 +14,6 @@ export default function() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState(null);
-  const [response, setResponse] = useState({});
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
@@ -47,49 +46,49 @@ export default function() {
     return <h2>Your response has been submitted. Thank you.</h2>;
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  function FormData(props) {
+    const { getFieldDecorator, validateFields } = props.form;
 
-    const payload = {
-      form_id: id,
-      data: Object.keys(response).map(key => ({
-        key,
-        value: response[key]
-      }))
-    };
+    function handleSubmit(e) {
+      e.preventDefault();
 
-    setLoading(true);
-    try {
-      const submitResponse = await fetch('/api/form_responses', {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        })
+      validateFields(async (err, values) => {
+        if (!err) {
+          const payload = {
+            form_id: id,
+            data: Object.keys(values)
+              .filter(key => values[key] !== undefined)
+              .map(key => ({
+                key,
+                value: values[key]
+              }))
+          };
+
+          setLoading(true);
+          try {
+            const submitResponse = await fetch('/api/form_responses', {
+              method: 'POST',
+              body: JSON.stringify(payload),
+              headers: new Headers({
+                'Content-Type': 'application/json'
+              })
+            });
+
+            if (!submitResponse.status !== 201) {
+              throw Error();
+            }
+
+            setFinished(true);
+          } catch (e) {
+            setError('Failed to submit form');
+          } finally {
+            setLoading(false);
+          }
+        }
       });
-
-      if (!submitResponse.status !== 201) {
-        throw Error();
-      }
-
-      setFinished(true);
-    } catch (e) {
-      setError('Failed to submit form');
-    } finally {
-      setLoading(false);
     }
-  }
 
-  function setKey(key, value) {
-    setResponse({
-      ...response,
-      [key]: value
-    });
-  }
-
-  return (
-    <div>
-      <h2>{form.template.title}</h2>
+    return (
       <Form onSubmit={e => handleSubmit(e)}>
         {form.template.fields.map(field => (
           <Form.Item
@@ -98,11 +97,9 @@ export default function() {
             help={field.help_info || ''}
             required={field.required}
           >
-            <FieldComponent
-              field={field}
-              value={response[field.key]}
-              onChange={value => setKey(field.key, value)}
-            />
+            {getFieldDecorator(field.key, {
+              rules: [{ required: field.required }]
+            })(<FieldComponent field={field} />)}
           </Form.Item>
         ))}
 
@@ -120,6 +117,15 @@ export default function() {
           </Button>
         </Form.Item>
       </Form>
+    );
+  }
+
+  const WrappedForm = Form.create({})(FormData);
+
+  return (
+    <div>
+      <h2>{form.template.title}</h2>
+      <WrappedForm />
     </div>
   );
 }
