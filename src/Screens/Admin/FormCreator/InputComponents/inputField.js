@@ -8,9 +8,9 @@ export default function({ hasPlaceholder, header, onDelete }) {
         <Icon
             type="minus-circle"
             theme="filled"
-            style={{ fontSize: '25px', color: '#f30' }}
+            style={{ fontSize: '19px', color: '#f30' }}
             onClick={onDelete}
-        />
+        /> Remove component
         <Row>
         <Col>
           <Checkbox> This field needs to be answered. </Checkbox>       

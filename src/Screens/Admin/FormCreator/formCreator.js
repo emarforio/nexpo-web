@@ -52,7 +52,7 @@ export default function() {
               >
                 <Option value="TEXTFIELD">Textfield</Option>
                 <Option value="CHECKBOX">Checkbox</Option>
-                <Option value="OPTION ">Option</Option>
+                <Option value="OPTION">Option</Option>
                 <Option value="RADIO">Radio</Option>
                 <Option value="EMAIL"> Email </Option>
                 <Option value="NUMBER"> Number </Option>

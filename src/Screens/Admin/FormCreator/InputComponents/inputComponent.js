@@ -8,7 +8,7 @@ export default function({ type, onDelete }) {
 
   switch (type) {
     case 'OPTION':
-      return <InputOption />;
+      return <InputOption hasPlaceHolder onDelete={onDelete} />;
     case 'TEXTFIELD':
       return <InputField hasPlaceholder header='Textfield' onDelete={onDelete} />;
     case 'CHECKBOX':
