@@ -11,7 +11,7 @@ export default function({ hasPlaceholder, onDelete }) {
           <Input />
         </Form.Item>
       </Col>
-      <Col span={6}>
+      <Col span={6} offset={1}>
         <Form.Item label="Value" key={2 * index + 1}>
           <Input />
         </Form.Item>
@@ -74,7 +74,7 @@ export default function({ hasPlaceholder, onDelete }) {
             <Input style={{ width: '100%', marginRight: 8 }} />
           </Form.Item>
         </Col>
-        <Col span={6}>
+        <Col span={6} offset={1}>
           <Form.Item label="Default Value">
             <Input style={{ width: '100%', marginRight: 8 }} />
           </Form.Item>

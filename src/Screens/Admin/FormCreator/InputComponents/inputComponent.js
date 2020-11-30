@@ -22,7 +22,7 @@ export default function({ type, onDelete }) {
     case 'EMAIL':
         return <InputField hasPlaceholder header='Email' onDelete={onDelete} />;
     case 'RADIO':
-      return <InputRadio />;
+      return <InputRadio hasPlaceholder onDelete={onDelete} />;
     default:
       return <div />;
   }
